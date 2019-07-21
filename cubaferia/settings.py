@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest'
+    'rest',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -69,7 +70,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'cubaferia.wsgi.application'
 
-DATABASES = get_database_config('postgres')
+DATABASES = get_database_config('sqlite')
 
 AUTH_PASSWORD_VALIDATORS = [
     {

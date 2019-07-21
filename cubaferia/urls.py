@@ -14,12 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls.static import static
+from rest_framework import routers
 
 from cubaferia import settings
+from rest.views.AnnouncementViewSet import AnnouncementViewSet
+from rest.views.EventViewSet import EventViewSet
+from rest.views.NomenclatureViewSet import NomenclatureViewSet
+
+router = routers.DefaultRouter()
+router.register(r'announcement', AnnouncementViewSet)
+router.register(r'event', EventViewSet)
+router.register(r'nomenclature', NomenclatureViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include(router.urls)),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
