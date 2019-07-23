@@ -1,0 +1,362 @@
+[
+  {
+    "model": "rest.nomenclature",
+    "pk": 1,
+    "fields": {
+      "name": "Moda y Accesorios",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 2,
+    "fields": {
+      "name": "TV, Audio y Foto",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 3,
+    "fields": {
+      "name": "Móviles y Telefonía",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 4,
+    "fields": {
+      "name": "Informática y Electrónica",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 5,
+    "fields": {
+      "name": "Coches",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 6,
+    "fields": {
+      "name": "Motos",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 7,
+    "fields": {
+      "name": "Motor y Accesorios",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 8,
+    "fields": {
+      "name": "Bicicletas",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 9,
+    "fields": {
+      "name": "Inmobiliaria",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 10,
+    "fields": {
+      "name": "Deporte y Ocio",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 11,
+    "fields": {
+      "name": "Consolas y Videojuegos",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 12,
+    "fields": {
+      "name": "Hogar y Jardín",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 13,
+    "fields": {
+      "name": "Electrodomésticos",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 14,
+    "fields": {
+      "name": "Cine, Libros y Música",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 15,
+    "fields": {
+      "name": "Niños y Bebés",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 16,
+    "fields": {
+      "name": "Coleccionismo",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 17,
+    "fields": {
+      "name": "Materiales de construcción",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 18,
+    "fields": {
+      "name": "Industria y Agricultura",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 19,
+    "fields": {
+      "name": "Empleo",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 20,
+    "fields": {
+      "name": "Servicios",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 21,
+    "fields": {
+      "name": "Otros",
+      "nomenclature_type": "announcement_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 22,
+    "fields": {
+      "name": "Pinar del Río",
+      "nomenclature_type": "city",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 23,
+    "fields": {
+      "name": "Artemisa",
+      "nomenclature_type": "city",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 24,
+    "fields": {
+      "name": "La Habana",
+      "nomenclature_type": "city",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 25,
+    "fields": {
+      "name": "Mayabeque",
+      "nomenclature_type": "city",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 26,
+    "fields": {
+      "name": "Matanzas",
+      "nomenclature_type": "city",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 27,
+    "fields": {
+      "name": "Villa Clara",
+      "nomenclature_type": "city",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 28,
+    "fields": {
+      "name": "Cienfuegos",
+      "nomenclature_type": "city",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 29,
+    "fields": {
+      "name": "Sancti Spiritus",
+      "nomenclature_type": "city",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 30,
+    "fields": {
+      "name": "Ciego de Ávila",
+      "nomenclature_type": "city",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 31,
+    "fields": {
+      "name": "Camagüey",
+      "nomenclature_type": "city",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 32,
+    "fields": {
+      "name": "Las Tunas",
+      "nomenclature_type": "city",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 33,
+    "fields": {
+      "name": "Granma",
+      "nomenclature_type": "city",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 34,
+    "fields": {
+      "name": "Santiago de Cuba",
+      "nomenclature_type": "city",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 35,
+    "fields": {
+      "name": "Holguín",
+      "nomenclature_type": "city",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 36,
+    "fields": {
+      "name": "Guantánamo",
+      "nomenclature_type": "city",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 37,
+    "fields": {
+      "name": "Isla de la Juventud",
+      "nomenclature_type": "city",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 38,
+    "fields": {
+      "name": "Cuba",
+      "nomenclature_type": "country",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 39,
+    "fields": {
+      "name": "Español",
+      "nomenclature_type": "language",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 40,
+    "fields": {
+      "name": "English",
+      "nomenclature_type": "language",
+      "active": true
+    }
+  }
+]
