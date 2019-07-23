@@ -358,5 +358,50 @@
       "nomenclature_type": "language",
       "active": true
     }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 41,
+    "fields": {
+      "name": "Deportivo",
+      "nomenclature_type": "event_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 42,
+    "fields": {
+      "name": "Cultural",
+      "nomenclature_type": "event_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 43,
+    "fields": {
+      "name": "Exposición de arte",
+      "nomenclature_type": "event_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 44,
+    "fields": {
+      "name": "Excursión",
+      "nomenclature_type": "event_category",
+      "active": true
+    }
+  },
+  {
+    "model": "rest.nomenclature",
+    "pk": 45,
+    "fields": {
+      "name": "Concierto",
+      "nomenclature_type": "event_category",
+      "active": true
+    }
   }
 ]

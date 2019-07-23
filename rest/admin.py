@@ -4,6 +4,7 @@ from django.contrib.auth.admin import UserAdmin
 
 from rest.models import Nomenclature, Announcement
 from rest.models.announcement import Event
+from rest.models.nomenclature import CITY, ANNOUNCEMENT_CATEGORY, EVENT_CATEGORY
 
 
 @admin.register(Nomenclature)
@@ -31,10 +32,26 @@ class AnnouncementAdmin(admin.ModelAdmin):
     list_filter = ('city', 'category')
     search_fields = ('price', 'title')
 
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'city':
+            kwargs['queryset'] = Nomenclature.get_by_type(CITY)
+        elif db_field.name == 'category':
+            kwargs['queryset'] = Nomenclature.get_by_type(ANNOUNCEMENT_CATEGORY)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     readonly_fields = ('visit_count',)
-    list_display = ('title', 'price_for_children', 'price_for_adults', 'city', 'visit_count', 'category', 'created_by', 'created_at', 'published_at')
+    list_display = (
+        'title', 'price_for_children', 'price_for_adults', 'city', 'visit_count', 'category', 'created_by',
+        'created_at', 'published_at')
     list_filter = ('city', 'category')
     search_fields = ('price_for_children', 'price_for_adults', 'title')
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'city':
+            kwargs['queryset'] = Nomenclature.get_by_type(CITY)
+        elif db_field.name == 'category':
+            kwargs['queryset'] = Nomenclature.get_by_type(EVENT_CATEGORY)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
