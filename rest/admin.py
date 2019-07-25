@@ -28,7 +28,7 @@ UserAdmin.fieldsets = (
 @admin.register(Announcement)
 class AnnouncementAdmin(admin.ModelAdmin):
     readonly_fields = ('visit_count',)
-    list_display = ('title', 'price', 'city', 'visit_count', 'category', 'created_by', 'created_at', 'published_at')
+    list_display = ('title', 'price', 'city', 'visit_count', 'category', 'created_by', 'created_at')
     list_filter = ('city', 'category')
     search_fields = ('price', 'title')
 
@@ -45,7 +45,7 @@ class EventAdmin(admin.ModelAdmin):
     readonly_fields = ('visit_count',)
     list_display = (
         'title', 'price_for_children', 'price_for_adults', 'city', 'visit_count', 'category', 'created_by',
-        'created_at', 'published_at')
+        'created_at')
     list_filter = ('city', 'category')
     search_fields = ('price_for_children', 'price_for_adults', 'title')
 

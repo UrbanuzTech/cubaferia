@@ -6,5 +6,5 @@ from rest.models.nomenclature import Nomenclature
 class NomenclatureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Nomenclature
-        fields = ['id', 'name', 'nomenclature_type', 'active', 'parent']
+        fields = ['id', 'name', 'nomenclature_type', 'active', 'parent', 'logo']
         read_only_fields = ['id']
