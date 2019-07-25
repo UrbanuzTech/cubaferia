@@ -33,13 +33,17 @@ class GenericAnnouncement(models.Model):
 
 
 class Announcement(GenericAnnouncement):
-    price = models.FloatField(validators=[MinValueValidator(0)])
+    price = models.FloatField(validators=[MinValueValidator(0)], )
 
     class Meta:
         db_table = 'Tb_Announcement'
         verbose_name = _('announcement')
         verbose_name_plural = _('announcements')
         ordering = ('-created_at',)
+
+    def save(self, *args, **kwargs):
+        self.price = self.price.__round__(2)
+        return super().save(*args, **kwargs)
 
 
 class Event(GenericAnnouncement):
@@ -54,3 +58,8 @@ class Event(GenericAnnouncement):
         verbose_name = _('event')
         verbose_name_plural = _('events')
         ordering = ('-created_at',)
+
+    def save(self, *args, **kwargs):
+        self.price_for_children = self.price_for_children.__round__(2)
+        self.price_for_adults = self.price_for_adults.__round__(2)
+        return super().save(*args, **kwargs)
