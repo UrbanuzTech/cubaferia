@@ -1,8 +1,11 @@
+from django import forms
 from django.contrib.auth.models import User
-from django.contrib.postgres.fields import JSONField
+from django.contrib.postgres.fields import JSONField, ArrayField
+from django.contrib.postgres.forms import SimpleArrayField, SplitArrayField
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models import DO_NOTHING
+from django.forms import TextInput
 from django.utils.translation import gettext_lazy as _
 
 from rest.models import Nomenclature
@@ -16,8 +19,8 @@ class GenericAnnouncement(models.Model):
     visit_count = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(Nomenclature, on_delete=DO_NOTHING, related_name='%(app_label)s_%(class)s_category')
-    phones = JSONField(null=True, blank=True)
-    emails = JSONField()
+    phones = ArrayField(models.IntegerField())
+    emails = ArrayField(models.EmailField())
     contact_name = models.CharField(max_length=255, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
     main_image = models.FileField(upload_to='announcements', blank=True, null=True)

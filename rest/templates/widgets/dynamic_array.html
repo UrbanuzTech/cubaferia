@@ -1,0 +1,75 @@
+{% load i18n %}
+{% load staticfiles %}
+
+{% spaceless %}
+    <div class="dynamic-array-widget_{{ widget.name }}">
+        <ul>
+            {% with widget.subwidgets|length as count %}
+                {% for widget in widget.subwidgets %}
+                    <li class="array-item-id_{{ widget.name }}">
+                        {% include widget.template_name %}
+                        <a title="{% trans 'delete'|capfirst %}"
+                           style="margin-left: 10px; cursor:pointer; {% if count == 1 %}display: none;{% endif %}"
+                           onclick="delete_item_{{ widget.name }}('id_{{ widget.name }}_{{ forloop.counter0 }}')"
+                           class="delete-array-item-id_{{ widget.name }}">
+                            <img src="{% static 'admin/img/icon-deletelink.svg' %}" alt="{% trans 'delete'|capfirst %}">
+                        </a>
+                    </li>
+                {% endfor %}
+            {% endwith %}
+        </ul>
+        <div>
+            <a class="add-array-item-id_{{ widget.name }}"
+               {% if widget.subwidgets|length >= 3 %}style="display: none"{% endif %}
+               title="{% trans 'add'|capfirst %}"
+               style="cursor: pointer; margin-left: 160px;">
+                <img src="{% static 'admin/img/icon-addlink.svg' %}" alt="{% trans 'add'|capfirst %}">
+                {% trans 'add'|capfirst %}
+            </a>
+        </div>
+    </div>
+{% endspaceless %}
+
+<script src="{% static 'rest_framework/js/jquery-3.3.1.min.js' %}"></script>
+<script>
+    function delete_item_{{ widget.name }}(id) {
+        $('#' + id).parents('li').remove();
+        let $item = $('.array-item-id_{{ widget.name }}');
+        {% if widget.attrs.size %}
+            if ($item.length < parseInt('{{ widget.attrs.size }}')) {
+                $('.add-array-item-id_{{ widget.name }}').show();
+            }
+        {% endif %}
+        if ($item.length === 1) {
+            $item.find('a.delete-array-item-id_{{ widget.name }}').hide();
+        }
+    }
+
+    $('.delete-array-item_{{ widget.name }}').click(function () {
+        delete_item_{{ widget.name }}($(this).attr('id'));
+    });
+
+    $('.dynamic-array-widget_{{ widget.name }}').each(function () {
+        $(this).find('.add-array-item-id_{{ widget.name }}').click((function () {
+            return function () {
+                let $item = $('.array-item-id_{{ widget.name }}');
+                let $last = $item.last();
+                let $new = $last.clone();
+                let id_parts = $new.find('input').attr('id').split('_');
+                let id = id_parts.slice(0, -1).join('_') + '_' + String(parseInt(id_parts.slice(-1)[0]) + 1);
+                $new.find('input').attr('id', id);
+                $new.find('.delete-array-item-id_{{ widget.name }}').attr('onclick', "delete_item_{{ widget.name }}('" + id + "')");
+                $new.find('input').prop('value', '');
+                $new.insertAfter($last);
+                $new.find('a.delete-array-item-id_{{ widget.name }}').show();
+                $item.find('a.delete-array-item-id_{{ widget.name }}').show();
+                {% if widget.attrs.size %}
+                    if ($('.array-item-id_{{ widget.name }}').length >= parseInt('{{ widget.attrs.size }}')) {
+                        $(this).hide();
+                    }
+                {% endif %}
+            }
+        })($(this).find('.array-item-id_{{ widget.name }}').last()));
+    });
+
+</script>

@@ -70,7 +70,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'cubaferia.wsgi.application'
 
-DATABASES = get_database_config('sqlite')
+DATABASES = get_database_config('postgres')
 
 AUTH_PASSWORD_VALIDATORS = [
     {
