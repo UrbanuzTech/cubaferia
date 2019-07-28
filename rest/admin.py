@@ -1,6 +1,4 @@
 from django.contrib import admin
-from django.contrib.postgres.forms import SplitArrayField
-from django.forms import IntegerField
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.admin import UserAdmin
 
@@ -34,7 +32,7 @@ class AnnouncementAdmin(admin.ModelAdmin):
     list_display = ('title', 'price', 'city', 'visit_count', 'category', 'created_by', 'created_at')
     list_filter = ('city', 'category')
     search_fields = ('price', 'title')
-    list_per_page = 1
+    list_per_page = 20
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'city':
@@ -59,6 +57,7 @@ class EventAdmin(admin.ModelAdmin):
         'created_at')
     list_filter = ('city', 'category')
     search_fields = ('price_for_children', 'price_for_adults', 'title')
+    list_per_page = 20
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'city':
