@@ -65,3 +65,10 @@ class EventAdmin(admin.ModelAdmin):
         elif db_field.name == 'category':
             kwargs['queryset'] = Nomenclature.get_by_type(EVENT_CATEGORY)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        if db_field.name == 'phones':
+            kwargs['widget'] = DynamicArrayWidget(size=3)
+        if db_field.name == 'emails':
+            kwargs['widget'] = DynamicArrayWidget(size=3)
+        return super().formfield_for_dbfield(db_field, request, **kwargs)
