@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.admin import UserAdmin, GroupAdmin
 
 from rest.forms.widgets import DynamicArrayWidget
 from rest.models import Nomenclature, Announcement
@@ -13,6 +13,7 @@ class NomenclatureAdmin(admin.ModelAdmin):
     list_display = ('name', 'nomenclature_type', 'active')
     list_filter = ('active', 'nomenclature_type')
     search_fields = ('name', 'nomenclature_type')
+    change_list_template = 'pages/change_list.html'
 
 
 UserAdmin.fieldsets = (
@@ -24,6 +25,8 @@ UserAdmin.fieldsets = (
     }),
     (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
 )
+UserAdmin.change_list_template = 'pages/change_list.html'
+GroupAdmin.change_list_template = 'pages/change_list.html'
 
 
 @admin.register(Announcement)
@@ -33,6 +36,7 @@ class AnnouncementAdmin(admin.ModelAdmin):
     list_filter = ('city', 'category')
     search_fields = ('price', 'title')
     list_per_page = 20
+    change_list_template = 'pages/change_list.html'
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'city':
@@ -58,6 +62,7 @@ class EventAdmin(admin.ModelAdmin):
     list_filter = ('city', 'category')
     search_fields = ('price_for_children', 'price_for_adults', 'title')
     list_per_page = 20
+    change_list_template = 'pages/change_list.html'
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'city':
