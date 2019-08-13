@@ -1,0 +1,21 @@
+{% extends 'adminlte/login.html' %}
+{% load i18n %}
+
+{% block logo_href %}
+    {% url 'admin:login' %}
+{% endblock %}
+
+{% block logo_text %}
+    <b>Cuba</b> Feria
+{% endblock %}
+
+{% block login_form %}
+    <h4 class="text-center margin-bottom">{% trans 'administration'|capfirst %}</h4>
+    {{ block.super }}
+    <hr>
+    <div class="text-center">
+        Copyright &copy; 2019. {% trans 'all rights reserved'|capfirst %}.
+        <br>
+        {% trans 'version'|capfirst %} 1.0
+    </div>
+{% endblock %}
