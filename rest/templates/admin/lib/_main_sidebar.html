@@ -1,0 +1,14 @@
+{% extends 'admin/lib/_main_sidebar.html' %}
+{% load adminlte_helpers %}
+{% load i18n %}
+
+{% block user_panel %}
+    <div class="user-panel">
+        <div class="pull-left image">
+            <img src="{{ user.get_avatar }}" class="img-circle" alt="{% trans 'user image'|capfirst %}">
+        </div>
+        <div class="pull-left info">
+            <p>{% firstof request.user.get_full_name request.user.username %}</p>
+        </div>
+    </div>
+{% endblock %}
