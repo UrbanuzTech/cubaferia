@@ -13,7 +13,6 @@ class NomenclatureAdmin(admin.ModelAdmin):
     list_display = ('name', 'nomenclature_type', 'active')
     list_filter = ('active', 'nomenclature_type')
     search_fields = ('name', 'nomenclature_type')
-    change_list_template = 'pages/change_list.html'
 
 
 UserAdmin.fieldsets = (
@@ -25,8 +24,6 @@ UserAdmin.fieldsets = (
     }),
     (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
 )
-UserAdmin.change_list_template = 'pages/change_list.html'
-GroupAdmin.change_list_template = 'pages/change_list.html'
 
 
 @admin.register(Announcement)
@@ -34,9 +31,8 @@ class AnnouncementAdmin(admin.ModelAdmin):
     readonly_fields = ('visit_count',)
     list_display = ('title', 'price', 'city', 'visit_count', 'category', 'created_by', 'created_at')
     list_filter = ('city', 'category')
-    search_fields = ('price', 'title')
     list_per_page = 20
-    change_list_template = 'pages/change_list.html'
+    search_fields = ('price', 'title')
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'city':
@@ -62,7 +58,6 @@ class EventAdmin(admin.ModelAdmin):
     list_filter = ('city', 'category')
     search_fields = ('price_for_children', 'price_for_adults', 'title')
     list_per_page = 20
-    change_list_template = 'pages/change_list.html'
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'city':
