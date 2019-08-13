@@ -6,6 +6,8 @@
 
 {% block logo_text %}<b>Cuba</b>Feria{% endblock %}
 
+{% block logo_href %}{% url 'admin:index' %}{% endblock %}
+
 {% block header_dropdowns %}
     {% if request.user.is_authenticated %}
         <li class="dropdown user user-menu">

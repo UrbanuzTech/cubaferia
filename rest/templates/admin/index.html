@@ -1,0 +1,102 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+{% load admin_menu %}
+{% load custom_filters %}
+
+{% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}"/>{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+    {% if app_list %}
+        {% for app in app_list %}
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">
+                        <a href="{{ app.app_url }}"
+                           title="{% trans 'models in the' %} {% trans app.name %}">{% trans app.name %}</a>
+                    </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    {% for model in app.models %}
+                        {% with model|model_info as model_info %}
+                            <div class="col-lg-3 col-xs-6">
+                                <div class="small-box bg-{{ model_info.color }}">
+                                    <div class="inner">
+                                        <h3 style="color: white">{{ model_info.count }}</h3>
+                                        <p>{% trans model.name %}</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-{{ model_info.icon }}"></i>
+                                    </div>
+                                    <a href="{{ model.admin_url }}" class="small-box-footer text-left">
+                                        {% trans 'go to list'|capfirst %}
+                                        <i class="fa fa-arrow-circle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endwith %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    {% trans 'my last recent actions'|capfirst %}
+                </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="module" id="recent-actions-module">
+                    {% load log %}
+                    {% get_admin_log 10 as admin_log for_user user %}
+                    {% if not admin_log %}
+                        <p>{% trans 'None available' %}</p>
+                    {% else %}
+                        <ul class="list-group">
+                            {% for entry in admin_log %}
+                                <li class="list-group-item">
+                                    {% if entry.is_addition %}
+                                        <i class="fa fa-plus text-green margin-r-5"></i>
+                                    {% elif entry.is_change %}
+                                        <i class="fa fa-pencil text-yellow margin-r-5"></i>
+                                    {% else %}
+                                        <i class="fa fa-remove text-red margin-r-5"></i>
+                                    {% endif %}
+                                    {% if entry.is_deletion or not entry.get_admin_url %}
+                                        {{ entry.object_repr }}
+                                    {% else %}
+                                        <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                                    {% endif %}
+                                    {% if entry.content_type %}
+                                        <span class="mini quiet">{% filter capfirst %}
+                                            {{ entry.content_type }}{% endfilter %}</span>
+                                    {% else %}
+                                        <span class="mini quiet">{% trans 'Unknown content' %}</span>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p>{% trans "You don't have permission to edit anything." %}</p>
+    {% endif %}
+{% endblock %}
