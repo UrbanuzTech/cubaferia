@@ -35,3 +35,15 @@ def model_info(model):
         'color': colors[model['object_name']] if model['object_name'] in colors else 'blue',
         'count': counts[model['object_name']] if model['object_name'] in counts else '0',
     }
+
+
+@register.filter(name='separate_key_value')
+def separate_key_value(text):
+    return text.split('=')
+
+
+@register.filter(name='remove_first_char')
+def remove_first_char(text, char):
+    if text and text[0] == char:
+        return str(text).replace(char, '', 1)
+    return text

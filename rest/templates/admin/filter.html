@@ -1,0 +1,15 @@
+{% load i18n %}
+{% load custom_filters %}
+<h3>
+    {% trans 'by'|capfirst %} {% trans title %}
+</h3>
+{% with choices.1.query_string|separate_key_value as key %}
+    <select name="{{ key.0|remove_first_char:'?' }}" class="form-control">
+        {% for choice in choices %}
+            <option {% if choice.selected %}selected{% endif %}
+                    value="{% with choice.query_string|separate_key_value as value %}{{ value.1 }}{% endwith %}">
+                {{ choice.display }}
+            </option>
+        {% endfor %}
+    </select>
+{% endwith %}
