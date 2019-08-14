@@ -60,6 +60,12 @@
                                 <i class="fa fa-search"></i>
                                 {% trans 'advanced filters'|capfirst %}
                             </a>
+                            {% if cl.params %}
+                                <a href="{{ request.path }}" class="btn bg-red btn-sm">
+                                    <i class="fa fa-ban margin-r-5"></i>
+                                    {% trans 'clear filters'|capfirst %}
+                                </a>
+                            {% endif %}
                         {% endif %}
                         <a href="{% add_preserved_filters add_url is_popup to_field %}"
                            class="btn bg-blue btn-sm float-right margin-r-5" style="color: white">
@@ -124,9 +130,15 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
                             {% trans 'close'|capfirst %}
                         </button>
+                        {% if cl.params %}
+                            <a href="{{ request.path }}" class="btn bg-red pull-left">
+                                <i class="fa fa-ban margin-r-5"></i>
+                                {% trans 'clear filters'|capfirst %}
+                            </a>
+                        {% endif %}
                         <button type="button" onclick="filter()" id="btn-filter" class="btn bg-blue">
                             {% trans 'filter'|capfirst %}
                         </button>
