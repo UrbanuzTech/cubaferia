@@ -88,8 +88,13 @@
         {{ cl.formset.non_form_errors }}
     {% endif %}
     <div class="module{% if cl.has_filters %} filtered{% endif %}" id="changelist">
-        {% block search %}{% search_form cl %}{% endblock %}
+        <div class="row">
+            <div class="col-md-6"></div>
 
+            <div class="col-md-6" style="margin-top: 10px; padding-right: 30px;">
+                {% block search %}{% search_form cl %}{% endblock %}
+            </div>
+        </div>
         {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}
 
         <form id="changelist-form" method="post"{% if cl.formset.is_multipart %}
