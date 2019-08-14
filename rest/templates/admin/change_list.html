@@ -55,8 +55,8 @@
                 <div class="row margin-bottom">
                     <div class="col-md-12">
                         {% if cl.has_filters %}
-                            <a href="#modal-advanced-filters" data-toggle="modal" class="btn bg-blue btn-sm float-right"
-                               style="color: white">
+                            <a href="#modal-advanced-filters" data-toggle="modal"
+                               class="btn btn-default btn-sm float-right">
                                 <i class="fa fa-search"></i>
                                 {% trans 'advanced filters'|capfirst %}
                             </a>
@@ -73,8 +73,11 @@
     {% endblock %}
     {% if cl.formset.errors %}
         <p class="errornote">
-            {% if cl.formset.total_error_count == 1 %}{% trans "Please correct the error below." %}{% else %}
-                {% trans "Please correct the errors below." %}{% endif %}
+            {% if cl.formset.total_error_count == 1 %}
+                {% trans "Please correct the error below." %}
+            {% else %}
+                {% trans "Please correct the errors below." %}
+            {% endif %}
         </p>
         {{ cl.formset.non_form_errors }}
     {% endif %}
@@ -124,7 +127,7 @@
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">
                             {% trans 'close'|capfirst %}
                         </button>
-                        <button type="submit" form="filter-form" class="btn btn-primary">
+                        <button type="button" onclick="filter()" id="btn-filter" class="btn bg-blue">
                             {% trans 'filter'|capfirst %}
                         </button>
                     </div>
@@ -132,4 +135,24 @@
             </div>
         </div>
     {% endif %}
+    <script>
+        function filter() {
+            let $form = $('#filter-form');
+            let query_string = '';
+            let data = $form.serializeArray();
+            let more = false;
+            data.forEach(function (e, i) {
+                if (e.value.toString()) {
+                    if (more) {
+                        query_string += '&';
+                    } else {
+                        query_string += '?';
+                    }
+                    query_string += e.name + '=' + e.value;
+                    more = true;
+                }
+            });
+            window.location.href = '{{ request.path }}' + query_string;
+        }
+    </script>
 {% endblock %}

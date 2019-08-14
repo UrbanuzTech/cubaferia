@@ -18,7 +18,7 @@ GENDER = (
 
 def get_avatar(self):
     if self.avatar:
-        return os.path.join(MEDIA_URL, self.avatar)
+        return os.path.join(MEDIA_URL, self.avatar.name)
     return os.path.join(STATIC_URL, 'img', 'avatar_default.png')
 
 

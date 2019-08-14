@@ -1,15 +1,19 @@
 {% load i18n %}
-{% load custom_filters %}
+{% load custom_filters adminlte_helpers %}
 <h3>
     {% trans 'by'|capfirst %} {% trans title %}
 </h3>
-{% with choices.1.query_string|separate_key_value as key %}
-    <select name="{{ key.0|remove_first_char:'?' }}" class="form-control">
-        {% for choice in choices %}
-            <option {% if choice.selected %}selected{% endif %}
-                    value="{% with choice.query_string|separate_key_value as value %}{{ value.1 }}{% endwith %}">
-                {{ choice.display }}
-            </option>
+<select name="{{ spec.lookup_kwarg }}" class="form-control">
+    <option value="">{% trans 'all'|capfirst %}</option>
+    {% if spec|klass == 'BooleanFieldListFilter' %}
+        <option value="1"
+                {% if spec.lookup_val|striptags == '1' %}selected{% endif %}> {% trans 'yes'|capfirst %}</option>
+        <option value="0"
+                {% if spec.lookup_val|striptags == '0' %}selected{% endif %}> {% trans 'no'|capfirst %}</option>
+    {% elif spec|klass == 'RelatedFieldListFilter' %}
+        {% for choice in spec.lookup_choices %}
+            <option value="{{ choice.0 }}"
+                    {% if spec.lookup_val|striptags == choice.0|striptags %}selected{% endif %}> {{ choice.1 }}</option>
         {% endfor %}
-    </select>
-{% endwith %}
+    {% endif %}
+</select>
