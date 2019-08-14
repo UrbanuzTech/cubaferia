@@ -47,3 +47,13 @@ def remove_first_char(text, char):
     if text and text[0] == char:
         return str(text).replace(char, '', 1)
     return text
+
+
+@register.filter(name='klass')
+def klass(ob):
+    return ob.__class__.__name__
+
+
+@register.filter(name='addcss')
+def addcss(field, css):
+    return field.as_widget(attrs={"class": css})
