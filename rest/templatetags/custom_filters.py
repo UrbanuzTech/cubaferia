@@ -37,18 +37,6 @@ def model_info(model):
     }
 
 
-@register.filter(name='separate_key_value')
-def separate_key_value(text):
-    return text.split('=')
-
-
-@register.filter(name='remove_first_char')
-def remove_first_char(text, char):
-    if text and text[0] == char:
-        return str(text).replace(char, '', 1)
-    return text
-
-
 @register.filter(name='klass')
 def klass(ob):
     return ob.__class__.__name__
@@ -59,6 +47,12 @@ def addcss(field, css):
     return field.as_widget(attrs={"class": css})
 
 
-@register.filter(name='get_filter')
-def get_filter(field, request):
-    return field.get_filters(request)
+@register.filter(name='get_nomenclature_choices')
+def get_nomenclature_choices(field):
+    if field.remote_field.model is Nomenclature:
+        return Nomenclature.get_by_type(field.model.get_related_to(field.name))
+
+
+@register.filter(name='is_nomenclature')
+def is_nomenclature(field):
+    return field.remote_field.model is Nomenclature

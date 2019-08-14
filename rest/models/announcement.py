@@ -1,14 +1,12 @@
-from django import forms
 from django.contrib.auth.models import User
-from django.contrib.postgres.fields import JSONField, ArrayField
-from django.contrib.postgres.forms import SimpleArrayField, SplitArrayField
+from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models import DO_NOTHING
-from django.forms import TextInput
 from django.utils.translation import gettext_lazy as _
 
 from rest.models import Nomenclature
+from rest.models.nomenclature import ANNOUNCEMENT_CATEGORY, CITY
 
 
 class GenericAnnouncement(models.Model):
@@ -27,6 +25,13 @@ class GenericAnnouncement(models.Model):
     image1 = models.FileField(upload_to='announcements', blank=True, null=True)
     image2 = models.FileField(upload_to='announcements', blank=True, null=True)
     image3 = models.FileField(upload_to='announcements', blank=True, null=True)
+
+    @staticmethod
+    def get_related_to(field):
+        return {
+            'city': CITY,
+            'category': ANNOUNCEMENT_CATEGORY
+        }[field]
 
     def __str__(self):
         return self.title

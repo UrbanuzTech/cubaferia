@@ -16,9 +16,18 @@
                     {% if spec.lookup_val|striptags == choice.0|striptags %}selected{% endif %}> {{ choice.1 }}</option>
         {% endfor %}
     {% elif spec|klass == 'RelatedFieldListFilter' %}
-        {% for choice in spec.lookup_choices %}
-            <option value="{{ choice.0 }}"
-                    {% if spec.lookup_val|striptags == choice.0|striptags %}selected{% endif %}> {{ choice.1 }}</option>
-        {% endfor %}
+        {% if spec.field|is_nomenclature %}
+            {% with spec.field|get_nomenclature_choices as items %}
+                {% for choice in items %}
+                    <option value="{{ choice.pk }}"
+                            {% if spec.lookup_val|striptags == choice.pk|striptags %}selected{% endif %}> {{ choice.name }}</option>
+                {% endfor %}
+            {% endwith %}
+        {% else %}
+            {% for choice in spec.lookup_choices %}
+                <option value="{{ choice.0 }}"
+                        {% if spec.lookup_val|striptags == choice.0|striptags %}selected{% endif %}> {{ choice.1 }}</option>
+            {% endfor %}
+        {% endif %}
     {% endif %}
 </select>
