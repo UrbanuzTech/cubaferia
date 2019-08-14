@@ -1,0 +1,34 @@
+{% load i18n static %}
+{% if cl.search_fields %}
+    <form method="get">
+        <div class="row">
+            <div class="col-md-6" style="margin-top: 10px; margin-left: 10px;">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-search"></i>
+                    </span>
+                    <input class="form-control"
+                           placeholder="{% trans 'introduce text to search'|capfirst %}"
+                           type="text"
+                           name="{{ search_var }}"
+                           value="{{ cl.query }}"
+                           id="searchbar" autofocus>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default">{% trans 'Search' %}</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        {% if show_result_count %}
+            <span class="small quiet">{% blocktrans count counter=cl.result_count %}{{ counter }} result
+                {% plural %}{{ counter }} results{% endblocktrans %} (<a
+                    href="?{% if cl.is_popup %}_popup=1{% endif %}">{% if cl.show_full_result_count %}
+                {% blocktrans with full_result_count=cl.full_result_count %}{{ full_result_count }} total
+                {% endblocktrans %}{% else %}{% trans "Show all" %}{% endif %}</a>)</span>
+        {% endif %}
+        {% for pair in cl.params.items %}
+            {% if pair.0 != search_var %}<input type="hidden" name="{{ pair.0 }}" value="{{ pair.1 }}">
+            {% endif %}
+        {% endfor %}
+    </form>
+{% endif %}
