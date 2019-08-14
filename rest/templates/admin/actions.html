@@ -1,0 +1,13 @@
+{% load i18n %}
+<div class="actions margin-bottom">
+    {% block actions %}
+        {% block actions-form %}
+            {% for field in action_form %}{% if field.label %}<label>{{ field.label }} {% endif %}{{ field }}
+            {% if field.label %}</label>{% endif %}{% endfor %}
+        {% endblock %}
+        {% block actions-submit %}
+            <button type="submit" class="btn bg-blue btn-sm" title="{% trans "Run the selected action" %}" name="index"
+                    value="{{ action_index|default:0 }}">{% trans "execute"|capfirst %}</button>
+        {% endblock %}
+    {% endblock %}
+</div>
