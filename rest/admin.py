@@ -13,7 +13,7 @@ class NomenclatureAdmin(admin.ModelAdmin):
     list_display = ('name', 'nomenclature_type', 'active')
     list_filter = ('active', 'nomenclature_type')
     search_fields = ('name', 'nomenclature_type')
-    list_per_page = 20
+    list_per_page = 1
 
 
 UserAdmin.fieldsets = (
