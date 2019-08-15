@@ -14,17 +14,21 @@
 {% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
 
 {% block content %}
-    <div class="box box-primary">
-        <div class="box-body">
+    <div class="row">
+        <div class="col-md-12">
             {% block object-tools %}
-                {% if change %}{% if not is_popup %}
-                    <ul class="object-tools">
+                {% if change %}
+                    {% if not is_popup %}
                         {% block object-tools-items %}
                             {% change_form_object_tools %}
                         {% endblock %}
-                    </ul>
-                {% endif %}{% endif %}
+                    {% endif %}
+                {% endif %}
             {% endblock %}
+        </div>
+    </div>
+    <div class="box box-primary" style="margin-top: 10px;">
+        <div class="box-body">
             <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post"
                   id="{{ opts.model_name }}_form" novalidate>{% csrf_token %}{% block form_top %}{% endblock %}
                 <div>

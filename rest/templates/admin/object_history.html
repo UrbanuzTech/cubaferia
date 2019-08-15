@@ -1,0 +1,47 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls %}
+
+{% block content %}
+    <div class="box box-primary">
+        <div class="row">
+            <div class="col-md-12" style="padding-left: 25px; padding-right: 25px;">
+                {% if action_list %}
+                    <table class="table table-bordered table-hover" style="margin-top: 20px;">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="text-center">{% trans 'Date/time' %}</th>
+                            <th scope="col" class="text-center">{% trans 'User' %}</th>
+                            <th scope="col" class="text-center">{% trans 'Action' %}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for action in action_list %}
+                            <tr>
+                                <th scope="row"
+                                    class="text-center">{{ action.action_time|date:"SHORT_DATETIME_FORMAT" }}</th>
+                                <td class="text-center">
+                                    {{ action.user.get_username }}{% if action.user.get_full_name %} (
+                                        {{ action.user.get_full_name }}){% endif %}</td>
+                                <td class="text-center">{{ action.get_change_message }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="bg-primary alert" style="margin-top: 25px;">
+                        {% trans "This object doesn't have a change history. It probably wasn't added via this admin site." %}
+                    </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-md-12 margin-bottom">
+                        <a href="javascript:history.go(-1)"
+                           class="btn bg-red pull-right margin-r-5">
+                            <i class="fa fa-ban margin-r-5"></i>
+                            {% trans 'Cancel' %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
