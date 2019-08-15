@@ -1,1 +1,87 @@
-{% extends 'admin/change_list_results.html' %}
+{% load i18n static admin_urls %}
+{% if result_hidden_fields %}
+    <div class="hiddenfields">
+        {% for item in result_hidden_fields %}{{ item }}{% endfor %}
+    </div>
+{% endif %}
+{% if results %}
+    <style>
+        table td {
+            text-align: center !important;
+        }
+    </style>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover" id="table-results">
+            <thead>
+            <tr>
+                {% for header in result_headers %}
+                    <th scope="col" {{ header.class_attrib }}>
+                        {% if header.sortable %}
+                            {% if header.sort_priority > 0 %}
+                                <div class="sortoptions">
+                                    <a class="sortremove" href="{{ header.url_remove }}"
+                                       title="{% trans "Remove from sorting" %}"></a>
+                                    {% if num_sorted_fields > 1 %}
+                                        <span class="sortpriority"
+                                              title="{% blocktrans with priority_number=header.sort_priority %}Sorting priority: {{ priority_number }}{% endblocktrans %}">
+                                            {{ header.sort_priority }}
+                                        </span>
+                                    {% endif %}
+                                    <a href="{{ header.url_toggle }}"
+                                       class="toggle {% if header.ascending %}ascending{% else %}descending{% endif %}"
+                                       title="{% trans "Toggle sorting" %}"></a>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                        <div class="text text-center">
+                            {% if header.sortable %}
+                                <a href="{{ header.url_primary }}">{{ header.text|capfirst }}</a>
+                            {% else %}
+                                <span>{{ header.text|capfirst }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="clear"></div>
+                    </th>
+                {% endfor %}
+                <th scope="col">
+                    <div class="text text-center" style="margin-bottom: 5px;">
+                        {% trans 'actions'|capfirst %}
+                    </div>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for result in results %}
+                <tr class="{% cycle 'row1' 'row2' %}">
+                    {% for item in result %}
+                        {{ item }}
+                    {% endfor %}
+                    <td>
+                        <a style="cursor: pointer;" onclick="delete_item('{{ forloop.counter }}')"
+                           class="btn-delete"
+                           title="{% trans 'Delete' %}">
+                            <i class="fa fa-remove text-danger" style="font-size: 14px;"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function delete_item(index) {
+            {% with cl.opts|admin_urlname:'delete' as delete_url %}
+                let pk = $($($($('#table-results').find('tr')[parseInt(index)]).find('td'))[0]).find('input[type=checkbox]').val();
+                let url = "{% url delete_url -1 %}".replace('-1', pk);
+                if (window.location.search) {
+                    url += '?_changelist_filters=' + window.location.search.replace('?', '');
+                }
+                window.location.href = url;
+            {% endwith %}
+        }
+    </script>
+{% else %}
+    <div class="bg-primary alert" style="margin-top: 25px;">
+        {% trans 'No' %} {{ cl.opts.verbose_name_plural }} {% trans 'available' %}.
+    </div>
+{% endif %}

@@ -54,18 +54,18 @@
                 {% url cl.opts|admin_urlname:'add' as add_url %}
                 <div class="row margin-bottom">
                     <div class="col-md-12">
+                        {% if cl.params %}
+                            <a href="{{ request.path }}" class="btn bg-red btn-sm">
+                                <i class="fa fa-ban margin-r-5"></i>
+                                {% trans 'clear filters'|capfirst %}
+                            </a>
+                        {% endif %}
                         {% if cl.has_filters %}
                             <a href="#modal-advanced-filters" data-toggle="modal"
                                class="btn btn-default btn-sm float-right">
                                 <i class="fa fa-filter"></i>
                                 {% trans 'advanced filters'|capfirst %}
                             </a>
-                            {% if cl.params %}
-                                <a href="{{ request.path }}" class="btn bg-red btn-sm">
-                                    <i class="fa fa-ban margin-r-5"></i>
-                                    {% trans 'clear filters'|capfirst %}
-                                </a>
-                            {% endif %}
                         {% endif %}
                         <a href="{% add_preserved_filters add_url is_popup to_field %}"
                            class="btn bg-blue btn-sm float-right margin-r-5" style="color: white">
@@ -106,10 +106,14 @@
 
                         {% block result_list %}
                             {% if action_form and actions_on_top and cl.show_admin_actions %}
-                                {% admin_actions %}{% endif %}
-                            {% result_list cl %}
+                                {% admin_actions %}
+                            {% endif %}
+                            {% with request as request %}
+                                {% result_list cl %}
+                            {% endwith %}
                             {% if action_form and actions_on_bottom and cl.show_admin_actions %}
-                                {% admin_actions %}{% endif %}
+                                {% admin_actions %}
+                            {% endif %}
                         {% endblock %}
                         {% block pagination %}{% pagination cl %}{% endblock %}
                     </form>

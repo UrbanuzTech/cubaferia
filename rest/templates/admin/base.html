@@ -1,3 +1,13 @@
 {% extends 'admin/base.html' %}
 
+{% block extrastyle %}
+    <style>
+        .alert a{
+            color: white;
+            text-decoration: underline;
+            font-style: italic;
+        }
+    </style>
+{% endblock %}
+
 {% block bodyclass %}hold-transition skin-blue fixed sidebar-mini{% endblock %}
