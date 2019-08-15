@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.admin.models import LogEntry
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.admin import UserAdmin
 
@@ -14,6 +15,13 @@ class NomenclatureAdmin(admin.ModelAdmin):
     list_display = ('name', 'nomenclature_type', 'active')
     list_filter = ('active', 'nomenclature_type')
     search_fields = ('name', 'nomenclature_type')
+    list_display_links = None
+    list_per_page = 20
+
+
+@admin.register(LogEntry)
+class LogEntryAdmin(admin.ModelAdmin):
+    list_display_links = None
     list_per_page = 20
 
 
@@ -41,6 +49,7 @@ UserAdmin.fieldsets = (
 
 @admin.register(Announcement)
 class AnnouncementAdmin(admin.ModelAdmin):
+    list_display_links = None
     readonly_fields = ('visit_count', 'created_by')
     list_display = ('title', 'price', 'city', 'visit_count', 'category', 'created_by', 'created_at')
     list_filter = (
@@ -74,6 +83,7 @@ class AnnouncementAdmin(admin.ModelAdmin):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
+    list_display_links = None
     readonly_fields = ('visit_count', 'created_by')
     list_display = (
         'title', 'price_for_children', 'price_for_adults', 'city', 'visit_count', 'category', 'created_by',
