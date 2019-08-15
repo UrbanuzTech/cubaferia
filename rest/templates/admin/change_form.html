@@ -74,4 +74,28 @@
             </form>
         </div>
     </div>
+    <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+    <script>
+        $('input,textarea').keyup(function () {
+            let $field = $(this).parents('.form-row');
+            if ($(this).val()) {
+                $field.removeClass('errors');
+                $field.find('.errorlist').hide();
+            } else {
+                $field.addClass('errors');
+                $field.find('.errorlist').show();
+            }
+        });
+
+        $('select').change(function () {
+            let $field = $(this).parents('.form-row');
+            if ($(this).val()) {
+                $field.removeClass('errors');
+                $field.find('.errorlist').hide();
+            } else {
+                $field.addClass('errors');
+                $field.find('.errorlist').show();
+            }
+        });
+    </script>
 {% endblock %}
