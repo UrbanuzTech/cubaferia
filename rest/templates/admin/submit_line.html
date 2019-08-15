@@ -1,0 +1,23 @@
+{% load i18n admin_urls %}
+<div class="row">
+    <div class="col-md-12">
+        {% if show_delete_link and original %}
+            {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
+            <a href="{% add_preserved_filters delete_url %}" class="btn bg-red">
+                <i class="fa fa-remove margin-r-5"></i>
+                {% trans "Delete" %}
+            </a>
+        {% endif %}
+        {% url opts|admin_urlname:'changelist' as list_url %}
+        <a href="{% add_preserved_filters list_url %}" class="btn bg-red pull-right">
+            <i class="fa fa-ban margin-r-5"></i>
+            {% trans 'Cancel' %}
+        </a>
+        {% if show_save_and_add_another %}
+            <button class="btn bg-blue pull-right margin-r-5">
+                <i class="fa fa-save margin-r-5"></i>
+                {% trans 'save'|capfirst %}
+            </button>
+        {% endif %}
+    </div>
+</div>

@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.admin import UserAdmin
 
+from rest.filters import ContainsFieldListFilter
 from rest.forms.widgets import DynamicArrayWidget
 from rest.models import Nomenclature, Announcement
 from rest.models.announcement import Event
@@ -16,6 +17,17 @@ class NomenclatureAdmin(admin.ModelAdmin):
     list_per_page = 20
 
 
+UserAdmin.list_display_links = None
+
+UserAdmin.list_filter = (
+    ('username', ContainsFieldListFilter),
+    ('first_name', ContainsFieldListFilter),
+    ('last_name', ContainsFieldListFilter),
+    'is_staff',
+    'is_active',
+    'is_superuser'
+)
+
 UserAdmin.fieldsets = (
     (None, {'fields': ('username', 'password')}),
     (_('Personal info'),
@@ -29,9 +41,14 @@ UserAdmin.fieldsets = (
 
 @admin.register(Announcement)
 class AnnouncementAdmin(admin.ModelAdmin):
-    readonly_fields = ('visit_count',)
+    readonly_fields = ('visit_count', 'created_by')
     list_display = ('title', 'price', 'city', 'visit_count', 'category', 'created_by', 'created_at')
-    list_filter = ('city', 'category')
+    list_filter = (
+        ('title', ContainsFieldListFilter),
+        'city',
+        'category',
+        'created_by'
+    )
     list_per_page = 20
     search_fields = ('price', 'title')
 
@@ -49,14 +66,25 @@ class AnnouncementAdmin(admin.ModelAdmin):
             kwargs['widget'] = DynamicArrayWidget(size=3)
         return super().formfield_for_dbfield(db_field, request, **kwargs)
 
+    def save_model(self, request, obj, form, change):
+        if not hasattr(obj, 'created_by'):
+            obj.created_by = request.user
+        return super().save_model(request, obj, form, change)
+
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    readonly_fields = ('visit_count',)
+    readonly_fields = ('visit_count', 'created_by')
     list_display = (
         'title', 'price_for_children', 'price_for_adults', 'city', 'visit_count', 'category', 'created_by',
         'created_at')
-    list_filter = ('city', 'category')
+    list_filter = (
+        ('title', ContainsFieldListFilter),
+        'city',
+        'category',
+        'created_by',
+        'allow_children'
+    )
     search_fields = ('price_for_children', 'price_for_adults', 'title')
     list_per_page = 20
 
@@ -73,3 +101,8 @@ class EventAdmin(admin.ModelAdmin):
         if db_field.name == 'emails':
             kwargs['widget'] = DynamicArrayWidget(size=3)
         return super().formfield_for_dbfield(db_field, request, **kwargs)
+
+    def save_model(self, request, obj, form, change):
+        if not hasattr(obj, 'created_by'):
+            obj.created_by = request.user
+        return super().save_model(request, obj, form, change)

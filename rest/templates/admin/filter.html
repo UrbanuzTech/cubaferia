@@ -3,31 +3,36 @@
 <h3>
     {% trans 'by'|capfirst %} {% trans title %}
 </h3>
-<select name="{{ spec.lookup_kwarg }}" class="form-control">
-    <option value="">{% trans 'all'|capfirst %}</option>
-    {% if spec|klass == 'BooleanFieldListFilter' %}
-        <option value="1"
-                {% if spec.lookup_val|striptags == '1' %}selected{% endif %}> {% trans 'yes'|capfirst %}</option>
-        <option value="0"
-                {% if spec.lookup_val|striptags == '0' %}selected{% endif %}> {% trans 'no'|capfirst %}</option>
-    {% elif spec|klass == 'ChoicesFieldListFilter' %}
-        {% for choice in spec.field.flatchoices %}
-            <option value="{{ choice.0 }}"
-                    {% if spec.lookup_val|striptags == choice.0|striptags %}selected{% endif %}> {{ choice.1 }}</option>
-        {% endfor %}
-    {% elif spec|klass == 'RelatedFieldListFilter' %}
-        {% if spec.field|is_nomenclature %}
-            {% with spec.field|get_nomenclature_choices as items %}
-                {% for choice in items %}
-                    <option value="{{ choice.pk }}"
-                            {% if spec.lookup_val|striptags == choice.pk|striptags %}selected{% endif %}> {{ choice.name }}</option>
-                {% endfor %}
-            {% endwith %}
-        {% else %}
-            {% for choice in spec.lookup_choices %}
+{% if spec|klass != 'ContainsFieldListFilter' %}
+    <select name="{{ spec.lookup_kwarg }}" class="form-control">
+        <option value="">{% trans 'all'|capfirst %}</option>
+        {% if spec|klass == 'BooleanFieldListFilter' %}
+            <option value="1"
+                    {% if spec.lookup_val|striptags == '1' %}selected{% endif %}> {% trans 'yes'|capfirst %}</option>
+            <option value="0"
+                    {% if spec.lookup_val|striptags == '0' %}selected{% endif %}> {% trans 'no'|capfirst %}</option>
+        {% elif spec|klass == 'ChoicesFieldListFilter' %}
+            {% for choice in spec.field.flatchoices %}
                 <option value="{{ choice.0 }}"
                         {% if spec.lookup_val|striptags == choice.0|striptags %}selected{% endif %}> {{ choice.1 }}</option>
             {% endfor %}
+        {% elif spec|klass == 'RelatedFieldListFilter' %}
+            {% if spec.field|is_nomenclature %}
+                {% with spec.field|get_nomenclature_choices as items %}
+                    {% for choice in items %}
+                        <option value="{{ choice.pk }}"
+                                {% if spec.lookup_val|striptags == choice.pk|striptags %}selected{% endif %}> {{ choice.name }}</option>
+                    {% endfor %}
+                {% endwith %}
+            {% else %}
+                {% for choice in spec.lookup_choices %}
+                    <option value="{{ choice.0 }}"
+                            {% if spec.lookup_val|striptags == choice.0|striptags %}selected{% endif %}> {{ choice.1 }}</option>
+                {% endfor %}
+            {% endif %}
         {% endif %}
-    {% endif %}
-</select>
+    </select>
+{% else %}
+    <input type="text" class="form-control" name="{{ spec.lookup_kwarg }}"
+           value="{% if spec.lookup_val %}{{ spec.lookup_val }}{% endif %}">
+{% endif %}

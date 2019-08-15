@@ -50,14 +50,14 @@
                                 <hr>
                                 <div class="row" style="margin-top: 20px;">
                                     <div class="col-md-12">
-                                        <button class="btn bg-blue pull-right">
+                                        <a href="javascript:history.go(-1)" class="btn bg-red pull-right">
+                                            <i class="fa fa-ban margin-r-5"></i>
+                                            {% trans "Cancel" %}
+                                        </a>
+                                        <button class="btn bg-blue pull-right margin-r-5">
                                             <i class="fa fa-check margin-r-5"></i>
                                             {% trans "Yes, I'm sure" %}
                                         </button>
-                                        <a href="javascript:history.go(-1)" class="btn bg-red">
-                                            <i class="fa fa-ban margin-r-5"></i>
-                                            {% trans "No, take me back" %}
-                                        </a>
                                     </div>
                                 </div>
                             </div>
