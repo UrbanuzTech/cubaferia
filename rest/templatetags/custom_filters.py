@@ -17,14 +17,16 @@ def model_info(model):
         'User': 'user',
         'Announcement': 'list-alt',
         'Event': 'list-alt',
-        'Nomenclature': 'cog'
+        'Nomenclature': 'cog',
+        'LogEntry': 'history'
     }
     colors = {
         'Group': 'blue',
         'User': 'red',
         'Announcement': 'green',
         'Event': 'yellow',
-        'Nomenclature': 'purple'
+        'Nomenclature': 'purple',
+        'LogEntry': 'navy'
     }
     counts = {
         'Group': Group.objects.count(),

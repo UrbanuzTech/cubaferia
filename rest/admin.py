@@ -23,6 +23,7 @@ class NomenclatureAdmin(admin.ModelAdmin):
 class LogEntryAdmin(admin.ModelAdmin):
     list_display_links = None
     list_per_page = 20
+    actions_on_top = False
 
 
 UserAdmin.list_display_links = None
