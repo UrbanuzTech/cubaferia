@@ -1,3 +1,4 @@
+from django.contrib.admin.models import LogEntry
 from django.contrib.admin.views.main import PAGE_VAR
 from django.contrib.auth.models import Group, User
 from django.template import Library
@@ -116,3 +117,10 @@ def last_page(cl):
                            '  <a href="{}"><i class="fa fa-angle-double-right"></i></a>'
                            '</li>', cl.get_query_string({PAGE_VAR: cl.paginator.num_pages - 1}))
     return ''
+
+
+@register.filter(name='can_crud')
+def can_crud(model):
+    if model.model is LogEntry:
+        return False
+    return True

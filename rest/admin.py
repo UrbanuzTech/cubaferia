@@ -24,6 +24,17 @@ class LogEntryAdmin(admin.ModelAdmin):
     list_display_links = None
     list_per_page = 20
     actions_on_top = False
+    actions = []
+    list_display = ('user', 'object_repr', 'content_type', 'action_flag', 'action_time', 'change_message')
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
 
 
 UserAdmin.list_display_links = None

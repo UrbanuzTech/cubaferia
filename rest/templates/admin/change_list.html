@@ -32,31 +32,32 @@
 {% block content %}
     {% block object-tools %}
         {% block object-tools-items %}
-            {% if has_add_permission %}
-                {% url cl.opts|admin_urlname:'add' as add_url %}
-                <div class="row margin-bottom">
-                    <div class="col-md-12">
-                        {% if cl.params %}
-                            <a href="{{ request.path }}" class="btn bg-red btn-sm">
-                                <i class="fa fa-ban margin-r-5"></i>
-                                {% trans 'clear filters'|capfirst %}
-                            </a>
-                        {% endif %}
-                        {% if cl.has_filters %}
-                            <a href="#modal-advanced-filters" data-toggle="modal"
-                               class="btn btn-default btn-sm float-right">
-                                <i class="fa fa-filter"></i>
-                                {% trans 'advanced filters'|capfirst %}
-                            </a>
-                        {% endif %}
+
+            {% url cl.opts|admin_urlname:'add' as add_url %}
+            <div class="row margin-bottom">
+                <div class="col-md-12">
+                    {% if cl.params %}
+                        <a href="{{ request.path }}" class="btn bg-red btn-sm">
+                            <i class="fa fa-ban margin-r-5"></i>
+                            {% trans 'clear filters'|capfirst %}
+                        </a>
+                    {% endif %}
+                    {% if cl.has_filters %}
+                        <a href="#modal-advanced-filters" data-toggle="modal"
+                           class="btn btn-default btn-sm float-right">
+                            <i class="fa fa-filter"></i>
+                            {% trans 'advanced filters'|capfirst %}
+                        </a>
+                    {% endif %}
+                    {% if has_add_permission %}
                         <a href="{% add_preserved_filters add_url is_popup to_field %}"
                            class="btn bg-blue btn-sm float-right margin-r-5" style="color: white">
                             <i class="fa fa-plus"></i>
                             {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
                         </a>
-                    </div>
+                    {% endif %}
                 </div>
-            {% endif %}
+            </div>
         {% endblock %}
     {% endblock %}
     {% if cl.formset.errors %}
