@@ -2,13 +2,16 @@ from django.contrib import admin
 from django.contrib.admin.models import LogEntry
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
+from django.shortcuts import render, get_object_or_404
 from django.utils.translation import gettext_lazy as _
+from django.views.generic import DetailView
 
 from rest.filters import ContainsFieldListFilter
 from rest.forms.widgets import DynamicArrayWidget
 from rest.models import Nomenclature, Announcement
 from rest.models.announcement import Event
 from rest.models.nomenclature import CITY, ANNOUNCEMENT_CATEGORY, EVENT_CATEGORY, COUNTRY
+from rest.utils import get_model_by_name
 
 
 @admin.register(Nomenclature)
@@ -154,3 +157,12 @@ class EventAdmin(admin.ModelAdmin):
         if not hasattr(obj, 'created_by'):
             obj.created_by = request.user
         return super().save_model(request, obj, form, change)
+
+
+class ObjectDetailsView(DetailView):
+    def get(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk', None)
+        model_name = self.kwargs.get('model_name', None)
+        model = get_model_by_name(model_name)
+        obj = get_object_or_404(model, pk=pk)
+        return render(self.request, 'details/%s.html' % model_name, locals())

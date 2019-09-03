@@ -7,6 +7,7 @@ from django.utils.safestring import mark_safe
 
 from rest.models import Announcement, Nomenclature
 from rest.models.announcement import Event
+from django.utils.translation import gettext_lazy as _
 
 register = Library()
 
@@ -124,3 +125,16 @@ def can_crud(model):
     if model.model is LogEntry:
         return False
     return True
+
+
+@register.filter(name='show_value')
+def show_value(value):
+    tag = value
+    if value is None or value == '' or not value:
+        tag = '<span class="text-danger"><b>%s</b></span>' % _('no records').capitalize()
+    elif type(value) is bool:
+        if value:
+            tag = '<span class="text-center label label-primary" style="padding-top: 5px;">Yes</span>'
+        else:
+            tag = '<span class="text-center label label-danger" style="padding-top: 5px;">No</span>'
+    return tag

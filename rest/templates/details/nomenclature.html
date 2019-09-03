@@ -1,0 +1,30 @@
+{% load i18n %}
+{% load custom_filters %}
+
+<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-2">
+        <img src="{{ MEDIA_URL }}{{ obj.get_logo }}" alt="" class="img-responsive">
+    </div>
+    <div class="col-md-5"></div>
+    <div class="col-md-12">
+        <table class="table table-bordered" style="margin-top: 15px;">
+            <tr>
+                <th>{% trans 'name'|capfirst %}</th>
+                <td>{{ obj.name }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'parent'|capfirst %}</th>
+                <td>{{ obj.parent|show_value|safe }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'nomenclature type'|capfirst %}</th>
+                <td>{{ obj.get_nomenclature_type_display }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'active'|capfirst %}</th>
+                <td>{{ obj.active|show_value|safe }}</td>
+            </tr>
+        </table>
+    </div>
+</div>

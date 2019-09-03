@@ -1,6 +1,10 @@
+import os
+
 from django.db import models
 from django.db.models import DO_NOTHING
 from django.utils.translation import gettext_lazy as _
+
+from cubaferia.settings import MEDIA_URL, STATIC_URL
 
 ANNOUNCEMENT_CATEGORY = 'announcement_category'
 EVENT_CATEGORY = 'event_category'
@@ -37,6 +41,11 @@ class Nomenclature(models.Model):
     def delete(self, *args, **kwargs):
         self.active = False
         self.save()
+
+    def get_logo(self):
+        if self.logo:
+            return os.path.join(MEDIA_URL, self.logo.name)
+        return os.path.join(STATIC_URL, 'img', 'avatar_default.png')
 
     @staticmethod
     def get_by_type(nomenclature_type):
