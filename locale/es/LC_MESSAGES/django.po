@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-03 11:27-0400\n"
+"POT-Creation-Date: 2019-09-03 11:36-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,8 +38,7 @@ msgstr "este valor debe ser mayor que la fecha de comienzo."
 msgid "this field is required."
 msgstr "este campo es requerido."
 
-#: rest/models/announcement.py:16 rest/models/announcement.py:69
-#: rest/templates/details/announcement.html:20
+#: rest/models/announcement.py:16 rest/templates/details/announcement.html:20
 #: rest/templates/details/event.html:25
 msgid "title"
 msgstr "título"
@@ -48,6 +47,11 @@ msgstr "título"
 #: rest/templates/details/event.html:83
 msgid "description"
 msgstr "descripción"
+
+#: rest/models/announcement.py:18 rest/templates/details/announcement.html:72
+#: rest/templates/details/event.html:87
+msgid "created by"
+msgstr "creado por"
 
 #: rest/models/announcement.py:20 rest/templates/details/announcement.html:28
 #: rest/templates/details/event.html:43
@@ -76,8 +80,6 @@ msgid "phones"
 msgstr "teléfonos"
 
 #: rest/models/announcement.py:26 rest/models/user.py:28
-#, fuzzy
-#| msgid "e-mails"
 msgid "emails"
 msgstr "correos electrónicos"
 
@@ -93,28 +95,24 @@ msgid "address"
 msgstr "dirección"
 
 #: rest/models/announcement.py:29
-#, fuzzy
-#| msgid "images"
 msgid "main image"
 msgstr "imagen principal"
 
 #: rest/models/announcement.py:30
-#, fuzzy
-#| msgid "images"
 msgid "image 1"
 msgstr "imagen 1"
 
 #: rest/models/announcement.py:31
-#, fuzzy
-#| msgid "images"
 msgid "image 2"
 msgstr "imagen 2"
 
 #: rest/models/announcement.py:32
-#, fuzzy
-#| msgid "images"
 msgid "image 3"
 msgstr "imagen 3"
+
+#: rest/models/announcement.py:69
+msgid "price"
+msgstr "precio"
 
 #: rest/models/announcement.py:73
 msgid "announcement"
@@ -129,18 +127,15 @@ msgid "start date"
 msgstr "comienzo"
 
 #: rest/models/announcement.py:84
-#, fuzzy
-#| msgid "dates"
 msgid "end date"
 msgstr "final"
 
-#: rest/models/announcement.py:85 rest/templates/details/event.html:35
+#: rest/models/announcement.py:85
+#: rest/templates/details/event.html:35
 msgid "allow children"
 msgstr "permite niños"
 
 #: rest/models/announcement.py:86
-#, fuzzy
-#| msgid "allow children"
 msgid "price for children"
 msgstr "precio para niños"
 
@@ -479,7 +474,7 @@ msgstr "imagen de usuario"
 #: rest/templates/admin/lib/_main_header.html:24
 #: rest/templates/admin/lib/_main_sidebar.html:15
 msgid "member since"
-msgstr "mimebro desde"
+msgstr "desde"
 
 #: rest/templates/admin/lib/_main_header.html:33
 msgid "change password"
@@ -564,11 +559,6 @@ msgstr "guardar"
 #: rest/templates/details/event.html:65 rest/templates/details/user.html:63
 msgid "e-mails"
 msgstr "correos electrónicos"
-
-#: rest/templates/details/announcement.html:72
-#: rest/templates/details/event.html:87
-msgid "created by"
-msgstr "creado por"
 
 #: rest/templates/details/announcement.html:84
 #: rest/templates/details/event.html:99
@@ -669,8 +659,3 @@ msgstr "agregar"
 #: rest/templatetags/custom_filters.py:134
 msgid "no records"
 msgstr "no especificado"
-
-#, fuzzy
-#~| msgid "allow children"
-#~ msgid "allo children"
-#~ msgstr "permite niños"

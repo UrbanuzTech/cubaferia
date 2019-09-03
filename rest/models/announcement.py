@@ -15,7 +15,7 @@ from rest.models.nomenclature import ANNOUNCEMENT_CATEGORY, CITY
 class GenericAnnouncement(models.Model):
     title = models.CharField(_('title'), max_length=255)
     description = models.TextField(_('description'), blank=True, null=True)
-    created_by = models.ForeignKey(User, on_delete=DO_NOTHING)
+    created_by = models.ForeignKey(User, on_delete=DO_NOTHING, verbose_name=_('created by'))
     city = models.ForeignKey(Nomenclature, on_delete=DO_NOTHING,
                              related_name='%(app_label)s_%(class)s_city', verbose_name=_('city'))
     visit_count = models.PositiveIntegerField(_('visit count'), default=0)
@@ -66,7 +66,7 @@ class GenericAnnouncement(models.Model):
 
 
 class Announcement(GenericAnnouncement):
-    price = models.FloatField(_('title'), validators=[MinValueValidator(0)], )
+    price = models.FloatField(_('price'), validators=[MinValueValidator(0)], )
 
     class Meta:
         db_table = 'Tb_Announcement'
@@ -80,12 +80,12 @@ class Announcement(GenericAnnouncement):
 
 
 class Event(GenericAnnouncement):
-    start_date = models.DateTimeField(_('start date').capitalize())
-    end_date = models.DateTimeField(_('end date').capitalize())
-    allow_children = models.BooleanField(_('allow children').capitalize())
-    price_for_children = models.FloatField(_('price for children').capitalize(), validators=[MinValueValidator(0)],
+    start_date = models.DateTimeField(_('start date'))
+    end_date = models.DateTimeField(_('end date'))
+    allow_children = models.BooleanField(_('allow children'))
+    price_for_children = models.FloatField(_('price for children'), validators=[MinValueValidator(0)],
                                            null=True, blank=True)
-    price_for_adults = models.FloatField(_('price for adults').capitalize(), validators=[MinValueValidator(0)])
+    price_for_adults = models.FloatField(_('price for adults'), validators=[MinValueValidator(0)])
 
     class Meta:
         db_table = 'Tb_Event'

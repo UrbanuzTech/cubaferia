@@ -146,3 +146,8 @@ def to_cuc(value):
         return '0.00 CUC'
     else:
         return str('{0:.2f}'.format(value)) + ' CUC'
+
+
+@register.filter(name='remove')
+def remove(value, text_to_replace):
+    return str(value).replace('/' + text_to_replace, '')
