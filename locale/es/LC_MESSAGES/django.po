@@ -1,0 +1,676 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-03 11:27-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: rest/admin.py:67
+msgid "Personal info"
+msgstr "Información personal"
+
+#: rest/admin.py:69
+msgid "Permissions"
+msgstr "Permisos"
+
+#: rest/filters.py:29
+msgid "All"
+msgstr "Todos"
+
+#: rest/forms/event.py:12
+msgid "this value must be greater than start date."
+msgstr "este valor debe ser mayor que la fecha de comienzo."
+
+#: rest/forms/event.py:14
+msgid "this field is required."
+msgstr "este campo es requerido."
+
+#: rest/models/announcement.py:16 rest/models/announcement.py:69
+#: rest/templates/details/announcement.html:20
+#: rest/templates/details/event.html:25
+msgid "title"
+msgstr "título"
+
+#: rest/models/announcement.py:17 rest/templates/details/announcement.html:68
+#: rest/templates/details/event.html:83
+msgid "description"
+msgstr "descripción"
+
+#: rest/models/announcement.py:20 rest/templates/details/announcement.html:28
+#: rest/templates/details/event.html:43
+msgid "city"
+msgstr "ciudad"
+
+#: rest/models/announcement.py:21 rest/templates/details/announcement.html:80
+#: rest/templates/details/event.html:95
+msgid "visit count"
+msgstr "cantidad de visitas"
+
+#: rest/models/announcement.py:22 rest/templates/details/announcement.html:76
+#: rest/templates/details/event.html:91
+msgid "created at"
+msgstr "fecha de creación"
+
+#: rest/models/announcement.py:24 rest/templates/details/announcement.html:24
+#: rest/templates/details/event.html:39
+msgid "category"
+msgstr "categoría"
+
+#: rest/models/announcement.py:25 rest/models/user.py:26
+#: rest/templates/details/announcement.html:36
+#: rest/templates/details/event.html:51 rest/templates/details/user.html:49
+msgid "phones"
+msgstr "teléfonos"
+
+#: rest/models/announcement.py:26 rest/models/user.py:28
+#, fuzzy
+#| msgid "e-mails"
+msgid "emails"
+msgstr "correos electrónicos"
+
+#: rest/models/announcement.py:27 rest/templates/details/announcement.html:32
+#: rest/templates/details/event.html:47
+msgid "contact name"
+msgstr "nombre de contacto"
+
+#: rest/models/announcement.py:28 rest/models/user.py:31
+#: rest/templates/details/announcement.html:64
+#: rest/templates/details/event.html:79 rest/templates/details/user.html:25
+msgid "address"
+msgstr "dirección"
+
+#: rest/models/announcement.py:29
+#, fuzzy
+#| msgid "images"
+msgid "main image"
+msgstr "imagen principal"
+
+#: rest/models/announcement.py:30
+#, fuzzy
+#| msgid "images"
+msgid "image 1"
+msgstr "imagen 1"
+
+#: rest/models/announcement.py:31
+#, fuzzy
+#| msgid "images"
+msgid "image 2"
+msgstr "imagen 2"
+
+#: rest/models/announcement.py:32
+#, fuzzy
+#| msgid "images"
+msgid "image 3"
+msgstr "imagen 3"
+
+#: rest/models/announcement.py:73
+msgid "announcement"
+msgstr "anuncio"
+
+#: rest/models/announcement.py:74
+msgid "announcements"
+msgstr "anuncios"
+
+#: rest/models/announcement.py:83
+msgid "start date"
+msgstr "comienzo"
+
+#: rest/models/announcement.py:84
+#, fuzzy
+#| msgid "dates"
+msgid "end date"
+msgstr "final"
+
+#: rest/models/announcement.py:85 rest/templates/details/event.html:35
+msgid "allow children"
+msgstr "permite niños"
+
+#: rest/models/announcement.py:86
+#, fuzzy
+#| msgid "allow children"
+msgid "price for children"
+msgstr "precio para niños"
+
+#: rest/models/announcement.py:88
+msgid "price for adults"
+msgstr "precio para adultos"
+
+#: rest/models/announcement.py:92
+msgid "event"
+msgstr "evento"
+
+#: rest/models/announcement.py:93
+msgid "events"
+msgstr "eventos"
+
+#: rest/models/nomenclature.py:17
+msgid "Announcement Category"
+msgstr "Categoría de anuncios"
+
+#: rest/models/nomenclature.py:18
+msgid "City"
+msgstr "Ciudad"
+
+#: rest/models/nomenclature.py:19
+msgid "Company Type"
+msgstr "Tipo de compañía"
+
+#: rest/models/nomenclature.py:20
+msgid "Country"
+msgstr "País"
+
+#: rest/models/nomenclature.py:21
+msgid "Event Category"
+msgstr "Categoría de eventos"
+
+#: rest/models/nomenclature.py:22
+msgid "Language"
+msgstr "Idioma"
+
+#: rest/models/nomenclature.py:27 rest/templates/details/group.html:8
+#: rest/templates/details/nomenclature.html:15
+msgid "name"
+msgstr "nombre"
+
+#: rest/models/nomenclature.py:29 rest/templates/details/nomenclature.html:23
+msgid "nomenclature type"
+msgstr "tipo de nomenclador"
+
+#: rest/models/nomenclature.py:30 rest/templates/details/nomenclature.html:19
+msgid "parent"
+msgstr "padre"
+
+#: rest/models/nomenclature.py:31
+msgid "logo"
+msgstr "logotipo"
+
+#: rest/models/nomenclature.py:32 rest/templates/details/nomenclature.html:27
+msgid "active"
+msgstr "activo"
+
+#: rest/models/nomenclature.py:57
+msgid "nomenclature"
+msgstr "nomenclador"
+
+#: rest/models/nomenclature.py:58
+msgid "nomenclatures"
+msgstr "nomencladores"
+
+#: rest/models/user.py:13
+msgid "Male"
+msgstr "Masculino"
+
+#: rest/models/user.py:14
+msgid "Female"
+msgstr "Femenino"
+
+#: rest/models/user.py:15
+msgid "Undefined"
+msgstr "Indefinido"
+
+#: rest/models/user.py:29
+msgid "avatar"
+msgstr "foto de perfil"
+
+#: rest/models/user.py:30 rest/templates/details/user.html:21
+msgid "gender"
+msgstr "género"
+
+#: rest/models/user.py:33 rest/templates/details/user.html:29
+msgid "nationality"
+msgstr "nacionalidad"
+
+#: rest/models/user.py:34 rest/templates/details/user.html:45
+msgid "allow notifications"
+msgstr "permitir notificaciones"
+
+#: rest/templates/admin/actions.html:9
+msgid "Run the selected action"
+msgstr "Ejecutar la acción seleccionada"
+
+#: rest/templates/admin/actions.html:10
+msgid "execute"
+msgstr "ejecutar"
+
+#: rest/templates/admin/change_form.html:41
+#: rest/templates/admin/change_list.html:66
+#: rest/templates/registration/password_change_form.html:19
+msgid "Please correct the error below."
+msgstr "Por favor, corrija el error."
+
+#: rest/templates/admin/change_form.html:42
+#: rest/templates/admin/change_list.html:68
+#: rest/templates/registration/password_change_form.html:21
+msgid "Please correct the errors below."
+msgstr "Por favor, corrija los errores."
+
+#: rest/templates/admin/change_form_object_tools.html:6
+msgid "History"
+msgstr "Historia"
+
+#: rest/templates/admin/change_form_object_tools.html:9
+msgid "View on site"
+msgstr "Ver en el sitio"
+
+#: rest/templates/admin/change_list.html:42
+#: rest/templates/admin/change_list.html:138
+msgid "clear filters"
+msgstr "limpiar filtros"
+
+#: rest/templates/admin/change_list.html:49
+#: rest/templates/admin/change_list.html:117
+msgid "advanced filters"
+msgstr "filtros avanzados"
+
+#: rest/templates/admin/change_list.html:56
+#, python-format
+msgid "Add %(name)s"
+msgstr "Agregar %(name)s"
+
+#: rest/templates/admin/change_list.html:133
+#: rest/templates/admin/change_list.html:185
+msgid "close"
+msgstr "cerrar"
+
+#: rest/templates/admin/change_list.html:142
+msgid "filter"
+msgstr "filtrar"
+
+#: rest/templates/admin/change_list.html:177
+#: rest/templates/admin/change_list_results.html:65
+msgid "details"
+msgstr "detalles"
+
+#: rest/templates/admin/change_list_results.html:23
+msgid "Remove from sorting"
+msgstr "Eliminar el ordenamiento"
+
+#: rest/templates/admin/change_list_results.html:26
+#, python-format
+msgid "Sorting priority: %(priority_number)s"
+msgstr "Ordenar por prioridad: %(priority_number)s"
+
+#: rest/templates/admin/change_list_results.html:32
+msgid "Toggle sorting"
+msgstr "Ordenar/Desordenar"
+
+#: rest/templates/admin/change_list_results.html:49
+msgid "actions"
+msgstr "acciones"
+
+#: rest/templates/admin/change_list_results.html:70
+msgid "Edit"
+msgstr "Editar"
+
+#: rest/templates/admin/change_list_results.html:75
+#: rest/templates/admin/submit_line.html:8
+msgid "Delete"
+msgstr "Eliminar"
+
+#: rest/templates/admin/change_list_results.html:129
+msgid "No"
+msgstr "No"
+
+#: rest/templates/admin/change_list_results.html:129
+msgid "available"
+msgstr "disponible"
+
+#: rest/templates/admin/delete_confirmation.html:13
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '\n"
+"                            %(escaped_object)s'\n"
+"                            would result\n"
+"                            in deleting related objects, but your account "
+"doesn't have permission to delete the\n"
+"                            following types\n"
+"                            of\n"
+"                            objects:"
+msgstr ""
+"Para eliminar a %(object_name)s '\n"
+"                            %(escaped_object)s'\n"
+"                            se resquiere\n"
+"                            eliminar objetos relacionados, pero su cuenta no "
+"posee permisos para eliminar los\n"
+"                            siguientes\n"
+"                            de\n"
+"                            objetos:"
+
+#: rest/templates/admin/delete_confirmation.html:26
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '\n"
+"                            %(escaped_object)s'\n"
+"                            would\n"
+"                            require deleting the following protected related "
+"objects:"
+msgstr ""
+"Para eliminar a %(object_name)s '\n"
+"                            %(escaped_object)s'\n"
+"                            se requiere eliminar los siguientes objetos "
+"relacionados protegidos:"
+
+#: rest/templates/admin/delete_confirmation.html:36
+#, python-format
+msgid ""
+"Are you sure you want to delete the\n"
+"                            %(object_name)s \"\n"
+"                            %(escaped_object)s\"? All of the following "
+"related items will be\n"
+"                            deleted:"
+msgstr ""
+
+#: rest/templates/admin/delete_confirmation.html:41
+#: rest/templates/admin/delete_selected_confirmation.html:36
+msgid "Objects"
+msgstr ""
+"¿Está seguro que desea eliminar a ?\n"
+"                            %(object_name)s \"\n"
+"                            %(escaped_object)s\"? Todos los siguientes "
+"objetos relacionados serán eliminados."
+
+#: rest/templates/admin/delete_confirmation.html:55
+#: rest/templates/admin/delete_selected_confirmation.html:53
+#: rest/templates/admin/object_history.html:40
+#: rest/templates/admin/submit_line.html:14
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: rest/templates/admin/delete_confirmation.html:59
+#: rest/templates/admin/delete_selected_confirmation.html:57
+msgid "Yes, I'm sure"
+msgstr "Si, estoy seguro"
+
+#: rest/templates/admin/delete_selected_confirmation.html:13
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would result in deleting related\n"
+"                            objects, but your\n"
+"                            account doesn't have permission to delete the "
+"following types of\n"
+"                            objects:"
+msgstr ""
+"Para eliminar los %(objects_name)s seleccionados se require eliminar los "
+"objetos relacionados, pero su\n"
+"                            cuenta no posee permisos para eliminar lso "
+"siguientes tipos de objetos:"
+
+#: rest/templates/admin/delete_selected_confirmation.html:23
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would require deleting the following\n"
+"                            protected\n"
+"                            related objects:"
+msgstr ""
+"Para eliminar los %(objects_name)s seleccionados se requiere eliminar los "
+"siguientes objetos protegidos relacionados:"
+
+#: rest/templates/admin/delete_selected_confirmation.html:32
+#, python-format
+msgid ""
+"Are you sure you want to delete the selected %(objects_name)s? All of the\n"
+"                            following objects\n"
+"                            and their related items will be deleted:"
+msgstr ""
+"¿Está seguro que desea eliminar los %(objects_name)s seleccionados? Todos "
+"los\n"
+"                            siguientes objetos\n"
+"                            y sus relaciones serán eliminados:"
+
+#: rest/templates/admin/filter.html:4
+msgid "by"
+msgstr "por"
+
+#: rest/templates/admin/filter.html:8
+msgid "all"
+msgstr "todos"
+
+#: rest/templates/admin/filter.html:11
+msgid "yes"
+msgstr "si"
+
+#: rest/templates/admin/filter.html:13
+msgid "no"
+msgstr "no"
+
+#: rest/templates/admin/index.html:22
+msgid "models in the"
+msgstr "modelos en el"
+
+#: rest/templates/admin/index.html:43
+msgid "go to list"
+msgstr "ir a la lista"
+
+#: rest/templates/admin/index.html:56
+msgid "my last recent actions"
+msgstr "mis últimas acciones"
+
+#: rest/templates/admin/index.html:69
+msgid "None available"
+msgstr "No hay disponible"
+
+#: rest/templates/admin/index.html:90
+msgid "Unknown content"
+msgstr "Contenido desconocido"
+
+#: rest/templates/admin/index.html:100
+msgid "You don't have permission to edit anything."
+msgstr "Usted no tiene permisos para editar."
+
+#: rest/templates/admin/lib/_main_header.html:15
+#: rest/templates/admin/lib/_main_header.html:21
+#: rest/templates/admin/lib/_main_sidebar.html:8
+msgid "user image"
+msgstr "imagen de usuario"
+
+#: rest/templates/admin/lib/_main_header.html:24
+#: rest/templates/admin/lib/_main_sidebar.html:15
+msgid "member since"
+msgstr "mimebro desde"
+
+#: rest/templates/admin/lib/_main_header.html:33
+msgid "change password"
+msgstr "contraseña"
+
+#: rest/templates/admin/lib/_main_header.html:37
+msgid "sign out"
+msgstr "cerrar sesión"
+
+#: rest/templates/admin/login.html:13
+msgid "administration"
+msgstr "administración"
+
+#: rest/templates/admin/login.html:17
+msgid "all rights reserved"
+msgstr "todos los derechos reservados"
+
+#: rest/templates/admin/login.html:19
+msgid "version"
+msgstr "vesión"
+
+#: rest/templates/admin/object_history.html:12
+msgid "Date/time"
+msgstr "Fecha y hora"
+
+#: rest/templates/admin/object_history.html:13
+msgid "User"
+msgstr "Usuario"
+
+#: rest/templates/admin/object_history.html:14
+msgid "Action"
+msgstr "Acción"
+
+#: rest/templates/admin/object_history.html:32
+msgid ""
+"This object doesn't have a change history. It probably wasn't added via this "
+"admin site."
+msgstr ""
+"Este objeto no posee historial de cambios. Es probable que no se haya "
+"agregado por la administración."
+
+#: rest/templates/admin/pagination.html:25
+#: rest/templates/admin/search_form.html:23
+msgid "Show all"
+msgstr "Mostrar todos"
+
+#: rest/templates/admin/search_form.html:9
+msgid "introduce text to search"
+msgstr "introduzca el texto a buscar"
+
+#: rest/templates/admin/search_form.html:15
+msgid "Search"
+msgstr "Buscar"
+
+#: rest/templates/admin/search_form.html:19
+#, fuzzy, python-format
+#| msgid ""
+#| "%(counter)s result\n"
+#| "                "
+#| msgid_plural "%(counter)s resultados"
+msgid ""
+"%(counter)s result\n"
+"                "
+msgid_plural "%(counter)s results"
+msgstr[0] "%(counter)s resultadoa"
+msgstr[1] "%(counter)s resultado"
+
+#: rest/templates/admin/search_form.html:22
+#, python-format
+msgid ""
+"%(full_result_count)s total\n"
+"                "
+msgstr ""
+"total: %(full_result_count)s\n"
+"                "
+
+#: rest/templates/admin/submit_line.html:19
+msgid "save"
+msgstr "guardar"
+
+#: rest/templates/details/announcement.html:50
+#: rest/templates/details/event.html:65 rest/templates/details/user.html:63
+msgid "e-mails"
+msgstr "correos electrónicos"
+
+#: rest/templates/details/announcement.html:72
+#: rest/templates/details/event.html:87
+msgid "created by"
+msgstr "creado por"
+
+#: rest/templates/details/announcement.html:84
+#: rest/templates/details/event.html:99
+msgid "images"
+msgstr "imágenes"
+
+#: rest/templates/details/event.html:8
+msgid "children"
+msgstr "niños"
+
+#: rest/templates/details/event.html:12
+msgid "adults"
+msgstr "adultos"
+
+#: rest/templates/details/event.html:29
+msgid "dates"
+msgstr "fechas"
+
+#: rest/templates/details/group.html:12 rest/templates/details/user.html:91
+msgid "permissions"
+msgstr "permisos"
+
+#: rest/templates/details/user.html:13
+msgid "full name"
+msgstr "nombre completo"
+
+#: rest/templates/details/user.html:17
+msgid "username"
+msgstr "nombre de usuario"
+
+#: rest/templates/details/user.html:33
+msgid "is active"
+msgstr "está activo"
+
+#: rest/templates/details/user.html:37
+msgid "is superuser"
+msgstr "es super usuario"
+
+#: rest/templates/details/user.html:41
+msgid "is staff"
+msgstr "es miembro"
+
+#: rest/templates/details/user.html:77
+msgid "groups"
+msgstr "grupos"
+
+#: rest/templates/details/user.html:105
+msgid "last login"
+msgstr "última vez visto"
+
+#: rest/templates/details/user.html:110
+msgid "date joined"
+msgstr "fecha de alta"
+
+#: rest/templates/registration/logged_out.html:6
+msgid "Thanks for spending some quality time with the Web site today."
+msgstr "Gracias por utilizar el sistema."
+
+#: rest/templates/registration/logged_out.html:12
+msgid "Log in again"
+msgstr "Entrar de nuevo"
+
+#: rest/templates/registration/password_change_done.html:7
+msgid "Home"
+msgstr "Portada"
+
+#: rest/templates/registration/password_change_done.html:17
+msgid "Your password was changed."
+msgstr "Su contraseña fue cambiada."
+
+#: rest/templates/registration/password_change_form.html:26
+msgid ""
+"Please enter your old password, for security's sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
+msgstr ""
+"Por favor, introduzca su contraseña antigua, por seguridad, y luego "
+"introduzca la nueva."
+
+#: rest/templates/registration/password_change_form.html:64
+msgid "cancel"
+msgstr "cancelar"
+
+#: rest/templates/registration/password_change_form.html:68
+msgid "Change my password"
+msgstr "Cambiar mi contraseña"
+
+#: rest/templates/widgets/dynamic_array.html:11
+#: rest/templates/widgets/dynamic_array.html:15
+msgid "delete"
+msgstr "eliminar"
+
+#: rest/templates/widgets/dynamic_array.html:24
+#: rest/templates/widgets/dynamic_array.html:26
+#: rest/templates/widgets/dynamic_array.html:27
+msgid "add"
+msgstr "agregar"
+
+#: rest/templatetags/custom_filters.py:134
+msgid "no records"
+msgstr "no especificado"
+
+#, fuzzy
+#~| msgid "allow children"
+#~ msgid "allo children"
+#~ msgstr "permite niños"

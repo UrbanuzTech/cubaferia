@@ -22,11 +22,14 @@ def get_avatar(self):
     return os.path.join(STATIC_URL, 'img', 'avatar_default.png')
 
 
-User.add_to_class('phones', ArrayField(models.IntegerField(null=True, blank=True), null=True, blank=True))
-User.add_to_class('emails', ArrayField(models.EmailField(null=True, blank=True), blank=True, null=True))
-User.add_to_class('avatar', models.FileField(upload_to='avatars', blank=True, null=True))
-User.add_to_class('gender', models.CharField(max_length=100, choices=GENDER))
-User.add_to_class('address', models.TextField(blank=True, null=True))
-User.add_to_class('nationality', models.ForeignKey(Nomenclature, blank=True, null=True, on_delete=DO_NOTHING))
-User.add_to_class('allow_notifications', models.BooleanField(default=False))
+User.add_to_class('phones', ArrayField(models.IntegerField(null=True, blank=True), null=True, blank=True,
+                                       verbose_name=_('phones')))
+User.add_to_class('emails',
+                  ArrayField(models.EmailField(null=True, blank=True), blank=True, null=True, verbose_name=_('emails')))
+User.add_to_class('avatar', models.FileField(upload_to='avatars', blank=True, null=True, verbose_name=_('avatar')))
+User.add_to_class('gender', models.CharField(max_length=100, choices=GENDER, verbose_name=_('gender')))
+User.add_to_class('address', models.TextField(blank=True, null=True, verbose_name=_('address')))
+User.add_to_class('nationality', models.ForeignKey(Nomenclature, blank=True, null=True, on_delete=DO_NOTHING,
+                                                   verbose_name=_('nationality')))
+User.add_to_class('allow_notifications', models.BooleanField(default=False, verbose_name=_('allow notifications')))
 User.add_to_class('get_avatar', get_avatar)

@@ -24,11 +24,12 @@ NOMENCLATURE_TYPES = (
 
 
 class Nomenclature(models.Model):
-    name = models.CharField(max_length=255)
-    nomenclature_type = models.CharField(max_length=100, choices=NOMENCLATURE_TYPES)
-    parent = models.ForeignKey('self', on_delete=DO_NOTHING, blank=True, null=True)
-    logo = models.FileField(upload_to='nomenclatures', blank=True, null=True)
-    active = models.BooleanField()
+    name = models.CharField(max_length=255, verbose_name=_('name'))
+    nomenclature_type = models.CharField(max_length=100, choices=NOMENCLATURE_TYPES,
+                                         verbose_name=_('nomenclature type'))
+    parent = models.ForeignKey('self', on_delete=DO_NOTHING, blank=True, null=True, verbose_name=_('parent'))
+    logo = models.FileField(upload_to='nomenclatures', blank=True, null=True, verbose_name=_('logo'))
+    active = models.BooleanField(verbose_name=_('active'))
 
     def save(self, *args, **kwargs):
         if self.pk is None:

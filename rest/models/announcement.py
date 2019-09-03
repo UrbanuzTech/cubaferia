@@ -13,21 +13,23 @@ from rest.models.nomenclature import ANNOUNCEMENT_CATEGORY, CITY
 
 
 class GenericAnnouncement(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
+    title = models.CharField(_('title'), max_length=255)
+    description = models.TextField(_('description'), blank=True, null=True)
     created_by = models.ForeignKey(User, on_delete=DO_NOTHING)
-    city = models.ForeignKey(Nomenclature, on_delete=DO_NOTHING, related_name='%(app_label)s_%(class)s_city')
-    visit_count = models.PositiveIntegerField(default=0)
-    created_at = models.DateTimeField(auto_now_add=True)
-    category = models.ForeignKey(Nomenclature, on_delete=DO_NOTHING, related_name='%(app_label)s_%(class)s_category')
-    phones = ArrayField(models.IntegerField())
-    emails = ArrayField(models.EmailField())
-    contact_name = models.CharField(max_length=255, null=True, blank=True)
-    address = models.TextField(null=True, blank=True)
-    main_image = models.FileField(upload_to='announcements', blank=True, null=True)
-    image1 = models.FileField(upload_to='announcements', blank=True, null=True)
-    image2 = models.FileField(upload_to='announcements', blank=True, null=True)
-    image3 = models.FileField(upload_to='announcements', blank=True, null=True)
+    city = models.ForeignKey(Nomenclature, on_delete=DO_NOTHING,
+                             related_name='%(app_label)s_%(class)s_city', verbose_name=_('city'))
+    visit_count = models.PositiveIntegerField(_('visit count'), default=0)
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
+    category = models.ForeignKey(Nomenclature, on_delete=DO_NOTHING,
+                                 related_name='%(app_label)s_%(class)s_category', verbose_name=_('category'))
+    phones = ArrayField(models.IntegerField(), verbose_name=_('phones'))
+    emails = ArrayField(models.EmailField(), verbose_name=_('emails'))
+    contact_name = models.CharField(_('contact name'), max_length=255, null=True, blank=True)
+    address = models.TextField(_('address'), null=True, blank=True)
+    main_image = models.FileField(_('main image'), upload_to='announcements', blank=True, null=True)
+    image1 = models.FileField(_('image 1'), upload_to='announcements', blank=True, null=True)
+    image2 = models.FileField(_('image 2'), upload_to='announcements', blank=True, null=True)
+    image3 = models.FileField(_('image 3'), upload_to='announcements', blank=True, null=True)
 
     def get_main_image(self):
         if self.main_image:
@@ -64,7 +66,7 @@ class GenericAnnouncement(models.Model):
 
 
 class Announcement(GenericAnnouncement):
-    price = models.FloatField(validators=[MinValueValidator(0)], )
+    price = models.FloatField(_('title'), validators=[MinValueValidator(0)], )
 
     class Meta:
         db_table = 'Tb_Announcement'
@@ -78,11 +80,12 @@ class Announcement(GenericAnnouncement):
 
 
 class Event(GenericAnnouncement):
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
-    allow_children = models.BooleanField()
-    price_for_children = models.FloatField(validators=[MinValueValidator(0)], null=True, blank=True)
-    price_for_adults = models.FloatField(validators=[MinValueValidator(0)])
+    start_date = models.DateTimeField(_('start date').capitalize())
+    end_date = models.DateTimeField(_('end date').capitalize())
+    allow_children = models.BooleanField(_('allow children').capitalize())
+    price_for_children = models.FloatField(_('price for children').capitalize(), validators=[MinValueValidator(0)],
+                                           null=True, blank=True)
+    price_for_adults = models.FloatField(_('price for adults').capitalize(), validators=[MinValueValidator(0)])
 
     class Meta:
         db_table = 'Tb_Event'
