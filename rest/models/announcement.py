@@ -81,7 +81,7 @@ class Event(GenericAnnouncement):
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     allow_children = models.BooleanField()
-    price_for_children = models.FloatField(validators=[MinValueValidator(0)])
+    price_for_children = models.FloatField(validators=[MinValueValidator(0)], null=True, blank=True)
     price_for_adults = models.FloatField(validators=[MinValueValidator(0)])
 
     class Meta:

@@ -101,5 +101,25 @@
                 $field.find('.errorlist').show();
             }
         });
+
+        let $allow_children = $('#id_allow_children');
+        let $price_for_children = $('#id_price_for_children');
+        if ($price_for_children.length && $allow_children.length) {
+            if ($allow_children.is(':checked')) {
+                $price_for_children.prop('disabled', false);
+            } else {
+                $price_for_children.prop('disabled', true);
+                $price_for_children.val('');
+            }
+            $allow_children.change(function () {
+                if ($(this).is(':checked')) {
+                    $price_for_children.prop('disabled', false);
+                } else {
+                    $price_for_children.prop('disabled', true);
+                    $price_for_children.val('');
+                }
+            });
+        }
+
     </script>
 {% endblock %}

@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
 
 from rest.filters import ContainsFieldListFilter
+from rest.forms.event import EventAdminForm
 from rest.forms.widgets import DynamicArrayWidget
 from rest.models import Nomenclature, Announcement
 from rest.models.announcement import Event
@@ -21,6 +22,12 @@ class NomenclatureAdmin(admin.ModelAdmin):
     search_fields = ('name', 'nomenclature_type')
     list_display_links = None
     list_per_page = 20
+
+    def save_model(self, request, obj, form, change):
+        if not hasattr(obj, 'created_by'):
+            obj.created_by = request.user
+        form.add_error('name', 'asdsad')
+        return super().save_model(request, obj, form, change)
 
 
 @admin.register(LogEntry)
@@ -92,7 +99,7 @@ class UserAdmin(admin.ModelAdmin):
 class AnnouncementAdmin(admin.ModelAdmin):
     list_display_links = None
     readonly_fields = ('visit_count', 'created_by')
-    list_display = ('title', 'price', 'city', 'visit_count', 'category', 'created_by', 'visit_count')
+    list_display = ('title', 'price', 'city', 'visit_count', 'category', 'created_by')
     list_filter = (
         ('title', ContainsFieldListFilter),
         'city',
@@ -124,11 +131,11 @@ class AnnouncementAdmin(admin.ModelAdmin):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
+    form = EventAdminForm
     list_display_links = None
     readonly_fields = ('visit_count', 'created_by')
     list_display = (
-        'title', 'price_for_children', 'price_for_adults', 'city', 'visit_count', 'category', 'created_by',
-        'created_at')
+        'title', 'price_for_children', 'price_for_adults', 'city', 'visit_count', 'category', 'created_by')
     list_filter = (
         ('title', ContainsFieldListFilter),
         'city',
@@ -156,6 +163,7 @@ class EventAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if not hasattr(obj, 'created_by'):
             obj.created_by = request.user
+        form.add_error('city', 'asdsad')
         return super().save_model(request, obj, form, change)
 
 
