@@ -2,11 +2,13 @@
 {% load custom_filters %}
 
 <div class="row">
-    <div class="col-md-5"></div>
-    <div class="col-md-2">
-        <img src="{{ MEDIA_URL }}{{ obj.get_logo }}" alt="" class="img-responsive">
-    </div>
-    <div class="col-md-5"></div>
+    {% if obj.logo %}
+        <div class="col-md-5"></div>
+        <div class="col-md-2">
+            <img src="{{ MEDIA_URL }}{{ obj.get_logo }}" alt="" class="img-responsive">
+        </div>
+        <div class="col-md-5"></div>
+    {% endif %}
     <div class="col-md-12">
         <table class="table table-bordered" style="margin-top: 15px;">
             <tr>

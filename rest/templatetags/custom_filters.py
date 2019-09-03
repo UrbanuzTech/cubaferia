@@ -138,3 +138,11 @@ def show_value(value):
         else:
             tag = '<span class="text-center label label-danger" style="padding-top: 5px;">No</span>'
     return tag
+
+
+@register.filter(name='to_cuc')
+def to_cuc(value):
+    if not value:
+        return '0.00 CUC'
+    else:
+        return str('{0:.2f}'.format(value)) + ' CUC'

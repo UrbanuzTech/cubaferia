@@ -92,7 +92,7 @@ class UserAdmin(admin.ModelAdmin):
 class AnnouncementAdmin(admin.ModelAdmin):
     list_display_links = None
     readonly_fields = ('visit_count', 'created_by')
-    list_display = ('title', 'price', 'city', 'visit_count', 'category', 'created_by', 'created_at')
+    list_display = ('title', 'price', 'city', 'visit_count', 'category', 'created_by', 'visit_count')
     list_filter = (
         ('title', ContainsFieldListFilter),
         'city',
