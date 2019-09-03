@@ -1,7 +1,7 @@
 import os
 
 from django.contrib.auth.models import User
-from django.contrib.postgres.fields import JSONField
+from django.contrib.postgres.fields import JSONField, ArrayField
 from django.db import models
 from django.db.models import DO_NOTHING
 from django.utils.translation import gettext_lazy as _
@@ -22,8 +22,8 @@ def get_avatar(self):
     return os.path.join(STATIC_URL, 'img', 'avatar_default.png')
 
 
-User.add_to_class('phones', JSONField(blank=True, null=True))
-User.add_to_class('emails', JSONField(blank=True, null=True))
+User.add_to_class('phones', ArrayField(models.IntegerField(null=True, blank=True), null=True, blank=True))
+User.add_to_class('emails', ArrayField(models.EmailField(null=True, blank=True), blank=True, null=True))
 User.add_to_class('avatar', models.FileField(upload_to='avatars', blank=True, null=True))
 User.add_to_class('gender', models.CharField(max_length=100, choices=GENDER))
 User.add_to_class('address', models.TextField(blank=True, null=True))

@@ -1,13 +1,14 @@
 from django.contrib import admin
 from django.contrib.admin.models import LogEntry
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.admin import UserAdmin
 
 from rest.filters import ContainsFieldListFilter
 from rest.forms.widgets import DynamicArrayWidget
 from rest.models import Nomenclature, Announcement
 from rest.models.announcement import Event
-from rest.models.nomenclature import CITY, ANNOUNCEMENT_CATEGORY, EVENT_CATEGORY
+from rest.models.nomenclature import CITY, ANNOUNCEMENT_CATEGORY, EVENT_CATEGORY, COUNTRY
 
 
 @admin.register(Nomenclature)
@@ -37,26 +38,51 @@ class LogEntryAdmin(admin.ModelAdmin):
         return False
 
 
-UserAdmin.list_display_links = None
+admin.site.unregister(User)
 
-UserAdmin.list_filter = (
-    ('username', ContainsFieldListFilter),
-    ('first_name', ContainsFieldListFilter),
-    ('last_name', ContainsFieldListFilter),
-    'is_staff',
-    'is_active',
-    'is_superuser'
-)
 
-UserAdmin.fieldsets = (
-    (None, {'fields': ('username', 'password')}),
-    (_('Personal info'),
-     {'fields': ('first_name', 'last_name', 'nationality', 'address', 'avatar', 'phones', 'emails')}),
-    (_('Permissions'), {
-        'fields': ('allow_notifications', 'is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
-    }),
-    (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
-)
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    list_display_links = None
+    list_filter = (
+        ('username', ContainsFieldListFilter),
+        ('first_name', ContainsFieldListFilter),
+        ('last_name', ContainsFieldListFilter),
+        'is_staff',
+        'is_active',
+        'is_superuser'
+    )
+    fieldsets = (
+        (None, {'fields': ('username', 'password')}),
+        (_('Personal info'),
+         {'fields': ('first_name', 'last_name', 'nationality', 'address', 'avatar', 'phones', 'emails')}),
+        (_('Permissions'), {
+            'fields': ('allow_notifications', 'is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
+        })
+    )
+    list_per_page = 20
+    list_display = ('first_name', 'last_name', 'username', 'nationality', 'is_active', 'is_superuser', 'is_staff')
+    search_fields = ('first_name', 'last_name', 'username')
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'nationality':
+            kwargs['queryset'] = Nomenclature.get_by_type(COUNTRY)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        if db_field.name == 'phones':
+            kwargs['widget'] = DynamicArrayWidget(size=3)
+        if db_field.name == 'emails':
+            kwargs['widget'] = DynamicArrayWidget(size=3)
+        return super().formfield_for_dbfield(db_field, request, **kwargs)
+
+    def save_model(self, request, obj, form, change):
+        if obj.phones == [None]:
+            obj.phones = None
+        if obj.emails == [None]:
+            obj.emails = None
+        obj.password = make_password(obj.password)
+        return super().save_model(request, obj, form, change)
 
 
 @admin.register(Announcement)
