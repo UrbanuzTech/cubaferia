@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.986bf13c.chunk.css",
-    "main.js": "/static/js/main.4c14b769.chunk.js",
-    "main.js.map": "/static/js/main.4c14b769.chunk.js.map",
-    "runtime~main.js": "/static/js/runtime~main.d1a42eb6.js",
-    "runtime~main.js.map": "/static/js/runtime~main.d1a42eb6.js.map",
-    "static/js/2.b9295be1.chunk.js": "/static/js/2.b9295be1.chunk.js",
-    "static/js/2.b9295be1.chunk.js.map": "/static/js/2.b9295be1.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.1a780677d0a7c0f8c17a80480c02be78.js": "/precache-manifest.1a780677d0a7c0f8c17a80480c02be78.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.986bf13c.chunk.css.map": "/static/css/main.986bf13c.chunk.css.map"
+    "main.css": "/cubaferia/static/css/main.986bf13c.chunk.css",
+    "main.js": "/cubaferia/static/js/main.9dc290f6.chunk.js",
+    "main.js.map": "/cubaferia/static/js/main.9dc290f6.chunk.js.map",
+    "runtime~main.js": "/cubaferia/static/js/runtime~main.40abe5b9.js",
+    "runtime~main.js.map": "/cubaferia/static/js/runtime~main.40abe5b9.js.map",
+    "static/js/2.b9295be1.chunk.js": "/cubaferia/static/js/2.b9295be1.chunk.js",
+    "static/js/2.b9295be1.chunk.js.map": "/cubaferia/static/js/2.b9295be1.chunk.js.map",
+    "index.html": "/cubaferia/index.html",
+    "precache-manifest.09d7b9d146989b91286504b909d4397a.js": "/cubaferia/precache-manifest.09d7b9d146989b91286504b909d4397a.js",
+    "service-worker.js": "/cubaferia/service-worker.js",
+    "static/css/main.986bf13c.chunk.css.map": "/cubaferia/static/css/main.986bf13c.chunk.css.map"
   }
 }
