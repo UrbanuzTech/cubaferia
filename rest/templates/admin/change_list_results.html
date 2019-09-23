@@ -60,10 +60,15 @@
                     {% endfor %}
                     {% if cl.opts|can_crud %}
                         <td>
-                            <a style="cursor: pointer;" onclick="details_item('{{ forloop.counter }}')"
-                               class="margin-r-5"
-                               title="{% trans 'details'|capfirst %}">
-                                <i class="fa fa-eye text-green" style="font-size: 14px;"></i>
+{#                            <a style="cursor: pointer;" onclick="details_item('{{ forloop.counter }}')"#}
+{#                               class="margin-r-5"#}
+{#                               title="{% trans 'details'|capfirst %}">#}
+{#                                <i class="fa fa-eye" style="font-size: 14px;"></i>#}
+{#                            </a>#}
+                            <a style="cursor: pointer;" onclick="reinsert_item('{{ forloop.counter }}')"
+                               class="btn-reinsert margin-r-5"
+                               title="{% trans 're-upload'|capfirst %}">
+                                <i class="fa fa-refresh text-green" style="font-size: 14px;"></i>
                             </a>
                             <a style="cursor: pointer;" onclick="edit_item('{{ forloop.counter }}')"
                                class="btn-edit margin-r-5"
@@ -99,6 +104,17 @@
                 {% with cl.opts|admin_urlname:'change' as change_url %}
                     let pk = $($($($('#table-results').find('tr')[parseInt(index)]).find('td'))[0]).find('input[type=checkbox]').val();
                     let url = "{% url change_url -1 %}".replace('-1', pk);
+                    if (window.location.search) {
+                        url += '?_changelist_filters=' + window.location.search.replace('?', '');
+                    }
+                    window.location.href = url;
+                {% endwith %}
+            }
+
+            function reinsert_item(index) {
+                {% with cl.opts|admin_urlname:'change' as change_url %}
+                    let pk = $($($($('#table-results').find('tr')[parseInt(index)]).find('td'))[0]).find('input[type=checkbox]').val();
+                    let url = '/admin/reinsert/' + '{{ cl.opts.model_name }}' + '/' + pk;
                     if (window.location.search) {
                         url += '?_changelist_filters=' + window.location.search.replace('?', '');
                     }

@@ -1,11 +1,14 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.contrib.admin.models import LogEntry
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
+from django.views.generic.base import View
 
 from rest.filters import ContainsFieldListFilter
 from rest.forms.event import EventAdminForm
@@ -97,6 +100,16 @@ class UserAdmin(admin.ModelAdmin):
         return super().save_model(request, obj, form, change)
 
 
+def reinsert_item(modelAdmin, request, queryset):
+    for item in queryset:
+        item.created_at = timezone.now()
+        item.save()
+    messages.success(request, _('items uploaded.').capitalize())
+
+
+reinsert_item.short_description = 'Re-upload selected'
+
+
 @admin.register(Announcement)
 class AnnouncementAdmin(admin.ModelAdmin):
     list_display_links = None
@@ -109,6 +122,7 @@ class AnnouncementAdmin(admin.ModelAdmin):
         'created_by'
     )
     list_per_page = 20
+    actions = [reinsert_item]
     search_fields = ('price', 'title')
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
@@ -145,6 +159,7 @@ class EventAdmin(admin.ModelAdmin):
         'created_by',
         'allow_children'
     )
+    actions = [reinsert_item]
     search_fields = ('price_for_children', 'price_for_adults', 'title')
     list_per_page = 20
 
@@ -176,3 +191,18 @@ class ObjectDetailsView(DetailView):
         model = get_model_by_name(model_name)
         obj = get_object_or_404(model, pk=pk)
         return render(self.request, 'details/%s.html' % model_name, locals())
+
+
+class ObjectReInsertView(View):
+    def get(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk', None)
+        model_name = self.kwargs.get('model_name', None)
+        model = get_model_by_name(model_name)
+        obj = get_object_or_404(model, pk=pk)
+        obj.created_at = timezone.now()
+        obj.save()
+        messages.success(request, _('item '))
+        if model is Announcement:
+            return redirect(reverse('admin:rest_announcement_changelist'))
+        else:
+            return redirect(reverse('admin:rest_event_changelist'))

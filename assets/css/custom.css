@@ -12,3 +12,7 @@
 .select2-container {
     min-width: 200px;
 }
+
+.margin-l-5 {
+    margin-left: 5px !important;
+}

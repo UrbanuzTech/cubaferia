@@ -13,43 +13,151 @@
 {% block bodyclass %}{{ block.super }} dashboard{% endblock %}
 
 {% block content %}
-    {% if app_list %}
-        {% for app in app_list %}
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">
-                        <a href="{{ app.app_url }}"
-                           title="{% trans 'models in the' %} {% trans app.name %}">{% trans app.name %}</a>
-                    </h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                {% trans 'management'|capfirst %}
+            </h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="box-body">
+            {% with 'Announcement'|model_info as model_info %}
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-{{ model_info.color }}">
+                        <div class="inner">
+                            <h3 style="color: white">{{ model_info.count }}</h3>
+                            <p>{% trans 'announcements'|capfirst %}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-{{ model_info.icon }}"></i>
+                        </div>
+                        <a href="{% url 'admin:rest_announcement_changelist' %}" class="small-box-footer text-left">
+                            {% trans 'go to list'|capfirst %}
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </a>
                     </div>
                 </div>
-                <div class="box-body">
-                    {% for model in app.models %}
-                        {% with model|model_info as model_info %}
-                            <div class="col-lg-3 col-xs-6">
-                                <div class="small-box bg-{{ model_info.color }}">
-                                    <div class="inner">
-                                        <h3 style="color: white">{{ model_info.count }}</h3>
-                                        <p>{% trans model.name %}</p>
-                                    </div>
-                                    <div class="icon">
-                                        <i class="fa fa-{{ model_info.icon }}"></i>
-                                    </div>
-                                    <a href="{{ model.admin_url }}" class="small-box-footer text-left">
-                                        {% trans 'go to list'|capfirst %}
-                                        <i class="fa fa-arrow-circle-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        {% endwith %}
-                    {% endfor %}
+            {% endwith %}
+            {% with 'Event'|model_info as model_info %}
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-{{ model_info.color }}">
+                        <div class="inner">
+                            <h3 style="color: white">{{ model_info.count }}</h3>
+                            <p>{% trans 'events'|capfirst %}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-{{ model_info.icon }}"></i>
+                        </div>
+                        <a href="{% url 'admin:rest_event_changelist' %}" class="small-box-footer text-left">
+                            {% trans 'go to list'|capfirst %}
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
                 </div>
+            {% endwith %}
+        </div>
+    </div>
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                {% trans 'configurations'|capfirst %}
+            </h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
             </div>
-        {% endfor %}
+        </div>
+        <div class="box-body">
+            {% with 'User'|model_info as model_info %}
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-{{ model_info.color }}">
+                        <div class="inner">
+                            <h3 style="color: white">{{ model_info.count }}</h3>
+                            <p>{% trans 'users'|capfirst %}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-{{ model_info.icon }}"></i>
+                        </div>
+                        <a href="{% url 'admin:auth_user_changelist' %}" class="small-box-footer text-left">
+                            {% trans 'go to list'|capfirst %}
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            {% endwith %}
+            {% with 'Group'|model_info as model_info %}
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-{{ model_info.color }}">
+                        <div class="inner">
+                            <h3 style="color: white">{{ model_info.count }}</h3>
+                            <p>{% trans 'groups'|capfirst %}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-{{ model_info.icon }}"></i>
+                        </div>
+                        <a href="{% url 'admin:auth_group_changelist' %}" class="small-box-footer text-left">
+                            {% trans 'go to list'|capfirst %}
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            {% endwith %}
+            {% with 'Nomenclature'|model_info as model_info %}
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-{{ model_info.color }}">
+                        <div class="inner">
+                            <h3 style="color: white">{{ model_info.count }}</h3>
+                            <p>{% trans 'nomenclatures'|capfirst %}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-{{ model_info.icon }}"></i>
+                        </div>
+                        <a href="{% url 'admin:rest_nomenclature_changelist' %}" class="small-box-footer text-left">
+                            {% trans 'go to list'|capfirst %}
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            {% endwith %}
+        </div>
+    </div>
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                {% trans 'management'|capfirst %}
+            </h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="box-body">
+            {% with 'LogEntry'|model_info as model_info %}
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-{{ model_info.color }}">
+                        <div class="inner">
+                            <h3 style="color: white">{{ model_info.count }}</h3>
+                            <p>{% trans 'logs'|capfirst %}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-{{ model_info.icon }}"></i>
+                        </div>
+                        <a href="{% url 'admin:admin_logentry_changelist' %}" class="small-box-footer text-left">
+                            {% trans 'go to list'|capfirst %}
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            {% endwith %}
+        </div>
+    </div>
+    {% if app_list %}
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">

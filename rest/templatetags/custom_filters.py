@@ -38,9 +38,9 @@ def model_info(model):
         'Nomenclature': Nomenclature.objects.count()
     }
     return {
-        'icon': icons[model['object_name']] if model['object_name'] in icons else 'circle-o',
-        'color': colors[model['object_name']] if model['object_name'] in colors else 'blue',
-        'count': counts[model['object_name']] if model['object_name'] in counts else '0',
+        'icon': icons[model] if model in icons else 'circle-o',
+        'color': colors[model] if model in colors else 'blue',
+        'count': counts[model] if model in counts else '0',
     }
 
 
