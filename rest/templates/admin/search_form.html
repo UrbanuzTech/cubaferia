@@ -2,9 +2,6 @@
 {% if cl.search_fields %}
     <form method="get">
         <div class="input-group">
-                    <span class="input-group-addon">
-                        <i class="fa fa-search"></i>
-                    </span>
             <input class="form-control"
                    placeholder="{% trans 'introduce text to search'|capfirst %}"
                    type="text"
@@ -12,8 +9,26 @@
                    value="{{ cl.query }}"
                    id="searchbar" autofocus>
             <span class="input-group-btn">
-                        <button class="btn btn-default">{% trans 'Search' %}</button>
-                    </span>
+                <button class="btn btn-default" title="{% trans 'search'|capfirst %}">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+            {% if cl.has_filters %}
+                <span class="input-group-addon">
+                    <a href="#modal-advanced-filters" data-toggle="modal"
+                       title="{% trans 'advanced filters'|capfirst %}">
+                        <i class="fa fa-filter"></i>
+                    </a>
+                </span>
+            {% endif %}
+            {% if cl.params %}
+                <span class="input-group-btn">
+                    <button type="button" onclick="clear_filters()" class="btn btn-danger"
+                            title="{% trans 'clear filters'|capfirst %}">
+                        <i class="fa fa-remove"></i>
+                    </button>
+                </span>
+            {% endif %}
         </div>
         {% if show_result_count %}
             <span class="small quiet">{% blocktrans count counter=cl.result_count %}{{ counter }} result
@@ -28,3 +43,8 @@
         {% endfor %}
     </form>
 {% endif %}
+<script>
+    function clear_filters() {
+        window.location.href = window.location.pathname;
+    }
+</script>

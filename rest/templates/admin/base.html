@@ -1,5 +1,6 @@
 {% extends 'admin/base.html' %}
 {% load i18n %}
+{% load staticfiles %}
 
 {% block extrastyle %}
     <style>
@@ -13,6 +14,7 @@
             height: 80px;
         }
     </style>
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 {% endblock %}
 
 {% block bodyclass %}hold-transition skin-blue fixed sidebar-mini{% endblock %}
@@ -29,7 +31,6 @@
         <h1>
             {% block pretitle %}{% endblock %}
             {% block content_title %}{% if title %}{{ title }}{% endif %}{% endblock %}
-            <small>{% trans 'control panel' %}</small>
         </h1>
     </section>
 {% endblock %}

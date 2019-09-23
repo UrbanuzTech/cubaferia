@@ -5,11 +5,11 @@
     <div class="col-md-12">
         <h1 class="pull-left">
             {% if obj.allow_children %}
-                <b>{% trans 'children'|capfirst %}: {{ obj.price_for_children|to_cuc }}</b>
+                <b>{% trans 'children'|capfirst %}: $ {{ obj.price_for_children|to_cuc }}</b>
             {% endif %}
         </h1>
         <h1 class="pull-right">
-            <b>{% trans 'adults'|capfirst %}: {{ obj.price_for_adults|to_cuc }}</b>
+            <b>{% trans 'adults'|capfirst %}: $ {{ obj.price_for_adults|to_cuc }}</b>
         </h1>
     </div>
     {% if obj.main_image %}

@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin.models import LogEntry
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
@@ -73,6 +74,7 @@ class UserAdmin(admin.ModelAdmin):
     list_per_page = 20
     list_display = ('first_name', 'last_name', 'username', 'nationality', 'is_active', 'is_superuser', 'is_staff')
     search_fields = ('first_name', 'last_name', 'username')
+    filter_horizontal = ('groups', 'user_permissions',)
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'nationality':

@@ -8,16 +8,16 @@
                 {% trans "Delete" %}
             </a>
         {% endif %}
-        {% url opts|admin_urlname:'changelist' as list_url %}
-        <a href="{% add_preserved_filters list_url %}" class="btn bg-red pull-right">
-            <i class="fa fa-ban margin-r-5"></i>
-            {% trans 'Cancel' %}
-        </a>
         {% if show_save_and_add_another %}
-            <button class="btn bg-blue pull-right margin-r-5">
+            <button class="btn bg-blue pull-right">
                 <i class="fa fa-save margin-r-5"></i>
                 {% trans 'save'|capfirst %}
             </button>
         {% endif %}
+        {% url opts|admin_urlname:'changelist' as list_url %}
+        <a href="{% add_preserved_filters list_url %}" class="btn bg-red pull-right margin-r-5">
+            <i class="fa fa-ban margin-r-5"></i>
+            {% trans 'Cancel' %}
+        </a>
     </div>
 </div>
