@@ -13,7 +13,7 @@ export function getValueList(type: string) {
             },
         })
             .then(data => {
-                resolve(data);
+                resolve(data.json());
             }, (err) => {
                 reject(err);
             });

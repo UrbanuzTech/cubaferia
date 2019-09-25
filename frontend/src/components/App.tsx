@@ -4,15 +4,24 @@ import Footer from './generic/footer'
 import Header from "./generic/header";
 import NavMenu from "./generic/nav_menu";
 import {pushRotate as Menu} from 'react-burger-menu'
-// import * as provider from './utils/provider';
-// import { render } from 'react-dom';
+import * as provider from './utils/provider';
 
 class App extends React.Component {
-    // provider.getValueList('nomenclature').then((data) => {
-    //     console.log(data);
-    // }, (err) => {
-    //     console.log(err);
-    // });
+    api: any;
+
+    componentDidMount(): void {
+        this.getData();
+    }
+
+    getData() {
+        provider.getValueList('nomenclature').then((data) => {
+            console.log(data);
+            this.api = data;
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
 
     showSettings(e: any) {
         e.preventDefault();
