@@ -21,7 +21,7 @@ from django.urls import path, include
 from rest_framework import routers
 
 from cubaferia import settings
-from rest.admin import ObjectDetailsView, ObjectReInsertView
+from rest.admin import ObjectDetailsView, ObjectReInsertView, ObjectDeleteView
 from rest.views.AnnouncementViewSet import AnnouncementViewSet
 from rest.views.EventViewSet import EventViewSet
 from rest.views.NomenclatureViewSet import NomenclatureViewSet
@@ -34,6 +34,7 @@ router.register(r'nomenclature', NomenclatureViewSet)
 urlpatterns = i18n_patterns(
     path('admin/details/<str:model_name>/<int:pk>', ObjectDetailsView.as_view(), name='object_details'),
     path('admin/reinsert/<str:model_name>/<int:pk>', ObjectReInsertView.as_view(), name='object_reinsert'),
+    path('admin/delete/<str:model_name>/<int:pk>', ObjectDeleteView.as_view(), name='object_delete'),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
 )

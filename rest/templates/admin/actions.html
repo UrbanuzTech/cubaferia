@@ -3,7 +3,9 @@
     <i class="fa fa-remove margin-r-5"></i>
     {% trans 'delete selected'|capfirst %}
 </button>
-<button class="btn btn-success btn-sm float-right margin-l-5" id="reinsert-item" disabled>
-    <i class="fa fa-refresh margin-r-5"></i>
-    {% trans 're-upload'|capfirst %}
-</button>
+{% if cl.opts.model_name == 'announcement' or cl.opts.model_name == 'event' %}
+    <button class="btn btn-success btn-sm float-right margin-l-5" id="reinsert-item" disabled>
+        <i class="fa fa-refresh margin-r-5"></i>
+        {% trans 're-upload'|capfirst %}
+    </button>
+{% endif %}

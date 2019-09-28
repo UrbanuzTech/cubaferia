@@ -3,6 +3,7 @@ from django.contrib.admin.models import LogEntry
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils import timezone
@@ -197,12 +198,32 @@ class ObjectReInsertView(View):
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk', None)
         model_name = self.kwargs.get('model_name', None)
+        if model_name != 'announcement' and model_name != 'event':
+            raise Http404
         model = get_model_by_name(model_name)
         obj = get_object_or_404(model, pk=pk)
         obj.created_at = timezone.now()
         obj.save()
-        messages.success(request, _('item '))
+        messages.success(request, _('item re-inserted successfully.').capitalize())
+        url = ''
+        if '_changelist_filters' in request.GET:
+            url = '?' + request.GET['_changelist_filters']
         if model is Announcement:
-            return redirect(reverse('admin:rest_announcement_changelist'))
+            return redirect(reverse('admin:rest_announcement_changelist') + url)
         else:
-            return redirect(reverse('admin:rest_event_changelist'))
+            return redirect(reverse('admin:rest_event_changelist') + url)
+
+
+class ObjectDeleteView(View):
+    def get(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk', None)
+        model_name = self.kwargs.get('model_name', None)
+        if model_name == 'user' and request.user.pk == pk:
+            raise Http404
+        model = get_object_or_404(get_model_by_name(model_name), pk=pk)
+        model.delete()
+        messages.success(request, _('item deleted successfully.').capitalize())
+        url = ''
+        if '_changelist_filters' in request.GET:
+            url = '?' + request.GET['_changelist_filters']
+        return redirect(reverse('admin:%s_%s_%s' % (model._meta.app_label, model_name, 'changelist')) + url)

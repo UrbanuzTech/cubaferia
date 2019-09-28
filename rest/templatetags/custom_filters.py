@@ -151,3 +151,8 @@ def to_cuc(value):
 @register.filter(name='remove')
 def remove(value, text_to_replace):
     return str(value).replace('/' + text_to_replace, '')
+
+
+@register.filter(name='get_item')
+def get_item(value, item):
+    return value[item]
