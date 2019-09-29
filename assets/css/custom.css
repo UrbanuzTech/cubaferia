@@ -16,3 +16,22 @@
 .margin-l-5 {
     margin-left: 5px !important;
 }
+
+.demo-gallery a {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
+    display: block;
+    float: left;
+    margin: 0 0 0 0 !important;
+    width: 171px;
+    line-height: 0;
+}
+
+.main-image {
+    border-bottom: 10px white solid;
+}
+
+.other-image {
+    border-right: 3px solid white !important;
+    border-left: 3px solid white !important;
+}

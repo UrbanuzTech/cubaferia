@@ -1,11 +1,7 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_urls static admin_list custom_filters %}
+{% load i18n admin_urls staticfiles admin_list custom_filters %}
 
 {% block title %}
-    {% trans 'details of '|capfirst %} {{ obj }}
-{% endblock %}
-
-{% block content_title %}
     {% trans 'details of '|capfirst %} {{ obj }}
 {% endblock %}
 
@@ -17,116 +13,146 @@
 {% endblock %}
 
 {% block content %}
+    <link href="{% static 'plugins/gallery/css/site.css' %}" rel="stylesheet">
+    <link href="{% static 'plugins/gallery/css/photoswipe.css' %}" rel="stylesheet">
+    <link href="{% static 'plugins/gallery/css/default-skin.css' %}" rel="stylesheet">
     <div class="box box-primary">
         <div class="box-body">
             <div class="row">
-                <div class="col-md-12">
-                    <h1 class="pull-right">
-                        <b>$ {{ obj.price|to_cuc }}</b>
+                <div class="col-md-9">
+                    <h1>
+                        <b>{{ obj.title }}</b>
+                        <br>
+                        <small>{{ obj.category }}</small>
+                        <br>
+                        <small>
+                            <span style="font-size: 11px;">
+                                <i class="fa fa-calendar margin-r-5"></i> {{ obj.created_at|date:'SHORT_DATE_FORMAT' }}
+                            </span>
+                            <span style="font-size: 11px;">
+                                <i class="fa fa-clock-o margin-r-5 margin-l-5"></i> {{ obj.created_at|date:'TIME_FORMAT' }}
+                            </span>
+                            <span style="font-size: 11px;">
+                                / <i class="fa fa-user margin-r-5 margin-l-5"></i>
+                                <b>{% trans 'published by'|capfirst %}:</b>
+                                 {{ obj.created_by }}
+                            </span>
+                        </small>
                     </h1>
                 </div>
-                {% if obj.main_image %}
-                    <div class="col-md-5"></div>
-                    <div class="col-md-2">
-                        <img src="{{ MEDIA_URL }}{{ obj.get_main_image }}" alt="" class="img-responsive">
+                <div class="col-md-3">
+                    <h1 class="pull-right">
+                        <b>$ {{ obj.price|to_cuc_empty }}</b>
+                    </h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="col-md-12">
+                        <span class="pull-right">
+                            <i class="fa fa-star text-orange"></i>
+                            <b>{% trans 'visits'|capfirst %}:</b> {{ obj.visit_count }}
+                        </span>
                     </div>
-                    <div class="col-md-5"></div>
-                {% endif %}
-                <div class="col-md-12">
-                    <table class="table table-bordered" style="margin-top: 15px;">
-                        <tr>
-                            <th>{% trans 'title'|capfirst %}</th>
-                            <td>{{ obj.title }}</td>
-                        </tr>
-                        <tr>
-                            <th>{% trans 'category'|capfirst %}</th>
-                            <td>{{ obj.category }}</td>
-                        </tr>
-                        <tr>
-                            <th>{% trans 'city'|capfirst %}</th>
-                            <td>{{ obj.city }}</td>
-                        </tr>
-                        <tr>
-                            <th>{% trans 'contact name'|capfirst %}</th>
-                            <td>{{ obj.contact_name|show_value|safe }}</td>
-                        </tr>
-                        <tr>
-                            <th>{% trans 'phones'|capfirst %}</th>
-                            <td>
-                                {% if obj.phones %}
-                                    <ul class="text-left">
-                                        {% for item in obj.phones %}
-                                            <li>{{ item }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                {% else %}
-                                    {{ obj.phones|show_value|safe }}
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>{% trans 'e-mails'|capfirst %}</th>
-                            <td>
-                                {% if obj.emails %}
-                                    <ul class="text-left">
-                                        {% for item in obj.emails %}
-                                            <li>{{ item }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                {% else %}
-                                    {{ obj.phones|show_value|safe }}
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>{% trans 'address'|capfirst %}</th>
-                            <td>{{ obj.address|show_value|safe }}</td>
-                        </tr>
-                        <tr>
-                            <th>{% trans 'description'|capfirst %}</th>
-                            <td>{{ obj.description|show_value|safe }}</td>
-                        </tr>
-                        <tr>
-                            <th>{% trans 'created by'|capfirst %}</th>
-                            <td>{{ obj.created_by }}</td>
-                        </tr>
-                        <tr>
-                            <th>{% trans 'created at'|capfirst %}</th>
-                            <td>{{ obj.created_at|date:'SHORT_DATETIME_FORMAT' }}</td>
-                        </tr>
-                        <tr>
-                            <th>{% trans 'visit count'|capfirst %}</th>
-                            <td>{{ obj.visit_count }}</td>
-                        </tr>
-                        <tr>
-                            <th>{% trans 'images'|capfirst %}</th>
-                            <td class="text-center">
-                                {% if not obj.image1 and not obj.image2 and not obj.image3 %}
-                                    {{ ''|show_value|safe }}
-                                {% else %}
-                                    <div class="row">
-                                        {% if obj.image1 %}
-                                            <div class="col-md-4">
-                                                <img src="{{ MEDIA_URL }}{{ obj.get_image1 }}" alt=""
-                                                     class="img-responsive">
-                                            </div>
-                                        {% endif %}
-                                        {% if obj.image2 %}
-                                            <div class="col-md-4">
-                                                <img src="{{ MEDIA_URL }}{{ obj.get_image2 }}" alt=""
-                                                     class="img-responsive">
-                                            </div>
-                                        {% endif %}
-                                        {% if obj.image3 %}
-                                            <div class="col-md-4">
-                                                <img src="{{ MEDIA_URL }}{{ obj.get_image3 }}" alt=""
-                                                     class="img-responsive">
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                {% endif %}
-                            </td>
-                        </tr>
+                    {{ obj.description|show_value|safe }}
+                    <div class="row" style="margin-top: 100px !important;">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            {% if not obj.image1 and not obj.image2 and not obj.image3 %}
+                                {{ ''|show_value|safe }}
+                            {% else %}
+                                <div id="demo-test-gallery" class="demo-gallery" data-pswp-uid="1"
+                                     style="text-align: center">
+                                    {% if obj.image1 %}
+                                        <a href="{{ MEDIA_URL }}{{ obj.get_image1 }}"
+                                           data-size="1024x768"
+                                           data-med="{{ MEDIA_URL }}{{ obj.get_image1 }}"
+                                           data-med-size="1024x768"
+                                           data-author="Cubaferia"
+                                           class="demo-gallery__img--main text-center main-image" style="width: 99.9%">
+                                            <img src="{{ MEDIA_URL }}{{ obj.get_image1 }}" alt="">
+                                        </a>
+                                    {% endif %}
+                                    {% if obj.image1 %}
+                                        <a href="{{ MEDIA_URL }}{{ obj.get_image1 }}"
+                                           data-size="1024x768"
+                                           data-med="{{ MEDIA_URL }}{{ obj.get_image1 }}"
+                                           data-med-size="1024x768"
+                                           data-author="Cubaferia"
+                                           class="demo-gallery__img--main other-image" style="width: 33.3%">
+                                            <img src="{{ MEDIA_URL }}{{ obj.get_image1 }}" alt="">
+                                        </a>
+                                    {% endif %}
+                                    {% if obj.image2 %}
+                                        <a href="{{ MEDIA_URL }}{{ obj.get_image2 }}"
+                                           data-size="1024x768"
+                                           data-med="{{ MEDIA_URL }}{{ obj.get_image2 }}"
+                                           data-med-size="1024x768"
+                                           data-author="Cubaferia"
+                                           class="demo-gallery__img--main other-image" style="width: 33.3%">
+                                            <img src="{{ MEDIA_URL }}{{ obj.get_image2 }}" alt="">
+                                        </a>
+                                    {% endif %}
+                                    {% if obj.image3 %}
+                                        <a href="{{ MEDIA_URL }}{{ obj.get_image3 }}"
+                                           data-size="1024x768"
+                                           data-med="{{ MEDIA_URL }}{{ obj.get_image3 }}"
+                                           data-med-size="1024x768"
+                                           data-author="Cubaferia"
+                                           class="demo-gallery__img--main other-image" style="width: 33.3%">
+                                            <img src="{{ MEDIA_URL }}{{ obj.get_image3 }}" alt="">
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h3>{% trans 'contact info'|capfirst %}</h3>
+                    <table class="table table-bordered">
+                        {% if obj.contact_name %}
+                            <tr>
+                                <td>
+                                    <i class="fa fa-address-card margin-r-5"></i> {{ obj.contact_name }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if obj.phones %}
+                            <tr>
+                                <td>
+                                    {% for item in obj.phones %}
+                                        <i class="fa fa-phone margin-r-5"></i> {{ item }} <br>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if obj.emails %}
+                            <tr>
+                                <td>
+                                    {% for item in obj.emails %}
+                                        <i class="fa fa-at margin-r-5"></i>
+                                        <a href="mailto://{{ item }}">{{ item }}</a>
+                                        <br>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if obj.address %}
+                            <tr>
+                                <td>
+                                    <i class="fa fa-map-signs margin-r-5"></i> {{ obj.address }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if obj.city %}
+                            <tr>
+                                <td>
+                                    &nbsp;<i class="fa fa-map-marker" style="margin-right: 6px;"></i> {{ obj.city }}
+                                </td>
+                            </tr>
+                        {% endif %}
                     </table>
                 </div>
             </div>
@@ -139,4 +165,86 @@
             </div>
         </div>
     </div>
+    <div id="gallery" class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="pswp__bg"></div>
+
+        <div class="pswp__scroll-wrap">
+
+            <div class="pswp__container" style="transform: translate3d(-6411px, 0px, 0px);">
+                <div class="pswp__item" style="display: block; transform: translate3d(4274px, 0px, 0px);">
+                    <div class="pswp__zoom-wrap" style="transform: translate3d(362px, 44px, 0px) scale(1);"><img
+                            class="pswp__img pswp__img--placeholder"
+                            src="{% static 'img/avatar_default.png' %}"
+                            style="width: 1185px; height: 790px; display: none;">
+                        <img class="pswp__img"
+                             src="{% static 'img/avatar_default.png' %}"
+                             style="width: 1185px; height: 790px;">
+                    </div>
+                </div>
+                <div class="pswp__item" style="transform: translate3d(6411px, 0px, 0px);">
+                    <div class="pswp__zoom-wrap" style="transform: translate3d(1019px, 365px, 0px) scale(0.144349);">
+                        <img class="pswp__img pswp__img--placeholder"
+                             src="{% static 'img/avatar_default.png' %}"
+                             style="width: 1185px; height: 790px; display: none;">
+                        <img class="pswp__img"
+                             src="{% static 'img/avatar_default.png' %}"
+                             style="width: 1185px; height: 790px;">
+                    </div>
+                </div>
+                <div class="pswp__item" style="transform: translate3d(6411px, 0px, 0px);">
+                    <div class="pswp__zoom-wrap" style="transform: translate3d(1019px, 365px, 0px) scale(0.144349);">
+                        <img class="pswp__img pswp__img--placeholder"
+                             src="{% static 'img/avatar_default.png' %}"
+                             style="width: 1185px; height: 790px; display: none;">
+                        <img class="pswp__img"
+                             src="{% static 'img/avatar_default.png' %}"
+                             style="width: 1185px; height: 790px;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__ui pswp__ui--fit pswp__ui--hidden">
+
+                <div class="pswp__top-bar">
+
+                    <div class="pswp__counter">5 / 5</div>
+
+                    <button class="pswp__button pswp__button--close fa fa-close"
+                            title="{% trans 'close'|capfirst %} (Esc)"></button>
+
+                    <button class="pswp__button pswp__button--share fa fa-share"
+                            title="{% trans 'share'|capfirst %}"></button>
+
+                    <button class="pswp__button pswp__button--fs fa fa-desktop"
+                            title="{% trans 'toggle fullscreen'|capfirst %}"></button>
+
+                    <button class="pswp__button pswp__button--zoom fa fa-arrows-alt"
+                            title="{% trans 'Zoom in/out' %}"></button>
+
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip">
+                    </div>
+                </div>
+
+                <button class="pswp__button pswp__button--arrow--left" style="color: white !important;"
+                        title="{% trans 'preview'|capfirst %}"></button>
+                <button class="pswp__button pswp__button--arrow--right" title="{% trans 'next'|capfirst %}"></button>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"><br></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'plugins/gallery/js/script.js' %}"></script>
+    <script src="{% static 'plugins/gallery/js/photoswipe.js' %}"></script>
+    <script src="{% static 'plugins/gallery/js/photoswipe-ui-default.js' %}"></script>
 {% endblock %}
