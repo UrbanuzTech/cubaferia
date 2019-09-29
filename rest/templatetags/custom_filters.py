@@ -7,6 +7,7 @@ from django.utils.safestring import mark_safe
 
 from rest.models import Announcement, Nomenclature
 from rest.models.announcement import Event
+from django.utils.translation import gettext_lazy as _
 
 register = Library()
 
@@ -37,9 +38,9 @@ def model_info(model):
         'Nomenclature': Nomenclature.objects.count()
     }
     return {
-        'icon': icons[model['object_name']] if model['object_name'] in icons else 'circle-o',
-        'color': colors[model['object_name']] if model['object_name'] in colors else 'blue',
-        'count': counts[model['object_name']] if model['object_name'] in counts else '0',
+        'icon': icons[model] if model in icons else 'circle-o',
+        'color': colors[model] if model in colors else 'blue',
+        'count': counts[model] if model in counts else '0',
     }
 
 
@@ -124,3 +125,29 @@ def can_crud(model):
     if model.model is LogEntry:
         return False
     return True
+
+
+@register.filter(name='show_value')
+def show_value(value):
+    tag = value
+    if value is None or value == '' or not value:
+        tag = '<span class="text-danger"><b>%s</b></span>' % _('no records').capitalize()
+    elif type(value) is bool:
+        if value:
+            tag = '<span class="text-center label label-primary" style="padding-top: 5px;">Yes</span>'
+        else:
+            tag = '<span class="text-center label label-danger" style="padding-top: 5px;">No</span>'
+    return tag
+
+
+@register.filter(name='to_cuc')
+def to_cuc(value):
+    if not value:
+        return '0.00 CUC'
+    else:
+        return str('{0:.2f}'.format(value)) + ' CUC'
+
+
+@register.filter(name='remove')
+def remove(value, text_to_replace):
+    return str(value).replace('/' + text_to_replace, '')

@@ -1,0 +1,18 @@
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 28px;
+    margin-top: -7px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+    list-style: none;
+    color: black;
+}
+
+.select2-container {
+    min-width: 200px;
+}
+
+.margin-l-5 {
+    margin-left: 5px !important;
+}

@@ -1,0 +1,126 @@
+{% load i18n %}
+{% load custom_filters %}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="pull-left">
+            {% if obj.allow_children %}
+                <b>{% trans 'children'|capfirst %}: $ {{ obj.price_for_children|to_cuc }}</b>
+            {% endif %}
+        </h1>
+        <h1 class="pull-right">
+            <b>{% trans 'adults'|capfirst %}: $ {{ obj.price_for_adults|to_cuc }}</b>
+        </h1>
+    </div>
+    {% if obj.main_image %}
+        <div class="col-md-5"></div>
+        <div class="col-md-2">
+            <img src="{{ MEDIA_URL }}{{ obj.get_main_image }}" alt="" class="img-responsive">
+        </div>
+        <div class="col-md-5"></div>
+    {% endif %}
+    <div class="col-md-12">
+        <table class="table table-bordered" style="margin-top: 15px;">
+            <tr>
+                <th>{% trans 'title'|capfirst %}</th>
+                <td>{{ obj.title }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'dates'|capfirst %}</th>
+                <td>{{ obj.start_date|date:'SHORT_DATETIME_FORMAT' }}
+                    - {{ obj.end_date|date:'SHORT_DATETIME_FORMAT' }}
+                </td>
+            </tr>
+            <tr>
+                <th>{% trans 'allow children'|capfirst %}</th>
+                <td>{{ obj.allow_children|show_value|safe }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'category'|capfirst %}</th>
+                <td>{{ obj.category }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'city'|capfirst %}</th>
+                <td>{{ obj.city }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'contact name'|capfirst %}</th>
+                <td>{{ obj.contact_name|show_value|safe }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'phones'|capfirst %}</th>
+                <td>
+                    {% if obj.phones %}
+                        <ul class="text-left">
+                            {% for item in obj.phones %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {{ obj.phones|show_value|safe }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>{% trans 'e-mails'|capfirst %}</th>
+                <td>
+                    {% if obj.emails %}
+                        <ul class="text-left">
+                            {% for item in obj.emails %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {{ obj.phones|show_value|safe }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>{% trans 'address'|capfirst %}</th>
+                <td>{{ obj.address|show_value|safe }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'description'|capfirst %}</th>
+                <td>{{ obj.description|show_value|safe }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'created by'|capfirst %}</th>
+                <td>{{ obj.created_by }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'created at'|capfirst %}</th>
+                <td>{{ obj.created_at|date:'SHORT_DATETIME_FORMAT' }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'visit count'|capfirst %}</th>
+                <td>{{ obj.visit_count }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'images'|capfirst %}</th>
+                <td class="text-center">
+                    {% if not obj.image1 and not obj.image2 and not obj.image3 %}
+                        {{ ''|show_value|safe }}
+                    {% else %}
+                        <div class="row">
+                            {% if obj.image1 %}
+                                <div class="col-md-4">
+                                    <img src="{{ MEDIA_URL }}{{ obj.get_image1 }}" alt="" class="img-responsive">
+                                </div>
+                            {% endif %}
+                            {% if obj.image2 %}
+                                <div class="col-md-4">
+                                    <img src="{{ MEDIA_URL }}{{ obj.get_image2 }}" alt="" class="img-responsive">
+                                </div>
+                            {% endif %}
+                            {% if obj.image3 %}
+                                <div class="col-md-4">
+                                    <img src="{{ MEDIA_URL }}{{ obj.get_image3 }}" alt="" class="img-responsive">
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

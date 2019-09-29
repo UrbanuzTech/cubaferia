@@ -60,6 +60,16 @@
                     {% endfor %}
                     {% if cl.opts|can_crud %}
                         <td>
+{#                            <a style="cursor: pointer;" onclick="details_item('{{ forloop.counter }}')"#}
+{#                               class="margin-r-5"#}
+{#                               title="{% trans 'details'|capfirst %}">#}
+{#                                <i class="fa fa-eye" style="font-size: 14px;"></i>#}
+{#                            </a>#}
+                            <a style="cursor: pointer;" onclick="reinsert_item('{{ forloop.counter }}')"
+                               class="btn-reinsert margin-r-5"
+                               title="{% trans 're-upload'|capfirst %}">
+                                <i class="fa fa-refresh text-green" style="font-size: 14px;"></i>
+                            </a>
                             <a style="cursor: pointer;" onclick="edit_item('{{ forloop.counter }}')"
                                class="btn-edit margin-r-5"
                                title="{% trans 'Edit' %}">
@@ -99,6 +109,34 @@
                     }
                     window.location.href = url;
                 {% endwith %}
+            }
+
+            function reinsert_item(index) {
+                {% with cl.opts|admin_urlname:'change' as change_url %}
+                    let pk = $($($($('#table-results').find('tr')[parseInt(index)]).find('td'))[0]).find('input[type=checkbox]').val();
+                    let url = '/admin/reinsert/' + '{{ cl.opts.model_name }}' + '/' + pk;
+                    if (window.location.search) {
+                        url += '?_changelist_filters=' + window.location.search.replace('?', '');
+                    }
+                    window.location.href = url;
+                {% endwith %}
+            }
+
+            function details_item(index) {
+                let pk = $($($($('#table-results').find('tr')[parseInt(index)]).find('td'))[0]).find('input[type=checkbox]').val();
+                let url = '/admin/details/' + '{{ cl.opts.model_name }}' + '/' + pk;
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function (data) {
+                        let $modal = $('#modal-details');
+                        $modal.find('.modal-body').html(data);
+                        $modal.modal('toggle');
+                    },
+                    error: function () {
+
+                    }
+                })
             }
         </script>
     {% endif %}

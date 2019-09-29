@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load custom_filters %}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <tr>
+                <th>{% trans 'name'|capfirst %}</th>
+                <td>{{ obj.name }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'permissions'|capfirst %}</th>
+                <td>
+                    {% if obj.permissions.all %}
+                        <ul class="text-left">
+                            {% for item in obj.permissions.all %}
+                                <li>{{ item.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {{ obj.permissions.all|show_value|safe }}
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

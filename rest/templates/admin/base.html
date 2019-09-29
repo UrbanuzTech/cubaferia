@@ -1,4 +1,6 @@
 {% extends 'admin/base.html' %}
+{% load i18n %}
+{% load staticfiles %}
 
 {% block extrastyle %}
     <style>
@@ -12,6 +14,23 @@
             height: 80px;
         }
     </style>
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 {% endblock %}
 
 {% block bodyclass %}hold-transition skin-blue fixed sidebar-mini{% endblock %}
+
+{% block content_header %}
+    {% block breadcrumbs %}
+        <ol class="breadcrumb">
+            <li><a href="{% url 'admin:index' %}"><i class="fa fa-dashboard"></i> {% trans 'Home' %}</a></li>
+            {% if title %} &rsaquo; {{ title }}{% endif %}
+        </ol>
+    {% endblock %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            {% block pretitle %}{% endblock %}
+            {% block content_title %}{% if title %}{{ title }}{% endif %}{% endblock %}
+        </h1>
+    </section>
+{% endblock %}

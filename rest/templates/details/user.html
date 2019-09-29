@@ -1,0 +1,115 @@
+{% load i18n %}
+{% load custom_filters %}
+
+<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-2">
+        <img src="{{ MEDIA_URL }}{{ obj.get_avatar }}" alt="" class="img-responsive">
+    </div>
+    <div class="col-md-5"></div>
+    <div class="col-md-12">
+        <table class="table table-bordered" style="margin-top: 15px;">
+            <tr>
+                <th>{% trans 'full name'|capfirst %}</th>
+                <td>{{ obj.get_full_name|show_value|safe }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'username'|capfirst %}</th>
+                <td>{{ obj.username }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'gender'|capfirst %}</th>
+                <td>{{ obj.gender|show_value|safe }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'address'|capfirst %}</th>
+                <td>{{ obj.address|show_value|safe }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'nationality'|capfirst %}</th>
+                <td>{{ obj.nationality|show_value|safe }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'is active'|capfirst %}</th>
+                <td>{{ obj.is_active|show_value|safe }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'is superuser'|capfirst %}</th>
+                <td>{{ obj.is_superuser|show_value|safe }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'is staff'|capfirst %}</th>
+                <td>{{ obj.is_staff|show_value|safe }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'allow notifications'|capfirst %}</th>
+                <td>{{ obj.allow_notifications|show_value|safe }}</td>
+            </tr>
+            <tr>
+                <th>{% trans 'phones'|capfirst %}</th>
+                <td>
+                    {% if obj.phones %}
+                        <ul class="text-left">
+                            {% for item in obj.phones %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {{ obj.phones|show_value|safe }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>{% trans 'e-mails'|capfirst %}</th>
+                <td>
+                    {% if obj.emails %}
+                        <ul class="text-left">
+                            {% for item in obj.emails %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {{ obj.phones|show_value|safe }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>{% trans 'groups'|capfirst %}</th>
+                <td>
+                    {% if obj.groups.all %}
+                        <ul class="text-left">
+                            {% for item in obj.groups.all %}
+                                <li>{{ item.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {{ obj.groups.all|show_value|safe }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>{% trans 'permissions'|capfirst %}</th>
+                <td>
+                    {% if obj.permissions.all %}
+                        <ul class="text-left">
+                            {% for item in obj.permissions.all %}
+                                <li>{{ item.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {{ obj.permissions.all|show_value|safe }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>{% trans 'last login'|capfirst %}</th>
+                <td>{{ obj.last_login|date:'SHORT_DATETIME_FORMAT' }}</td>
+            </tr>
+
+            <tr>
+                <th>{% trans 'date joined'|capfirst %}</th>
+                <td>{{ obj.date_joined|date:'SHORT_DATETIME_FORMAT' }}</td>
+            </tr>
+        </table>
+    </div>
+</div>

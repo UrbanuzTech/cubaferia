@@ -7,12 +7,14 @@
 {% endblock %}
 
 {% block extrastyle %}{{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}">{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}">
+    <link rel="stylesheet" href="{% static 'admin/css/vendor/select2/select2.min.css' %}">
+{% endblock %}
+
 
 {% block coltype %}colM{% endblock %}
 
 {% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
-
 {% block content %}
     <div class="row">
         <div class="col-md-12">
@@ -79,7 +81,10 @@
         </div>
     </div>
     <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'admin/js/vendor/select2/select2.full.min.js' %}"></script>
     <script>
+        let $select = $('select');
+        $select.not('[multiple]').select2();
         $('input,textarea').keyup(function () {
             let $field = $(this).parents('.form-row');
             if ($(this).val()) {
@@ -91,7 +96,7 @@
             }
         });
 
-        $('select').change(function () {
+        $select.change(function () {
             let $field = $(this).parents('.form-row');
             if ($(this).val()) {
                 $field.removeClass('errors');
@@ -101,5 +106,25 @@
                 $field.find('.errorlist').show();
             }
         });
+
+        let $allow_children = $('#id_allow_children');
+        let $price_for_children = $('#id_price_for_children');
+        if ($price_for_children.length && $allow_children.length) {
+            if ($allow_children.is(':checked')) {
+                $price_for_children.prop('disabled', false);
+            } else {
+                $price_for_children.prop('disabled', true);
+                $price_for_children.val('');
+            }
+            $allow_children.change(function () {
+                if ($(this).is(':checked')) {
+                    $price_for_children.prop('disabled', false);
+                } else {
+                    $price_for_children.prop('disabled', true);
+                    $price_for_children.val('');
+                }
+            });
+        }
+
     </script>
 {% endblock %}
