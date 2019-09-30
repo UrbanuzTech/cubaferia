@@ -12,7 +12,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
 from django.views.generic.base import View
 
-from rest.filters import ContainsFieldListFilter
+from rest.filters import ContainsFieldListFilter, StartFieldFilter, EndFieldFilter
 from rest.forms.event import EventAdminForm
 from rest.forms.widgets import DynamicArrayWidget
 from rest.models import Nomenclature, Announcement
@@ -64,9 +64,13 @@ class UserAdmin(admin.ModelAdmin):
         ('username', ContainsFieldListFilter),
         ('first_name', ContainsFieldListFilter),
         ('last_name', ContainsFieldListFilter),
+        'nationality',
         'is_staff',
         'is_active',
-        'is_superuser'
+        'is_superuser',
+        'allow_notifications',
+        ('date_joined', StartFieldFilter),
+        ('date_joined', EndFieldFilter),
     )
     fieldsets = (
         (None, {'fields': ('username', 'password')}),

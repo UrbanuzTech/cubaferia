@@ -1,4 +1,4 @@
-from django.contrib.admin import FieldListFilter
+from django.contrib.admin import FieldListFilter, DateFieldListFilter
 from django.contrib.admin.utils import reverse_field_path
 from django.utils.translation import gettext_lazy as _
 
@@ -45,3 +45,43 @@ class ContainsFieldListFilter(FieldListFilter):
                 'query_string': changelist.get_query_string({self.lookup_kwarg_isnull: 'True'}, [self.lookup_kwarg]),
                 'display': self.empty_value_display,
             }
+
+
+class StartFieldFilter(DateFieldListFilter):
+    def __init__(self, field, request, params, model, model_admin, field_path):
+        self.lookup_kwarg = '%s__gte' % field_path
+        self.lookup_kwarg_isnull = '%s__isnull' % field_path
+        self.lookup_val = params.get(self.lookup_kwarg)
+        self.lookup_val_isnull = params.get(self.lookup_kwarg_isnull)
+        self.empty_value_display = model_admin.get_empty_value_display()
+        parent_model, reverse_path = reverse_field_path(model, field_path)
+        # Obey parent ModelAdmin queryset when deciding which options to show
+        if model == parent_model:
+            queryset = model_admin.get_queryset(request)
+        else:
+            queryset = parent_model._default_manager.all()
+        self.lookup_choices = queryset.distinct().order_by(field.name).values_list(field.name, flat=True)
+        super().__init__(field, request, params, model, model_admin, field_path)
+
+    def expected_parameters(self):
+        return [self.lookup_kwarg, self.lookup_kwarg_isnull]
+
+
+class EndFieldFilter(DateFieldListFilter):
+    def __init__(self, field, request, params, model, model_admin, field_path):
+        self.lookup_kwarg = '%s__lte' % field_path
+        self.lookup_kwarg_isnull = '%s__isnull' % field_path
+        self.lookup_val = params.get(self.lookup_kwarg)
+        self.lookup_val_isnull = params.get(self.lookup_kwarg_isnull)
+        self.empty_value_display = model_admin.get_empty_value_display()
+        parent_model, reverse_path = reverse_field_path(model, field_path)
+        # Obey parent ModelAdmin queryset when deciding which options to show
+        if model == parent_model:
+            queryset = model_admin.get_queryset(request)
+        else:
+            queryset = parent_model._default_manager.all()
+        self.lookup_choices = queryset.distinct().order_by(field.name).values_list(field.name, flat=True)
+        super().__init__(field, request, params, model, model_admin, field_path)
+
+    def expected_parameters(self):
+        return [self.lookup_kwarg, self.lookup_kwarg_isnull]

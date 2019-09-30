@@ -3,7 +3,13 @@
 <h3>
     {% trans 'by'|capfirst %} {% trans title %}
 </h3>
-{% if spec|klass != 'ContainsFieldListFilter' %}
+{% if spec|klass == 'StartFieldFilter' %}
+    <input type="text" class="form-control" name="{{ spec.lookup_kwarg }}"
+           value="{% if spec.lookup_val %}{{ spec.lookup_val }}{% endif %}">
+{% elif spec|klass == 'EndFieldFilter' %}
+    <input type="text" class="form-control" name="{{ spec.lookup_kwarg }}"
+           value="{% if spec.lookup_val %}{{ spec.lookup_val }}{% endif %}">
+{% elif spec|klass != 'ContainsFieldListFilter' %}
     <select name="{{ spec.lookup_kwarg }}" class="form-control">
         <option value="">{% trans 'all'|capfirst %}</option>
         {% if spec|klass == 'BooleanFieldListFilter' %}
