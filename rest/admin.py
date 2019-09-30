@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib import admin, messages
 from django.contrib.admin.models import LogEntry
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
@@ -80,6 +81,11 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ('first_name', 'last_name', 'username')
     filter_horizontal = ('groups', 'user_permissions',)
 
+    def get_readonly_fields(self, request, obj=None):
+        if obj is not None:
+            return 'password',
+        return self.readonly_fields
+
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'nationality':
             kwargs['queryset'] = Nomenclature.get_by_type(COUNTRY)
@@ -90,6 +96,8 @@ class UserAdmin(admin.ModelAdmin):
             kwargs['widget'] = DynamicArrayWidget(size=3)
         if db_field.name == 'emails':
             kwargs['widget'] = DynamicArrayWidget(size=3)
+        if db_field.name == 'password':
+            kwargs['widget'] = forms.PasswordInput()
         return super().formfield_for_dbfield(db_field, request, **kwargs)
 
     def save_model(self, request, obj, form, change):
@@ -97,7 +105,8 @@ class UserAdmin(admin.ModelAdmin):
             obj.phones = None
         if obj.emails == [None]:
             obj.emails = None
-        obj.password = make_password(obj.password)
+        if not obj.pk:
+            obj.password = make_password(obj.password)
         return super().save_model(request, obj, form, change)
 
 
