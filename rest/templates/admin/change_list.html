@@ -183,6 +183,7 @@
             </div>
         </div>
     </div>
+    <script src="{% static 'plugins/bootstrap-datepicker/distribution/js/bootstrap-datepicker.min.js' %}"></script>
     <script>
         function filter() {
             let $form = $('#filter-form');
@@ -205,6 +206,10 @@
 
         document.onreadystatechange = function () {
             if (document.readyState === 'complete') {
+                $('.datepicker').datepicker({
+                    autoclose: true,
+                    dateFormat: 'yy-mm-dd'
+                });
                 let $actions = $('.action-select');
                 let $delete_btn = $('#delete-selected');
                 let $upload_btn = $('#reinsert-item');

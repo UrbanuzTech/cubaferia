@@ -2,16 +2,31 @@
 {% load custom_filters adminlte_helpers %}
 <h3>
     {% trans 'by'|capfirst %} {% trans title %}
+    {% if spec|klass == 'StartFieldFilter' or spec|klass == 'StartDateFieldFilter' %}
+        (&ge;)
+    {% elif spec|klass == 'EndFieldFilter' or spec|klass == 'EndDateFieldFilter' %}
+        (&le;)
+    {% endif %}
 </h3>
 {% if spec|klass == 'StartFieldFilter' %}
     <input type="text" class="form-control" name="{{ spec.lookup_kwarg }}"
+           placeholder="{% trans 'greater or equal than'|capfirst %}..."
+           value="{% if spec.lookup_val %}{{ spec.lookup_val }}{% endif %}">
+{% elif spec|klass == 'StartDateFieldFilter' %}
+    <input type="text" class="form-control datepicker" name="{{ spec.lookup_kwarg }}"
+           placeholder="{% trans 'greater or equal than'|capfirst %}..."
            value="{% if spec.lookup_val %}{{ spec.lookup_val }}{% endif %}">
 {% elif spec|klass == 'EndFieldFilter' %}
     <input type="text" class="form-control" name="{{ spec.lookup_kwarg }}"
-           value="{% if spec.lookup_val %}{{ spec.lookup_val }}{% endif %}">
+           value="{% if spec.lookup_val %}{{ spec.lookup_val }}{% endif %}"
+           placeholder="{% trans 'less or equal than'|capfirst %}...">
+{% elif spec|klass == 'EndDateFieldFilter' %}
+    <input type="text" class="form-control datepicker" name="{{ spec.lookup_kwarg }}"
+           value="{% if spec.lookup_val %}{{ spec.lookup_val }}{% endif %}"
+           placeholder="{% trans 'less or equal than'|capfirst %}...">
 {% elif spec|klass != 'ContainsFieldListFilter' %}
     <select name="{{ spec.lookup_kwarg }}" class="form-control">
-        <option value="">{% trans 'all'|capfirst %}</option>
+        <option value="">----------</option>
         {% if spec|klass == 'BooleanFieldListFilter' %}
             <option value="1"
                     {% if spec.lookup_val|striptags == '1' %}selected{% endif %}> {% trans 'yes'|capfirst %}</option>
@@ -40,5 +55,6 @@
     </select>
 {% else %}
     <input type="text" class="form-control" name="{{ spec.lookup_kwarg }}"
-           value="{% if spec.lookup_val %}{{ spec.lookup_val }}{% endif %}">
+           value="{% if spec.lookup_val %}{{ spec.lookup_val }}{% endif %}"
+           placeholder="{% trans 'contains'|capfirst %}">
 {% endif %}

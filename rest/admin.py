@@ -12,7 +12,8 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
 from django.views.generic.base import View
 
-from rest.filters import ContainsFieldListFilter, StartFieldFilter, EndFieldFilter
+from rest.filters import ContainsFieldListFilter, StartFieldFilter, EndFieldFilter, StartDateFieldFilter, \
+    EndDateFieldFilter
 from rest.forms.event import EventAdminForm
 from rest.forms.widgets import DynamicArrayWidget
 from rest.models import Nomenclature, Announcement
@@ -132,6 +133,10 @@ class AnnouncementAdmin(admin.ModelAdmin):
     list_filter = (
         ('title', ContainsFieldListFilter),
         'city',
+        ('price', StartFieldFilter),
+        ('price', EndFieldFilter),
+        ('created_at', StartDateFieldFilter),
+        ('created_at', EndDateFieldFilter),
         'category',
         'created_by'
     )
@@ -170,6 +175,17 @@ class EventAdmin(admin.ModelAdmin):
         ('title', ContainsFieldListFilter),
         'city',
         'category',
+        'allow_children',
+        ('start_date', StartDateFieldFilter),
+        ('start_date', EndDateFieldFilter),
+        ('end_date', StartDateFieldFilter),
+        ('end_date', EndDateFieldFilter),
+        ('price_for_adults', StartFieldFilter),
+        ('price_for_adults', EndFieldFilter),
+        ('price_for_children', StartFieldFilter),
+        ('price_for_children', EndFieldFilter),
+        ('created_at', StartDateFieldFilter),
+        ('created_at', EndDateFieldFilter),
         'created_by',
         'allow_children'
     )

@@ -69,8 +69,8 @@ class StartFieldFilter(DateFieldListFilter):
 
 class EndFieldFilter(DateFieldListFilter):
     def __init__(self, field, request, params, model, model_admin, field_path):
-        self.lookup_kwarg = '%s__lte' % field_path
-        self.lookup_kwarg_isnull = '%s__isnull' % field_path
+        self.lookup_kwarg = '%s__date__lte' % field_path
+        self.lookup_kwarg_isnull = '%s__date__isnull' % field_path
         self.lookup_val = params.get(self.lookup_kwarg)
         self.lookup_val_isnull = params.get(self.lookup_kwarg_isnull)
         self.empty_value_display = model_admin.get_empty_value_display()
@@ -85,3 +85,11 @@ class EndFieldFilter(DateFieldListFilter):
 
     def expected_parameters(self):
         return [self.lookup_kwarg, self.lookup_kwarg_isnull]
+
+
+class StartDateFieldFilter(StartFieldFilter):
+    pass
+
+
+class EndDateFieldFilter(EndFieldFilter):
+    pass
