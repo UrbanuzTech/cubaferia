@@ -63,14 +63,14 @@
                             {% else %}
                                 <div id="demo-test-gallery" class="demo-gallery" data-pswp-uid="1"
                                      style="text-align: center">
-                                    {% if obj.image1 %}
-                                        <a href="{{ MEDIA_URL }}{{ obj.get_image1 }}"
+                                    {% if obj.main_image %}
+                                        <a href="{{ MEDIA_URL }}{{ obj.get_main_image }}"
                                            data-size="1024x768"
-                                           data-med="{{ MEDIA_URL }}{{ obj.get_image1 }}"
+                                           data-med="{{ MEDIA_URL }}{{ obj.get_main_image }}"
                                            data-med-size="1024x768"
                                            data-author="Cubaferia"
                                            class="demo-gallery__img--main text-center main-image" style="width: 99.9%">
-                                            <img src="{{ MEDIA_URL }}{{ obj.get_image1 }}" alt="">
+                                            <img src="{{ MEDIA_URL }}{{ obj.get_main_image }}" alt="">
                                         </a>
                                     {% endif %}
                                     {% if obj.image1 %}
