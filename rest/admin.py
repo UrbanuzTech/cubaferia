@@ -103,6 +103,8 @@ class UserAdmin(admin.ModelAdmin):
             kwargs['widget'] = DynamicArrayWidget(size=3)
         if db_field.name == 'password':
             kwargs['widget'] = forms.PasswordInput()
+        if db_field.name == 'avatar':
+            kwargs['widget'] = FileUploadWidget()
         return super().formfield_for_dbfield(db_field, request, **kwargs)
 
     def save_model(self, request, obj, form, change):
