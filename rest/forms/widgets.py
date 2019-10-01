@@ -52,6 +52,10 @@ class FileUploadWidget(forms.ClearableFileInput):
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
-        context['widget']['value'] = os.path.join(settings.MEDIA_URL, value.name)
-        context['widget']['is_empty'] = not value
+        if value:
+            context['widget']['value'] = os.path.join(settings.MEDIA_URL, value.name)
+            context['widget']['is_empty'] = not value
+        else:
+            context['widget']['value'] = None
+            context['widget']['is_empty'] = True
         return context
