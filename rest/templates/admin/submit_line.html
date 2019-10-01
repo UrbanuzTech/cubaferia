@@ -1,4 +1,4 @@
-{% load i18n admin_urls custom_filters %}
+{% load i18n admin_urls custom_filters staticfiles %}
 <div class="row">
     <div class="col-md-12">
         {% if show_delete_link and original %}
@@ -61,3 +61,4 @@
         {% endwith %}
     }
 </script>
+<script src="{% static 'plugins/upload_image.js' %}"></script>

@@ -1,4 +1,8 @@
+import os
+
 from django import forms
+
+from cubaferia import settings
 
 
 class DynamicArrayWidget(forms.TextInput):
@@ -41,3 +45,13 @@ class DynamicArrayWidget(forms.TextInput):
 
     def format_value(self, value):
         return value or []
+
+
+class FileUploadWidget(forms.ClearableFileInput):
+    template_name = 'widgets/file_upload.html'
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context['widget']['value'] = os.path.join(settings.MEDIA_URL, value.name)
+        context['widget']['is_empty'] = not value
+        return context

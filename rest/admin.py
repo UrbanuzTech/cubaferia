@@ -15,7 +15,7 @@ from django.views.generic.base import View
 from rest.filters import ContainsFieldListFilter, StartFieldFilter, EndFieldFilter, StartDateFieldFilter, \
     EndDateFieldFilter
 from rest.forms.event import EventAdminForm
-from rest.forms.widgets import DynamicArrayWidget
+from rest.forms.widgets import DynamicArrayWidget, FileUploadWidget
 from rest.models import Nomenclature, Announcement
 from rest.models.announcement import Event
 from rest.models.nomenclature import CITY, ANNOUNCEMENT_CATEGORY, EVENT_CATEGORY, COUNTRY
@@ -156,6 +156,8 @@ class AnnouncementAdmin(admin.ModelAdmin):
             kwargs['widget'] = DynamicArrayWidget(size=3)
         if db_field.name == 'emails':
             kwargs['widget'] = DynamicArrayWidget(size=3)
+        if db_field.name in ['main_image', 'image1', 'image2', 'image3']:
+            kwargs['widget'] = FileUploadWidget()
         return super().formfield_for_dbfield(db_field, request, **kwargs)
 
     def save_model(self, request, obj, form, change):

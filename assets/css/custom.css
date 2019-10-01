@@ -80,6 +80,15 @@
     margin-bottom: 10px;
 }
 
-.ui-datepicker-header{
+.ui-datepicker-header {
     background: #c1beff;
+}
+
+.preview .fa-image {
+    font-size: 70px;
+    color: #74749e
+}
+
+.upload_field {
+    display: none !important;
 }
