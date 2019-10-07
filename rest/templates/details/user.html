@@ -1,115 +1,144 @@
-{% load i18n %}
-{% load custom_filters %}
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static admin_list custom_filters %}
 
-<div class="row">
-    <div class="col-md-5"></div>
-    <div class="col-md-2">
-        <img src="{{ MEDIA_URL }}{{ obj.get_avatar }}" alt="" class="img-responsive">
-    </div>
-    <div class="col-md-5"></div>
-    <div class="col-md-12">
-        <table class="table table-bordered" style="margin-top: 15px;">
-            <tr>
-                <th>{% trans 'full name'|capfirst %}</th>
-                <td>{{ obj.get_full_name|show_value|safe }}</td>
-            </tr>
-            <tr>
-                <th>{% trans 'username'|capfirst %}</th>
-                <td>{{ obj.username }}</td>
-            </tr>
-            <tr>
-                <th>{% trans 'gender'|capfirst %}</th>
-                <td>{{ obj.gender|show_value|safe }}</td>
-            </tr>
-            <tr>
-                <th>{% trans 'address'|capfirst %}</th>
-                <td>{{ obj.address|show_value|safe }}</td>
-            </tr>
-            <tr>
-                <th>{% trans 'nationality'|capfirst %}</th>
-                <td>{{ obj.nationality|show_value|safe }}</td>
-            </tr>
-            <tr>
-                <th>{% trans 'is active'|capfirst %}</th>
-                <td>{{ obj.is_active|show_value|safe }}</td>
-            </tr>
-            <tr>
-                <th>{% trans 'is superuser'|capfirst %}</th>
-                <td>{{ obj.is_superuser|show_value|safe }}</td>
-            </tr>
-            <tr>
-                <th>{% trans 'is staff'|capfirst %}</th>
-                <td>{{ obj.is_staff|show_value|safe }}</td>
-            </tr>
-            <tr>
-                <th>{% trans 'allow notifications'|capfirst %}</th>
-                <td>{{ obj.allow_notifications|show_value|safe }}</td>
-            </tr>
-            <tr>
-                <th>{% trans 'phones'|capfirst %}</th>
-                <td>
-                    {% if obj.phones %}
-                        <ul class="text-left">
-                            {% for item in obj.phones %}
-                                <li>{{ item }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        {{ obj.phones|show_value|safe }}
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>{% trans 'e-mails'|capfirst %}</th>
-                <td>
-                    {% if obj.emails %}
-                        <ul class="text-left">
-                            {% for item in obj.emails %}
-                                <li>{{ item }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        {{ obj.phones|show_value|safe }}
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>{% trans 'groups'|capfirst %}</th>
-                <td>
-                    {% if obj.groups.all %}
-                        <ul class="text-left">
-                            {% for item in obj.groups.all %}
-                                <li>{{ item.name }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        {{ obj.groups.all|show_value|safe }}
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>{% trans 'permissions'|capfirst %}</th>
-                <td>
-                    {% if obj.permissions.all %}
-                        <ul class="text-left">
-                            {% for item in obj.permissions.all %}
-                                <li>{{ item.name }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        {{ obj.permissions.all|show_value|safe }}
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>{% trans 'last login'|capfirst %}</th>
-                <td>{{ obj.last_login|date:'SHORT_DATETIME_FORMAT' }}</td>
-            </tr>
+{% block title %}
+    {% trans 'details of '|capfirst %} {{ obj }}
+{% endblock %}
 
-            <tr>
-                <th>{% trans 'date joined'|capfirst %}</th>
-                <td>{{ obj.date_joined|date:'SHORT_DATETIME_FORMAT' }}</td>
-            </tr>
-        </table>
+{% block content_title %}
+    {% trans 'details of '|capfirst %} {{ obj }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+        <li><a href="{% url 'admin:index' %}"><i class="fa fa-dashboard"></i> {% trans 'Home' %}</a></li>
+        &rsaquo; {% trans 'details of '|capfirst %} {{ obj }}
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <div class="box box-primary">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-5"></div>
+                <div class="col-md-2">
+                    <img src="{{ MEDIA_URL }}{{ obj.get_avatar }}" alt="" class="img-responsive">
+                </div>
+                <div class="col-md-5"></div>
+                <div class="col-md-12">
+                    <table class="table table-bordered" style="margin-top: 15px;">
+                        <tr>
+                            <th>{% trans 'full name'|capfirst %}</th>
+                            <td>{{ obj.get_full_name|show_value|safe }}</td>
+                        </tr>
+                        <tr>
+                            <th>{% trans 'username'|capfirst %}</th>
+                            <td>{{ obj.username }}</td>
+                        </tr>
+                        <tr>
+                            <th>{% trans 'gender'|capfirst %}</th>
+                            <td>{{ obj.gender|show_value|safe }}</td>
+                        </tr>
+                        <tr>
+                            <th>{% trans 'address'|capfirst %}</th>
+                            <td>{{ obj.address|show_value|safe }}</td>
+                        </tr>
+                        <tr>
+                            <th>{% trans 'nationality'|capfirst %}</th>
+                            <td>{{ obj.nationality|show_value|safe }}</td>
+                        </tr>
+                        <tr>
+                            <th>{% trans 'is active'|capfirst %}</th>
+                            <td>{{ obj.is_active|show_value|safe }}</td>
+                        </tr>
+                        <tr>
+                            <th>{% trans 'is superuser'|capfirst %}</th>
+                            <td>{{ obj.is_superuser|show_value|safe }}</td>
+                        </tr>
+                        <tr>
+                            <th>{% trans 'is staff'|capfirst %}</th>
+                            <td>{{ obj.is_staff|show_value|safe }}</td>
+                        </tr>
+                        <tr>
+                            <th>{% trans 'allow notifications'|capfirst %}</th>
+                            <td>{{ obj.allow_notifications|show_value|safe }}</td>
+                        </tr>
+                        <tr>
+                            <th>{% trans 'phones'|capfirst %}</th>
+                            <td>
+                                {% if obj.phones %}
+                                    <ul class="text-left">
+                                        {% for item in obj.phones %}
+                                            <li>{{ item }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    {{ obj.phones|show_value|safe }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{% trans 'e-mails'|capfirst %}</th>
+                            <td>
+                                {% if obj.emails %}
+                                    <ul class="text-left">
+                                        {% for item in obj.emails %}
+                                            <li>{{ item }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    {{ obj.phones|show_value|safe }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{% trans 'groups'|capfirst %}</th>
+                            <td>
+                                {% if obj.groups.all %}
+                                    <ul class="text-left">
+                                        {% for item in obj.groups.all %}
+                                            <li>{{ item.name }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    {{ obj.groups.all|show_value|safe }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{% trans 'permissions'|capfirst %}</th>
+                            <td>
+                                {% if obj.permissions.all %}
+                                    <ul class="text-left">
+                                        {% for item in obj.permissions.all %}
+                                            <li>{{ item.name }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    {{ obj.permissions.all|show_value|safe }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{% trans 'last login'|capfirst %}</th>
+                            <td>{{ obj.last_login|date:'SHORT_DATETIME_FORMAT' }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>{% trans 'date joined'|capfirst %}</th>
+                            <td>{{ obj.date_joined|date:'SHORT_DATETIME_FORMAT' }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button onclick="history.go(-1)" class="btn btn-danger pull-right">
+                        {% trans 'cancel'|capfirst %}
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+
+{% endblock %}

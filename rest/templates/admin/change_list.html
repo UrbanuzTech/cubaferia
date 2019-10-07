@@ -120,7 +120,7 @@
                         <div class="row">
                             <form method="get" id="filter-form" novalidate>
                                 {% for spec in cl.filter_specs %}
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         {% admin_list_filter cl spec %}
                                     </div>
                                 {% endfor %}
@@ -145,7 +145,7 @@
             </div>
         </div>
     {% endif %}
-    <div class="modal fade" id="modal-details" style="display: none; padding-right: 14px;">
+    <div class="modal fade" id="modal-delete-confirmation" style="display: none; padding-right: 14px;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -153,20 +153,37 @@
                         <span aria-hidden="true">×</span></button>
                     <h4 class="modal-title">
                         <i class="fa fa-filter"></i>
-                        {% trans 'details'|capfirst %}
+                        {% trans 'confirmation'|capfirst %}
                     </h4>
                 </div>
                 <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                        {% trans 'close'|capfirst %}
-                    </button>
+                    <div class="row">
+                        <div class="col-md-12"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modal-delete-multiple-confirmation" style="display: none; padding-right: 14px;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">
+                        <i class="fa fa-filter"></i>
+                        {% trans 'confirmation'|capfirst %}
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'plugins/bootstrap-datepicker/distribution/js/bootstrap-datepicker.min.js' %}"></script>
     <script>
         function filter() {
             let $form = $('#filter-form');
@@ -189,6 +206,10 @@
 
         document.onreadystatechange = function () {
             if (document.readyState === 'complete') {
+                $('.datepicker').datepicker({
+                    autoclose: true,
+                    dateFormat: 'yy-mm-dd'
+                });
                 let $actions = $('.action-select');
                 let $delete_btn = $('#delete-selected');
                 let $upload_btn = $('#reinsert-item');
@@ -220,6 +241,5 @@
                 });
             }
         }
-
     </script>
 {% endblock %}

@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}"/>
 {% endblock %}
 
+{% block title %}Cubaferia :: {% trans 'home'|capfirst %}{% endblock %}
+
 {% block coltype %}colMS{% endblock %}
 
 {% block bodyclass %}{{ block.super }} dashboard{% endblock %}

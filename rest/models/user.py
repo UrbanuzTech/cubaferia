@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 
 from cubaferia.settings import STATIC_URL, MEDIA_URL
 from rest.models import Nomenclature
+from rest.models.nomenclature import COUNTRY
 
 GENDER = (
     ('male', _('Male')),
@@ -22,6 +23,12 @@ def get_avatar(self):
     return os.path.join(STATIC_URL, 'img', 'avatar_default.png')
 
 
+def get_related_to(field):
+    return {
+        'nationality': COUNTRY
+    }[field]
+
+
 User.add_to_class('phones', ArrayField(models.IntegerField(null=True, blank=True), null=True, blank=True,
                                        verbose_name=_('phones')))
 User.add_to_class('emails',
@@ -33,3 +40,4 @@ User.add_to_class('nationality', models.ForeignKey(Nomenclature, blank=True, nul
                                                    verbose_name=_('nationality')))
 User.add_to_class('allow_notifications', models.BooleanField(default=False, verbose_name=_('allow notifications')))
 User.add_to_class('get_avatar', get_avatar)
+User.add_to_class('get_related_to', get_related_to)

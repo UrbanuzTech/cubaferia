@@ -1,0 +1,22 @@
+{% load i18n %}
+{% load staticfiles %}
+<div class="row">
+    <div class="col-md-1 preview" data-name="{{ widget.name }}">
+        {% if widget.is_empty %}
+            <i class="fa fa-image"></i>
+        {% else %}
+            <img src="{{ widget.value }}" class="img-responsive" alt="{% trans 'image'|capfirst %}">
+        {% endif %}
+    </div>
+    <div class="col-md-4">
+        <input type="file" class="upload_field" data-name="{{ widget.name }}" name="{{ widget.name }}">
+        <button type="button" class="btn btn-default btn-sm upload_btn"
+                data-name="{{ widget.name }}">
+            {% trans 'select image'|capfirst %}
+        </button>
+        <input type="checkbox" name="{{ widget.name }}-clear" hidden>
+        <button class="btn btn-danger btn-sm remove_image_btn {% if widget.is_empty %}hidden{% endif %}" type="button" data-name="{{ widget.name }}" hidden>
+            {% trans 'remove image'|capfirst %}
+        </button>
+    </div>
+</div>

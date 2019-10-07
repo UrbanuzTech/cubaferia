@@ -57,7 +57,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="created_at" type="TIMESTAMP WITH TIME ZONE">
-                <constrints nullable="false"/>
+                <constraints nullable="false"/>
             </column>
             <column name="phones" type="_INT4(10)">
                 <constraints nullable="false"/>

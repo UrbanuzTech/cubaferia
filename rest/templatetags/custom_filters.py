@@ -148,6 +148,19 @@ def to_cuc(value):
         return str('{0:.2f}'.format(value)) + ' CUC'
 
 
+@register.filter(name='to_cuc_empty')
+def to_cuc_empty(value):
+    if not value:
+        return '0.00'
+    else:
+        return str('{0:.2f}'.format(value))
+
+
 @register.filter(name='remove')
 def remove(value, text_to_replace):
     return str(value).replace('/' + text_to_replace, '')
+
+
+@register.filter(name='get_item')
+def get_item(value, item):
+    return value[item]
