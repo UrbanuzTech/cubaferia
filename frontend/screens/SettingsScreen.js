@@ -1,5 +1,7 @@
 import React from 'react';
 import { ExpoConfigView } from '@expo/samples';
+import constant from "../constants/Colors";
+import {FontAwesome} from "@expo/vector-icons";
 
 export default function SettingsScreen() {
   /**
@@ -10,5 +12,13 @@ export default function SettingsScreen() {
 }
 
 SettingsScreen.navigationOptions = {
-  title: 'Cubaferia',
+      title: 'Cubaferia',
+    headerStyle: {
+        backgroundColor: constant.primaryColor
+    },
+    headerTintColor: '#fff',
+    headerRight: (
+        <FontAwesome style={{marginRight: 20}} name={'bars'} size={21} color={'white'}
+                     onPress={() => this.props.navigation.openDrawer()}/>
+    ),
 };
