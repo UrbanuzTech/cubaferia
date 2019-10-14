@@ -7,6 +7,9 @@ import {
 } from 'react-native';
 
 import ElementsList from "../components/ElementsList";
+import {FontAwesome} from "@expo/vector-icons";
+import constant from "../constants/Colors";
+
 
 export default function HomeScreen() {
     return (
@@ -22,6 +25,14 @@ export default function HomeScreen() {
 
 HomeScreen.navigationOptions = {
     title: 'Cubaferia',
+    headerStyle: {
+        backgroundColor: constant.primaryColor
+    },
+    headerTintColor: '#fff',
+    headerRight: (
+        <FontAwesome style={{marginRight: 20}} name={'bars'} size={21} color={'white'}
+                     onPress={() => this.props.navigation.openDrawer()}/>
+    ),
 };
 
 

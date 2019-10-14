@@ -4,7 +4,6 @@ import * as Font from 'expo-font';
 import React, {useState} from 'react';
 import {Platform, StatusBar, StyleSheet, View} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
-import {slide as Menu} from 'react-burger-menu'
 
 import AppNavigator from './navigation/AppNavigator';
 
@@ -22,8 +21,6 @@ export default function App(props) {
     } else {
         return (
             <View style={styles.container}>
-                <Menu right styles={sidebar_styles} disableAutoFocus>
-                </Menu>
                 {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
                 <AppNavigator/>
             </View>
@@ -64,47 +61,4 @@ const styles = StyleSheet.create({
     },
 });
 
-const sidebar_styles = StyleSheet.create({
-    bmBurgerButton: {
-        position: 'fixed',
-        width: '36px',
-        height: '30px',
-        left: '36px',
-        top: '36px'
-    },
-    bmBurgerBars: {
-        background: '#373a47'
-    },
-    bmBurgerBarsHover: {
-        background: '#a90000'
-    },
-    bmCrossButton: {
-        height: '24px',
-        width: '24px'
-    },
-    bmCross: {
-        background: '#bdc3c7'
-    },
-    bmMenuWrap: {
-        position: 'fixed',
-        height: '100%'
-    },
-    bmMenu: {
-        background: '#373a47',
-        padding: '2.5em 1.5em 0',
-        fontSize: '1.15em'
-    },
-    bmMorphShape: {
-        fill: '#373a47'
-    },
-    bmItemList: {
-        color: '#b8b7ad',
-        padding: '0.8em'
-    },
-    bmItem: {
-        display: 'inline-block'
-    },
-    bmOverlay: {
-        background: 'rgba(0, 0, 0, 0.3)'
-    }
-});
+
