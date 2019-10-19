@@ -1,15 +1,16 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import Constants from 'expo-constants';
-import { StyleSheet, Image, Text, View, ActivityIndicator } from 'react-native';
+import {StyleSheet, Image, Text, View, ActivityIndicator} from 'react-native';
 import Touchable from 'react-native-platform-touchable';
-import { Ionicons } from '@expo/vector-icons';
+import {Ionicons} from '@expo/vector-icons';
 import * as Provider from '../misc/Provider'
+import constant from '../constants/Colors'
 
 export default class ElementsList extends React.Component {
     constructor(...props) {
-        super(...props)
-        this.state = { isLoading: true }
+        super(...props);
+        this.state = {isLoading: true}
     }
 
     componentDidMount() {
@@ -27,7 +28,7 @@ export default class ElementsList extends React.Component {
     }
 
     render() {
-        const { manifest = {} } = Constants;
+        const {manifest = {}} = Constants;
         return (
             <View>
                 <Text style={styles.optionsTitleText}>Anuncios</Text>
@@ -40,9 +41,9 @@ export default class ElementsList extends React.Component {
                                 style={styles.option}
                                 background={Touchable.Ripple('#ccc', false)}
                                 onPress={this._handlePressDocs}>
-                                <View style={{ flexDirection: 'row' }}>
+                                <View style={{flexDirection: 'row'}}>
                                     <View style={styles.optionIconContainer}>
-                                        <Ionicons name="ios-chatboxes" size={22} color="#ccc" />
+                                        <Ionicons name="ios-chatboxes" size={22} color="#ccc"/>
                                     </View>
                                     <View style={styles.optionTextContainer}>
                                         <Text style={styles.optionText}>{element.title}</Text>
@@ -51,8 +52,8 @@ export default class ElementsList extends React.Component {
                             </Touchable>
                         ))
                         :
-                        <ActivityIndicator style={styles.listActivityIndicator} color={manifest.primaryColor}
-                            size='large' />
+                        <ActivityIndicator style={styles.listActivityIndicator} color={constant.primaryColor}
+                                           size='large'/>
                 }
             </View>
         );
