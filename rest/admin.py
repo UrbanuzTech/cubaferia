@@ -173,6 +173,7 @@ class EventAdmin(admin.ModelAdmin):
     form = EventAdminForm
     list_display_links = None
     readonly_fields = ('visit_count', 'created_by')
+
     list_display = (
         'title', 'price_for_children', 'price_for_adults', 'city', 'visit_count', 'category', 'created_by')
     list_filter = (
@@ -209,6 +210,8 @@ class EventAdmin(admin.ModelAdmin):
             kwargs['widget'] = DynamicArrayWidget(size=3)
         if db_field.name == 'emails':
             kwargs['widget'] = DynamicArrayWidget(size=3)
+        if db_field.name in ['main_image', 'image1', 'image2', 'image3']:
+            kwargs['widget'] = FileUploadWidget()
         return super().formfield_for_dbfield(db_field, request, **kwargs)
 
     def save_model(self, request, obj, form, change):
