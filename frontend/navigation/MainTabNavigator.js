@@ -4,17 +4,36 @@ import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import AnnouncementCreateScreen from '../screens/AnnouncementCreateScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import {FontAwesome} from "@expo/vector-icons";
+import constant from "../constants/Colors";
 
 const config = Platform.select({
     web: {headerMode: 'screen'},
     default: {},
 });
 
+const navigation_config = ({navigation}) => {
+    return {
+        headerRight: (
+            <FontAwesome style={{marginRight: 20}} name={'bars'} size={21} color={'white'}
+                         onPress={() => navigation.openDrawer()}/>
+        ),
+        title: 'Cubaferia',
+        headerStyle: {
+            backgroundColor: constant.primaryColor
+        },
+        headerTintColor: '#fff',
+    }
+};
+
 const HomeStack = createStackNavigator(
     {
-        Home: HomeScreen,
+        Home: {
+            screen: HomeScreen,
+            navigationOptions: navigation_config,
+        },
     },
     config
 );
@@ -35,7 +54,10 @@ HomeStack.path = '';
 
 const AnnouncementCreateStack = createStackNavigator(
     {
-        Links: LinksScreen,
+        Links: {
+            screen: AnnouncementCreateScreen,
+            navigationOptions: navigation_config
+        },
     },
     config
 );
@@ -51,7 +73,10 @@ AnnouncementCreateStack.path = '';
 
 const ProfileStack = createStackNavigator(
     {
-        Settings: SettingsScreen,
+        Settings: {
+            screen: ProfileScreen,
+            navigationOptions: navigation_config
+        },
     },
     config
 );
