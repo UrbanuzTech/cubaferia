@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 
 import ElementsList from "../components/ElementsList";
-import {FontAwesome} from "@expo/vector-icons";
 import constant from "../constants/Colors";
 
 
@@ -29,10 +28,6 @@ HomeScreen.navigationOptions = {
         backgroundColor: constant.primaryColor
     },
     headerTintColor: '#fff',
-    headerRight: (
-        <FontAwesome style={{marginRight: 20}} name={'bars'} size={21} color={'white'}
-                     onPress={() => this.props.navigation.openDrawer()}/>
-    ),
 };
 
 
