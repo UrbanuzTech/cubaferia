@@ -1,12 +1,20 @@
 import {AppLoading} from 'expo';
 import {Asset} from 'expo-asset';
 import * as Font from 'expo-font';
-import React, {useState} from 'react';
-import {Platform, StatusBar, StyleSheet, View} from 'react-native';
-import {Ionicons} from '@expo/vector-icons';
-import {slide as Menu} from 'react-burger-menu'
+import React, {useState, Component} from 'react';
+import {Platform, StatusBar, StyleSheet, View, Text} from 'react-native';
+import {FontAwesome, Ionicons} from '@expo/vector-icons';
+import {Button, ScrollView, SafeAreaView} from "react-native-web";
+import constant from './constants/Colors'
 
-import AppNavigator from './navigation/AppNavigator';
+import {
+    createAppContainer,
+    createSwitchNavigator,
+    createDrawerNavigator,
+    DrawerItems,
+} from "react-navigation";
+
+import MainTabNavigator from './navigation/MainTabNavigator';
 
 export default function App(props) {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -22,14 +30,86 @@ export default function App(props) {
     } else {
         return (
             <View style={styles.container}>
-                <Menu right styles={sidebar_styles} disableAutoFocus>
-                </Menu>
                 {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
-                <AppNavigator/>
+                <AppContainer/>
             </View>
         );
     }
 }
+
+class WelcomeScreen extends Component {
+    render() {
+        return (
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#1c1c1c'}}>
+                <Button onPress={() => this.props.navigation.navigate('AppNavigator')} title={'CubaFeria'}/>
+            </View>
+        );
+    }
+}
+
+const CustomDrawerComponent = props => (
+    <ScrollView style={{flex: 1}}>
+        <SafeAreaView>
+            <DrawerItems {...props}/>
+        </SafeAreaView>
+    </ScrollView>
+);
+
+
+const AppDrawerNavigator = createDrawerNavigator({
+    Home: {
+        screen: MainTabNavigator,
+        navigationOptions: {
+            title: 'Inicio',
+            drawerIcon: ({focused}) => (
+                <FontAwesome style={{marginRight: 20}} name={'home'} size={21}
+                             color={focused ? constant.tintColor : 'black'}/>
+            ),
+        }
+    },
+    SignUpFacebook: {
+        screen: MainTabNavigator,
+        navigationOptions: {
+            title: 'Continuar Facebook',
+            drawerIcon: ({focused}) => (
+                <FontAwesome style={{marginRight: 20}} name={'facebook-square'} size={21}
+                             color={focused ? constant.tintColor : 'black'}/>
+            ),
+        }
+    },
+    SignUpGoogle: {
+        screen: MainTabNavigator,
+        navigationOptions: {
+            title: 'Continuar Google',
+            drawerIcon: ({focused}) => (
+                <FontAwesome style={{marginRight: 20}} name={'google'} size={21}
+                             color={focused ? constant.tintColor : 'black'}/>
+            ),
+        }
+    },
+    SignUp: {
+        screen: MainTabNavigator,
+        navigationOptions: {
+            title: 'Registrate Gratis',
+            drawerIcon: ({focused}) => (
+                <FontAwesome style={{marginRight: 20}} name={'sign-in'} size={21}
+                             color={focused ? constant.tintColor : 'black'}/>
+            ),
+        }
+    },
+
+}, {
+    drawerPosition: "right",
+    drawerBackgroundColor: "white",
+    contentComponent: CustomDrawerComponent
+});
+
+const AppSwitchNavigator = createSwitchNavigator({
+    WelcomeScreen: WelcomeScreen,
+    AppNavigator: AppDrawerNavigator,
+});
+
+const AppContainer = createAppContainer(AppSwitchNavigator);
 
 async function loadResourcesAsync() {
     await Promise.all([
@@ -64,47 +144,4 @@ const styles = StyleSheet.create({
     },
 });
 
-const sidebar_styles = StyleSheet.create({
-    bmBurgerButton: {
-        position: 'fixed',
-        width: '36px',
-        height: '30px',
-        left: '36px',
-        top: '36px'
-    },
-    bmBurgerBars: {
-        background: '#373a47'
-    },
-    bmBurgerBarsHover: {
-        background: '#a90000'
-    },
-    bmCrossButton: {
-        height: '24px',
-        width: '24px'
-    },
-    bmCross: {
-        background: '#bdc3c7'
-    },
-    bmMenuWrap: {
-        position: 'fixed',
-        height: '100%'
-    },
-    bmMenu: {
-        background: '#373a47',
-        padding: '2.5em 1.5em 0',
-        fontSize: '1.15em'
-    },
-    bmMorphShape: {
-        fill: '#373a47'
-    },
-    bmItemList: {
-        color: '#b8b7ad',
-        padding: '0.8em'
-    },
-    bmItem: {
-        display: 'inline-block'
-    },
-    bmOverlay: {
-        background: 'rgba(0, 0, 0, 0.3)'
-    }
-});
+

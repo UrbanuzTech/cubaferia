@@ -7,6 +7,8 @@ import {
 } from 'react-native';
 
 import ElementsList from "../components/ElementsList";
+import constant from "../constants/Colors";
+
 
 export default function HomeScreen() {
     return (
@@ -22,6 +24,10 @@ export default function HomeScreen() {
 
 HomeScreen.navigationOptions = {
     title: 'Cubaferia',
+    headerStyle: {
+        backgroundColor: constant.primaryColor
+    },
+    headerTintColor: '#fff',
 };
 
 
