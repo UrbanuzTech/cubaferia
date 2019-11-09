@@ -1,3 +1,5 @@
+import json
+
 from django import forms
 from django.contrib import admin, messages
 from django.contrib.admin.models import LogEntry
@@ -6,8 +8,10 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
 from django.views.generic.base import View
@@ -43,7 +47,23 @@ class LogEntryAdmin(admin.ModelAdmin):
     list_per_page = 20
     actions_on_top = False
     actions = []
-    list_display = ('user', 'object_repr', 'content_type', 'action_flag', 'action_time', 'change_message')
+    list_display = ('user', 'object_repr', 'content_type', 'action_flag', 'action_time', 'get_change_message')
+
+    def get_change_message(self, obj):
+        if obj.action_flag == 1:
+            return mark_safe('<span class="label label-success">%s</span>' % _('Addition'))
+        elif obj.action_flag == 2:
+            data = json.loads(obj.change_message)
+            result = '<span class="label label-primary">%s</span><ul class="text-left">' % _('Change')
+            for item in data[0]['changed']['fields']:
+                result += '<li>%s</li>' % item
+            result += '</ul>'
+            return mark_safe(result)
+        else:
+            return mark_safe('<span class="label label-danger red">%s</span>' % _('Deletion'))
+
+    get_change_message.allow_tags = True
+    get_change_message.short_description = _('Change message')
 
     def has_delete_permission(self, request, obj=None):
         return False

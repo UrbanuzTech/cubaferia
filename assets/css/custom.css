@@ -96,3 +96,7 @@
 .user-footer img {
     width: 25px !important;
 }
+
+#table-results td {
+    vertical-align: middle !important;
+}
