@@ -125,6 +125,8 @@
                 }
             });
         }
-
+        $('label.required').each(function (i, e) {
+            $(e).html('<span class="text-danger" style="margin-right: 5px;">*</span> ' + $(e).clone().html());
+        });
     </script>
 {% endblock %}

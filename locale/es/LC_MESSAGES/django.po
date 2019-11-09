@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-03 11:36-0400\n"
+"POT-Creation-Date: 2019-11-08 22:03-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,79 +18,81 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: rest/admin.py:67
+#: rest/admin.py:78
 msgid "Personal info"
 msgstr "Información personal"
 
-#: rest/admin.py:69
+#: rest/admin.py:80
 msgid "Permissions"
 msgstr "Permisos"
 
+#: rest/admin.py:124
+msgid "items uploaded."
+msgstr "elementos subidos."
+
+#: rest/admin.py:243
+msgid "item re-inserted successfully."
+msgstr "elemento re-insertado satisfactoriamente."
+
+#: rest/admin.py:261
+msgid "item deleted successfully."
+msgstr "elemento eliminado satisfactoriamente."
+
 #: rest/filters.py:29
 msgid "All"
-msgstr "Todos"
+msgstr "Todo"
 
 #: rest/forms/event.py:12
 msgid "this value must be greater than start date."
-msgstr "este valor debe ser mayor que la fecha de comienzo."
+msgstr "este valor debe ser mayor que la fecha de inicio."
 
 #: rest/forms/event.py:14
 msgid "this field is required."
-msgstr "este campo es requerido."
+msgstr "este campo es obligatorio."
 
-#: rest/models/announcement.py:16 rest/templates/details/announcement.html:20
-#: rest/templates/details/event.html:25
+#: rest/models/announcement.py:16
 msgid "title"
 msgstr "título"
 
-#: rest/models/announcement.py:17 rest/templates/details/announcement.html:68
-#: rest/templates/details/event.html:83
+#: rest/models/announcement.py:17
 msgid "description"
 msgstr "descripción"
 
-#: rest/models/announcement.py:18 rest/templates/details/announcement.html:72
-#: rest/templates/details/event.html:87
+#: rest/models/announcement.py:18
 msgid "created by"
 msgstr "creado por"
 
-#: rest/models/announcement.py:20 rest/templates/details/announcement.html:28
-#: rest/templates/details/event.html:43
+#: rest/models/announcement.py:20
 msgid "city"
 msgstr "ciudad"
 
-#: rest/models/announcement.py:21 rest/templates/details/announcement.html:80
-#: rest/templates/details/event.html:95
+#: rest/models/announcement.py:21
 msgid "visit count"
 msgstr "cantidad de visitas"
 
-#: rest/models/announcement.py:22 rest/templates/details/announcement.html:76
-#: rest/templates/details/event.html:91
+#: rest/models/announcement.py:22
 msgid "created at"
 msgstr "fecha de creación"
 
-#: rest/models/announcement.py:24 rest/templates/details/announcement.html:24
-#: rest/templates/details/event.html:39
+#: rest/models/announcement.py:24
 msgid "category"
 msgstr "categoría"
 
-#: rest/models/announcement.py:25 rest/models/user.py:26
-#: rest/templates/details/announcement.html:36
-#: rest/templates/details/event.html:51 rest/templates/details/user.html:49
+#: rest/models/announcement.py:25 rest/models/user.py:33
+#: rest/templates/details/user.html:67
 msgid "phones"
 msgstr "teléfonos"
 
-#: rest/models/announcement.py:26 rest/models/user.py:28
+#: rest/models/announcement.py:26 rest/models/user.py:35
 msgid "emails"
 msgstr "correos electrónicos"
 
-#: rest/models/announcement.py:27 rest/templates/details/announcement.html:32
-#: rest/templates/details/event.html:47
+#: rest/models/announcement.py:27
 msgid "contact name"
 msgstr "nombre de contacto"
 
-#: rest/models/announcement.py:28 rest/models/user.py:31
-#: rest/templates/details/announcement.html:64
-#: rest/templates/details/event.html:79 rest/templates/details/user.html:25
+#: rest/models/announcement.py:28 rest/models/user.py:38
+#: rest/templates/details/user.html:43
 msgid "address"
 msgstr "dirección"
 
@@ -118,20 +120,20 @@ msgstr "precio"
 msgid "announcement"
 msgstr "anuncio"
 
-#: rest/models/announcement.py:74
+#: rest/models/announcement.py:74 rest/templates/admin/index.html:35
+#: rest/templates/admin/lib/_main_sidebar.html:40
 msgid "announcements"
 msgstr "anuncios"
 
-#: rest/models/announcement.py:83
+#: rest/models/announcement.py:83 rest/templates/details/event.html:65
 msgid "start date"
-msgstr "comienzo"
+msgstr "fecha de inicio"
 
-#: rest/models/announcement.py:84
+#: rest/models/announcement.py:84 rest/templates/details/event.html:75
 msgid "end date"
-msgstr "final"
+msgstr "fecha fin"
 
 #: rest/models/announcement.py:85
-#: rest/templates/details/event.html:35
 msgid "allow children"
 msgstr "permite niños"
 
@@ -147,13 +149,14 @@ msgstr "precio para adultos"
 msgid "event"
 msgstr "evento"
 
-#: rest/models/announcement.py:93
+#: rest/models/announcement.py:93 rest/templates/admin/index.html:52
+#: rest/templates/admin/lib/_main_sidebar.html:46
 msgid "events"
 msgstr "eventos"
 
 #: rest/models/nomenclature.py:17
 msgid "Announcement Category"
-msgstr "Categoría de anuncios"
+msgstr "Categoría de Anuncio"
 
 #: rest/models/nomenclature.py:18
 msgid "City"
@@ -161,7 +164,7 @@ msgstr "Ciudad"
 
 #: rest/models/nomenclature.py:19
 msgid "Company Type"
-msgstr "Tipo de compañía"
+msgstr "Tipo de Compañía"
 
 #: rest/models/nomenclature.py:20
 msgid "Country"
@@ -169,22 +172,22 @@ msgstr "País"
 
 #: rest/models/nomenclature.py:21
 msgid "Event Category"
-msgstr "Categoría de eventos"
+msgstr "Categoría de Evento"
 
 #: rest/models/nomenclature.py:22
 msgid "Language"
 msgstr "Idioma"
 
-#: rest/models/nomenclature.py:27 rest/templates/details/group.html:8
-#: rest/templates/details/nomenclature.html:15
+#: rest/models/nomenclature.py:27 rest/templates/details/group.html:26
+#: rest/templates/details/nomenclature.html:33
 msgid "name"
 msgstr "nombre"
 
-#: rest/models/nomenclature.py:29 rest/templates/details/nomenclature.html:23
+#: rest/models/nomenclature.py:29 rest/templates/details/nomenclature.html:41
 msgid "nomenclature type"
 msgstr "tipo de nomenclador"
 
-#: rest/models/nomenclature.py:30 rest/templates/details/nomenclature.html:19
+#: rest/models/nomenclature.py:30 rest/templates/details/nomenclature.html:37
 msgid "parent"
 msgstr "padre"
 
@@ -192,202 +195,244 @@ msgstr "padre"
 msgid "logo"
 msgstr "logotipo"
 
-#: rest/models/nomenclature.py:32 rest/templates/details/nomenclature.html:27
+#: rest/models/nomenclature.py:32 rest/templates/details/nomenclature.html:45
 msgid "active"
 msgstr "activo"
 
 #: rest/models/nomenclature.py:57
 msgid "nomenclature"
-msgstr "nomenclador"
+msgstr "nomneclador"
 
-#: rest/models/nomenclature.py:58
+#: rest/models/nomenclature.py:58 rest/templates/admin/index.html:117
+#: rest/templates/admin/lib/_main_sidebar.html:74
 msgid "nomenclatures"
 msgstr "nomencladores"
 
-#: rest/models/user.py:13
+#: rest/models/user.py:14
 msgid "Male"
 msgstr "Masculino"
 
-#: rest/models/user.py:14
+#: rest/models/user.py:15
 msgid "Female"
 msgstr "Femenino"
 
-#: rest/models/user.py:15
+#: rest/models/user.py:16
 msgid "Undefined"
 msgstr "Indefinido"
 
-#: rest/models/user.py:29
+#: rest/models/user.py:36
 msgid "avatar"
-msgstr "foto de perfil"
+msgstr "avatar"
 
-#: rest/models/user.py:30 rest/templates/details/user.html:21
+#: rest/models/user.py:37 rest/templates/details/user.html:39
 msgid "gender"
 msgstr "género"
 
-#: rest/models/user.py:33 rest/templates/details/user.html:29
+#: rest/models/user.py:40 rest/templates/details/user.html:47
 msgid "nationality"
 msgstr "nacionalidad"
 
-#: rest/models/user.py:34 rest/templates/details/user.html:45
+#: rest/models/user.py:41 rest/templates/details/user.html:63
 msgid "allow notifications"
-msgstr "permitir notificaciones"
+msgstr "permite notificaciones"
+
+#: rest/templates/admin/actions.html:4
+msgid "delete selected"
+msgstr "eliminar seleccionados"
 
 #: rest/templates/admin/actions.html:9
-msgid "Run the selected action"
-msgstr "Ejecutar la acción seleccionada"
+#: rest/templates/admin/change_list_results.html:71
+msgid "to launch"
+msgstr "lanzar"
 
-#: rest/templates/admin/actions.html:10
-msgid "execute"
-msgstr "ejecutar"
+#: rest/templates/admin/base.html:26
+#: rest/templates/details/announcement.html:10
+#: rest/templates/details/event.html:10 rest/templates/details/group.html:14
+#: rest/templates/details/nomenclature.html:14
+#: rest/templates/details/user.html:14
+#: rest/templates/registration/password_change_done.html:7
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/app_index.html:9
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/base.html:30
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/change_form.html:18
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/change_list.html:33
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/object_history.html:6
+msgid "Home"
+msgstr "Portada"
 
-#: rest/templates/admin/change_form.html:41
-#: rest/templates/admin/change_list.html:66
+#: rest/templates/admin/change_form.html:43
+#: rest/templates/admin/change_list.html:36
 #: rest/templates/registration/password_change_form.html:19
+#: venv/lib/python3.6/site-packages/django_adminlte/templates/adminlte/login.html:19
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/change_form.html:47
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/change_list.html:63
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/login.html:7
 msgid "Please correct the error below."
-msgstr "Por favor, corrija el error."
+msgstr "Por favor corrija el error."
 
-#: rest/templates/admin/change_form.html:42
-#: rest/templates/admin/change_list.html:68
+#: rest/templates/admin/change_form.html:44
+#: rest/templates/admin/change_list.html:38
 #: rest/templates/registration/password_change_form.html:21
+#: venv/lib/python3.6/site-packages/django_adminlte/templates/adminlte/login.html:20
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/change_form.html:47
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/change_list.html:64
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/login.html:8
 msgid "Please correct the errors below."
-msgstr "Por favor, corrija los errores."
+msgstr "Por favor corrija los errores."
 
 #: rest/templates/admin/change_form_object_tools.html:6
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/change_form.html:33
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/object_history.html:10
 msgid "History"
-msgstr "Historia"
+msgstr "Historial"
 
 #: rest/templates/admin/change_form_object_tools.html:9
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/change_form.html:35
 msgid "View on site"
 msgstr "Ver en el sitio"
 
-#: rest/templates/admin/change_list.html:42
-#: rest/templates/admin/change_list.html:138
-msgid "clear filters"
-msgstr "limpiar filtros"
+#: rest/templates/admin/change_list.html:63
+#, python-format
+msgid ""
+"\n"
+"                                                Add %(name)s\n"
+"                                            "
+msgstr ""
+"\n"
+"                                                Agregar %(name)s\n"
+"                                            "
 
-#: rest/templates/admin/change_list.html:49
+#: rest/templates/admin/change_list.html:87
+msgid "Run the selected action"
+msgstr "Ejecutar la acción seleccionada"
+
+#: rest/templates/admin/change_list.html:88
+msgid "execute"
+msgstr "ejecutar"
+
 #: rest/templates/admin/change_list.html:117
+#: rest/templates/admin/search_form.html:19
 msgid "advanced filters"
 msgstr "filtros avanzados"
 
-#: rest/templates/admin/change_list.html:56
-#, python-format
-msgid "Add %(name)s"
-msgstr "Agregar %(name)s"
-
 #: rest/templates/admin/change_list.html:133
-#: rest/templates/admin/change_list.html:185
+#: rest/templates/details/announcement.html:211
+#: rest/templates/details/event.html:242
 msgid "close"
 msgstr "cerrar"
+
+#: rest/templates/admin/change_list.html:138
+#: rest/templates/admin/search_form.html:27
+msgid "clear filters"
+msgstr "limpiar filtros"
 
 #: rest/templates/admin/change_list.html:142
 msgid "filter"
 msgstr "filtrar"
 
-#: rest/templates/admin/change_list.html:177
+#: rest/templates/admin/change_list.html:157
+#: rest/templates/admin/change_list.html:176
+#: rest/templates/admin/submit_line.html:18
+msgid "confirmation"
+msgstr "confirmación"
+
+#: rest/templates/admin/change_list.html:246
 #: rest/templates/admin/change_list_results.html:65
 msgid "details"
 msgstr "detalles"
 
 #: rest/templates/admin/change_list_results.html:23
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/change_list_results.html:17
 msgid "Remove from sorting"
-msgstr "Eliminar el ordenamiento"
+msgstr "Eliminar ordenamiento"
 
 #: rest/templates/admin/change_list_results.html:26
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/change_list_results.html:18
 #, python-format
 msgid "Sorting priority: %(priority_number)s"
-msgstr "Ordenar por prioridad: %(priority_number)s"
+msgstr "Prioridad de ordenamiento: %(priority_number)s"
 
 #: rest/templates/admin/change_list_results.html:32
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/change_list_results.html:19
 msgid "Toggle sorting"
-msgstr "Ordenar/Desordenar"
+msgstr "Cambiar ordenamiento"
 
 #: rest/templates/admin/change_list_results.html:49
 msgid "actions"
 msgstr "acciones"
 
-#: rest/templates/admin/change_list_results.html:70
+#: rest/templates/admin/change_list_results.html:77
 msgid "Edit"
 msgstr "Editar"
 
-#: rest/templates/admin/change_list_results.html:75
+#: rest/templates/admin/change_list_results.html:82
 #: rest/templates/admin/submit_line.html:8
+#: venv/lib/python3.6/site-packages/django/forms/formsets.py:375
 msgid "Delete"
 msgstr "Eliminar"
 
-#: rest/templates/admin/change_list_results.html:129
+#: rest/templates/admin/change_list_results.html:151
+#: venv/lib/python3.6/site-packages/django/forms/widgets.py:713
 msgid "No"
 msgstr "No"
 
-#: rest/templates/admin/change_list_results.html:129
+#: rest/templates/admin/change_list_results.html:151
 msgid "available"
 msgstr "disponible"
 
-#: rest/templates/admin/delete_confirmation.html:13
+#: rest/templates/admin/delete_confirmation.html:4
 #, python-format
 msgid ""
-"Deleting the %(object_name)s '\n"
-"                            %(escaped_object)s'\n"
-"                            would result\n"
-"                            in deleting related objects, but your account "
-"doesn't have permission to delete the\n"
-"                            following types\n"
-"                            of\n"
-"                            objects:"
+"\n"
+"            Deleting the %(object_name)s ' %(escaped_object)s' would result "
+"in deleting related objects, but your\n"
+"            account doesn't have permission to delete the following types of "
+"objects:\n"
+"        "
 msgstr ""
-"Para eliminar a %(object_name)s '\n"
-"                            %(escaped_object)s'\n"
-"                            se resquiere\n"
-"                            eliminar objetos relacionados, pero su cuenta no "
-"posee permisos para eliminar los\n"
-"                            siguientes\n"
-"                            de\n"
-"                            objetos:"
+"\n"
+"            Para eliminar %(object_name)s ' %(escaped_object)s' se encontraron objetos relacionados "
+"			 pero usted no tiene permisos para eliminar los siguientes tipos de objetos:"
+"        "
 
-#: rest/templates/admin/delete_confirmation.html:26
+#: rest/templates/admin/delete_confirmation.html:16
 #, python-format
 msgid ""
-"Deleting the %(object_name)s '\n"
-"                            %(escaped_object)s'\n"
-"                            would\n"
-"                            require deleting the following protected related "
-"objects:"
+"\n"
+"            Deleting the %(object_name)s ' %(escaped_object)s' would require "
+"deleting the following protected\n"
+"            related objects:\n"
+"        "
 msgstr ""
-"Para eliminar a %(object_name)s '\n"
-"                            %(escaped_object)s'\n"
-"                            se requiere eliminar los siguientes objetos "
-"relacionados protegidos:"
+"\n"
+"            Para eliminar  %(object_name)s ' %(escaped_object)s' se require eliminar los siguientes objetos relacionados que se encuentran protegidos:"
 
-#: rest/templates/admin/delete_confirmation.html:36
+#: rest/templates/admin/delete_confirmation.html:28
 #, python-format
 msgid ""
-"Are you sure you want to delete the\n"
-"                            %(object_name)s \"\n"
-"                            %(escaped_object)s\"? All of the following "
-"related items will be\n"
-"                            deleted:"
+"\n"
+"            Are you sure you want to delete the %(object_name)s \" "
+"%(escaped_object)s\"?\n"
+"        "
 msgstr ""
+"\n"
+"            ¿Está seguro que desea eliminar %(object_name)s \" "
+"%(escaped_object)s\"?\n"
+"        "
 
-#: rest/templates/admin/delete_confirmation.html:41
-#: rest/templates/admin/delete_selected_confirmation.html:36
-msgid "Objects"
-msgstr ""
-"¿Está seguro que desea eliminar a ?\n"
-"                            %(object_name)s \"\n"
-"                            %(escaped_object)s\"? Todos los siguientes "
-"objetos relacionados serán eliminados."
+#: rest/templates/admin/delete_confirmation.html:39
+#: rest/templates/widgets/dynamic_array.html:11
+#: rest/templates/widgets/dynamic_array.html:15
+msgid "delete"
+msgstr "eliminar"
 
-#: rest/templates/admin/delete_confirmation.html:55
-#: rest/templates/admin/delete_selected_confirmation.html:53
-#: rest/templates/admin/object_history.html:40
-#: rest/templates/admin/submit_line.html:14
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: rest/templates/admin/delete_confirmation.html:59
-#: rest/templates/admin/delete_selected_confirmation.html:57
-msgid "Yes, I'm sure"
-msgstr "Si, estoy seguro"
+#: rest/templates/admin/delete_confirmation.html:42
+#: rest/templates/details/announcement.html:160
+#: rest/templates/details/event.html:191 rest/templates/details/group.html:49
+#: rest/templates/details/nomenclature.html:54
+#: rest/templates/details/user.html:137
+#: rest/templates/registration/password_change_form.html:64
+msgid "cancel"
+msgstr "cancelar"
 
 #: rest/templates/admin/delete_selected_confirmation.html:13
 #, python-format
@@ -398,10 +443,8 @@ msgid ""
 "following types of\n"
 "                            objects:"
 msgstr ""
-"Para eliminar los %(objects_name)s seleccionados se require eliminar los "
-"objetos relacionados, pero su\n"
-"                            cuenta no posee permisos para eliminar lso "
-"siguientes tipos de objetos:"
+"Para eliminar %(objects_name)s seleccionados se encontraron resultados relacionados pero usted\n"
+" no tiene permisos para eliminar los siguientes tipos de objetos:"
 
 #: rest/templates/admin/delete_selected_confirmation.html:23
 #, python-format
@@ -410,8 +453,7 @@ msgid ""
 "                            protected\n"
 "                            related objects:"
 msgstr ""
-"Para eliminar los %(objects_name)s seleccionados se requiere eliminar los "
-"siguientes objetos protegidos relacionados:"
+"Para eliminar %(objects_name)s seleccionados se requiere eliminar los siguientes objetos relacionados que se encuentran protegidos:"
 
 #: rest/templates/admin/delete_selected_confirmation.html:32
 #, python-format
@@ -419,70 +461,121 @@ msgid ""
 "Are you sure you want to delete the selected %(objects_name)s? All of the\n"
 "                            following objects\n"
 "                            and their related items will be deleted:"
-msgstr ""
-"¿Está seguro que desea eliminar los %(objects_name)s seleccionados? Todos "
-"los\n"
-"                            siguientes objetos\n"
-"                            y sus relaciones serán eliminados:"
+msgstr "¿Está seguro que desea eliminar %(objects_name)s seleccionados? Todos los\n"
+"                            siguientes objetos y sus elementos relacionados serán eliminados:"
+
+#: rest/templates/admin/delete_selected_confirmation.html:36
+msgid "Objects"
+msgstr "Objetos"
+
+#: rest/templates/admin/delete_selected_confirmation.html:53
+#: rest/templates/admin/object_history.html:40
+#: rest/templates/admin/submit_line.html:39
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: rest/templates/admin/delete_selected_confirmation.html:57
+msgid "Yes, I'm sure"
+msgstr "SI, estoy seguro"
 
 #: rest/templates/admin/filter.html:4
 msgid "by"
 msgstr "por"
 
-#: rest/templates/admin/filter.html:8
-msgid "all"
-msgstr "todos"
+#: rest/templates/admin/filter.html:13 rest/templates/admin/filter.html:17
+msgid "greater or equal than"
+msgstr "mayor o igual que"
 
-#: rest/templates/admin/filter.html:11
+#: rest/templates/admin/filter.html:22 rest/templates/admin/filter.html:26
+msgid "less or equal than"
+msgstr "menor o igual que"
+
+#: rest/templates/admin/filter.html:32
 msgid "yes"
 msgstr "si"
 
-#: rest/templates/admin/filter.html:13
+#: rest/templates/admin/filter.html:34
 msgid "no"
 msgstr "no"
 
-#: rest/templates/admin/index.html:22
-msgid "models in the"
-msgstr "modelos en el"
+#: rest/templates/admin/filter.html:59
+msgid "contains"
+msgstr "contiene"
 
-#: rest/templates/admin/index.html:43
+#: rest/templates/admin/index.html:11
+#: rest/templates/admin/lib/_main_sidebar.html:26
+msgid "home"
+msgstr "portada"
+
+#: rest/templates/admin/index.html:21 rest/templates/admin/index.html:134
+#: rest/templates/admin/lib/_main_sidebar.html:31
+msgid "management"
+msgstr "administración"
+
+#: rest/templates/admin/index.html:41 rest/templates/admin/index.html:58
+#: rest/templates/admin/index.html:89 rest/templates/admin/index.html:106
+#: rest/templates/admin/index.html:123 rest/templates/admin/index.html:154
 msgid "go to list"
 msgstr "ir a la lista"
 
-#: rest/templates/admin/index.html:56
-msgid "my last recent actions"
-msgstr "mis últimas acciones"
-
 #: rest/templates/admin/index.html:69
-msgid "None available"
-msgstr "No hay disponible"
+#: rest/templates/admin/lib/_main_sidebar.html:53
+msgid "configurations"
+msgstr "configuraciones"
 
-#: rest/templates/admin/index.html:90
+#: rest/templates/admin/index.html:83
+#: rest/templates/admin/lib/_main_sidebar.html:62
+msgid "users"
+msgstr "usuarios"
+
+#: rest/templates/admin/index.html:100
+#: rest/templates/admin/lib/_main_sidebar.html:68
+#: rest/templates/details/user.html:95
+msgid "groups"
+msgstr "grupos"
+
+#: rest/templates/admin/index.html:148
+#: rest/templates/admin/lib/_main_sidebar.html:81
+msgid "logs"
+msgstr "trazas"
+
+#: rest/templates/admin/index.html:166
+msgid "my last recent actions"
+msgstr "mis últimas acciones recientes"
+
+#: rest/templates/admin/index.html:179
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/index.html:115
+msgid "None available"
+msgstr "Ninguno disponible"
+
+#: rest/templates/admin/index.html:200
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/index.html:130
 msgid "Unknown content"
 msgstr "Contenido desconocido"
 
-#: rest/templates/admin/index.html:100
+#: rest/templates/admin/index.html:210
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/index.html:102
 msgid "You don't have permission to edit anything."
-msgstr "Usted no tiene permisos para editar."
+msgstr "Usted no tiene permisos para editar nada."
 
-#: rest/templates/admin/lib/_main_header.html:15
-#: rest/templates/admin/lib/_main_header.html:21
-#: rest/templates/admin/lib/_main_sidebar.html:8
+#: rest/templates/admin/lib/_main_header.html:38
+#: rest/templates/admin/lib/_main_header.html:44
+#: rest/templates/admin/lib/_main_sidebar.html:9
 msgid "user image"
 msgstr "imagen de usuario"
 
-#: rest/templates/admin/lib/_main_header.html:24
-#: rest/templates/admin/lib/_main_sidebar.html:15
+#: rest/templates/admin/lib/_main_header.html:47
+#: rest/templates/admin/lib/_main_sidebar.html:16
 msgid "member since"
-msgstr "desde"
+msgstr "miembro desde"
 
-#: rest/templates/admin/lib/_main_header.html:33
+#: rest/templates/admin/lib/_main_header.html:56
 msgid "change password"
-msgstr "contraseña"
+msgstr "cambiar contraseña"
 
-#: rest/templates/admin/lib/_main_header.html:37
+#: rest/templates/admin/lib/_main_header.html:60
 msgid "sign out"
-msgstr "cerrar sesión"
+msgstr "salir"
 
 #: rest/templates/admin/login.html:13
 msgid "administration"
@@ -494,124 +587,164 @@ msgstr "todos los derechos reservados"
 
 #: rest/templates/admin/login.html:19
 msgid "version"
-msgstr "vesión"
+msgstr "versión"
 
 #: rest/templates/admin/object_history.html:12
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/object_history.html:22
 msgid "Date/time"
-msgstr "Fecha y hora"
+msgstr "Fecha/Hora"
 
 #: rest/templates/admin/object_history.html:13
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/object_history.html:23
 msgid "User"
 msgstr "Usuario"
 
 #: rest/templates/admin/object_history.html:14
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/object_history.html:24
 msgid "Action"
 msgstr "Acción"
 
 #: rest/templates/admin/object_history.html:32
+#: venv/lib/python3.6/site-packages/django_adminlte_theme/templates/admin/object_history.html:38
 msgid ""
 "This object doesn't have a change history. It probably wasn't added via this "
 "admin site."
 msgstr ""
-"Este objeto no posee historial de cambios. Es probable que no se haya "
-"agregado por la administración."
+"Este objeto no tiene historial. Es probable que no haya sido agregado por la página de administración."
 
 #: rest/templates/admin/pagination.html:25
-#: rest/templates/admin/search_form.html:23
+#: rest/templates/admin/search_form.html:38
 msgid "Show all"
-msgstr "Mostrar todos"
+msgstr "Mostrar todo"
 
-#: rest/templates/admin/search_form.html:9
+#: rest/templates/admin/search_form.html:6
 msgid "introduce text to search"
-msgstr "introduzca el texto a buscar"
+msgstr "introduzca el texto para buscar"
 
-#: rest/templates/admin/search_form.html:15
-msgid "Search"
-msgstr "Buscar"
+#: rest/templates/admin/search_form.html:12
+msgid "search"
+msgstr "buscar"
 
-#: rest/templates/admin/search_form.html:19
-#, fuzzy, python-format
-#| msgid ""
-#| "%(counter)s result\n"
-#| "                "
-#| msgid_plural "%(counter)s resultados"
+#: rest/templates/admin/search_form.html:34
+#, python-format
 msgid ""
 "%(counter)s result\n"
 "                "
 msgid_plural "%(counter)s results"
-msgstr[0] "%(counter)s resultadoa"
-msgstr[1] "%(counter)s resultado"
+msgstr[0] ""
+"%(counter)s resultado\n"
+"                "
+msgstr[1] "%(counter)s resultados"
 
-#: rest/templates/admin/search_form.html:22
+#: rest/templates/admin/search_form.html:37
 #, python-format
 msgid ""
 "%(full_result_count)s total\n"
 "                "
 msgstr ""
-"total: %(full_result_count)s\n"
-"                "
+"%(full_result_count)s en total\n"
+"     "
 
-#: rest/templates/admin/submit_line.html:19
+#: rest/templates/admin/submit_line.html:33
 msgid "save"
 msgstr "guardar"
 
-#: rest/templates/details/announcement.html:50
-#: rest/templates/details/event.html:65 rest/templates/details/user.html:63
-msgid "e-mails"
-msgstr "correos electrónicos"
+#: rest/templates/details/announcement.html:5
+#: rest/templates/details/announcement.html:11
+#: rest/templates/details/event.html:5 rest/templates/details/event.html:11
+#: rest/templates/details/group.html:5 rest/templates/details/group.html:9
+#: rest/templates/details/group.html:15
+#: rest/templates/details/nomenclature.html:5
+#: rest/templates/details/nomenclature.html:9
+#: rest/templates/details/nomenclature.html:15
+#: rest/templates/details/user.html:5 rest/templates/details/user.html:9
+#: rest/templates/details/user.html:15
+msgid "details of "
+msgstr "detalles de "
 
-#: rest/templates/details/announcement.html:84
-#: rest/templates/details/event.html:99
-msgid "images"
-msgstr "imágenes"
+#: rest/templates/details/announcement.html:37
+#: rest/templates/details/event.html:36
+msgid "published by"
+msgstr "publicado por"
 
-#: rest/templates/details/event.html:8
-msgid "children"
-msgstr "niños"
+#: rest/templates/details/announcement.html:54
+#: rest/templates/details/event.html:62
+msgid "visits"
+msgstr "visitas"
 
-#: rest/templates/details/event.html:12
+#: rest/templates/details/announcement.html:111
+#: rest/templates/details/event.html:142
+msgid "contact info"
+msgstr "información de contacto"
+
+#: rest/templates/details/announcement.html:214
+#: rest/templates/details/event.html:245
+msgid "share"
+msgstr "compartir"
+
+#: rest/templates/details/announcement.html:217
+#: rest/templates/details/event.html:248
+msgid "toggle fullscreen"
+msgstr "cambiar/salir a pantalla completa"
+
+#: rest/templates/details/announcement.html:220
+#: rest/templates/details/event.html:251
+msgid "Zoom in/out"
+msgstr "Zoom +/-"
+
+#: rest/templates/details/announcement.html:237
+#: rest/templates/details/event.html:268
+msgid "preview"
+msgstr "vista previa"
+
+#: rest/templates/details/announcement.html:238
+#: rest/templates/details/event.html:269
+msgid "next"
+msgstr "siguiente"
+
+#: rest/templates/details/event.html:44
 msgid "adults"
 msgstr "adultos"
 
-#: rest/templates/details/event.html:29
-msgid "dates"
-msgstr "fechas"
+#: rest/templates/details/event.html:50
+msgid "childs"
+msgstr "niños"
 
-#: rest/templates/details/group.html:12 rest/templates/details/user.html:91
+#: rest/templates/details/group.html:30 rest/templates/details/user.html:109
 msgid "permissions"
 msgstr "permisos"
 
-#: rest/templates/details/user.html:13
+#: rest/templates/details/user.html:31
 msgid "full name"
 msgstr "nombre completo"
 
-#: rest/templates/details/user.html:17
+#: rest/templates/details/user.html:35
 msgid "username"
 msgstr "nombre de usuario"
 
-#: rest/templates/details/user.html:33
+#: rest/templates/details/user.html:51
 msgid "is active"
 msgstr "está activo"
 
-#: rest/templates/details/user.html:37
+#: rest/templates/details/user.html:55
 msgid "is superuser"
 msgstr "es super usuario"
 
-#: rest/templates/details/user.html:41
+#: rest/templates/details/user.html:59
 msgid "is staff"
 msgstr "es miembro"
 
-#: rest/templates/details/user.html:77
-msgid "groups"
-msgstr "grupos"
+#: rest/templates/details/user.html:81
+msgid "e-mails"
+msgstr "correos electrónicos"
 
-#: rest/templates/details/user.html:105
+#: rest/templates/details/user.html:123
 msgid "last login"
-msgstr "última vez visto"
+msgstr "último inicio de sesión"
 
-#: rest/templates/details/user.html:110
+#: rest/templates/details/user.html:128
 msgid "date joined"
-msgstr "fecha de alta"
+msgstr "visto por primera vez"
 
 #: rest/templates/registration/logged_out.html:6
 msgid "Thanks for spending some quality time with the Web site today."
@@ -619,36 +752,21 @@ msgstr "Gracias por utilizar el sistema."
 
 #: rest/templates/registration/logged_out.html:12
 msgid "Log in again"
-msgstr "Entrar de nuevo"
-
-#: rest/templates/registration/password_change_done.html:7
-msgid "Home"
-msgstr "Portada"
+msgstr "Autenticarse de nuevo"
 
 #: rest/templates/registration/password_change_done.html:17
 msgid "Your password was changed."
-msgstr "Su contraseña fue cambiada."
+msgstr "Su contraseña se cambió."
 
 #: rest/templates/registration/password_change_form.html:26
 msgid ""
 "Please enter your old password, for security's sake, and then enter your new "
 "password twice so we can verify you typed it in correctly."
-msgstr ""
-"Por favor, introduzca su contraseña antigua, por seguridad, y luego "
-"introduzca la nueva."
-
-#: rest/templates/registration/password_change_form.html:64
-msgid "cancel"
-msgstr "cancelar"
+msgstr "Por favor introduzca la contraseña vieja, por seguridad, y luego entre la nueva y su confirmación escritas correctamente."
 
 #: rest/templates/registration/password_change_form.html:68
 msgid "Change my password"
 msgstr "Cambiar mi contraseña"
-
-#: rest/templates/widgets/dynamic_array.html:11
-#: rest/templates/widgets/dynamic_array.html:15
-msgid "delete"
-msgstr "eliminar"
 
 #: rest/templates/widgets/dynamic_array.html:24
 #: rest/templates/widgets/dynamic_array.html:26
@@ -656,6 +774,18 @@ msgstr "eliminar"
 msgid "add"
 msgstr "agregar"
 
+#: rest/templates/widgets/file_upload.html:8
+msgid "image"
+msgstr "imagen"
+
+#: rest/templates/widgets/file_upload.html:15
+msgid "select image"
+msgstr "seleccionar imagen"
+
+#: rest/templates/widgets/file_upload.html:19
+msgid "remove image"
+msgstr "eliminar imagen"
+
 #: rest/templatetags/custom_filters.py:134
 msgid "no records"
-msgstr "no especificado"
+msgstr "no hay registros"

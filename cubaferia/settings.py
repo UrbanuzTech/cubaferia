@@ -22,7 +22,7 @@ SECRET_KEY = '1!=p+oisv78wttw8#xuws5%yuqdh@@g(a_ay35hvo88dgxeo1v'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.auth',
@@ -123,4 +123,26 @@ CORS_ALLOW_CREDENTIALS = True
 # ]
 # CORS_ORIGIN_REGEX_WHITELIST = [
 #     'http://localhost:3000',
+# ]
+
+FACEBOOK_KEY = '310597106497402'
+FACEBOOK_SECRET = '9a6acb87c700216361b82d01602623e3'
+FACEBOOK_SCOPE = [
+    'email',
+    'user_link'
+]
+FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, name, email, picture.type(large), link'
+}
+FACEBOOK_EXTRA_DATA = [
+    ('name', 'name'),
+    ('email', 'email'),
+    ('picture', 'picture'),
+    ('link', 'profile_url'),
+]
+# GOOGLE_OAUTH2_KEY = '882227422850-34dhg7cvknaneh459k3ljlutnsurn8i0.apps.googleusercontent.com'
+# GOOGLE_OAUTH2_SECRET = 'Frqb1D1bDOiq4nv3YJo4oY7O'
+# GOOGLE_OAUTH2_SCOPE = [
+#     'https://www.googleapis.com/auth/userinfo.email',
+#     'https://www.googleapis.com/auth/userinfo.profile',
 # ]

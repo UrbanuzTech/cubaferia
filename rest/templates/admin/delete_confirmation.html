@@ -32,7 +32,7 @@
 {% endif %}
 <div class="row">
     <div class="col-md-12">
-        {% url 'object_delete' object_name object.pk as delete_url %}
+        {% url 'object_delete' object|get_model_name object.pk as delete_url %}
         <a href="{% add_preserved_filters delete_url is_popup to_field %}"
            class="btn btn-danger pull-right btn-sm"
            style="color: white">

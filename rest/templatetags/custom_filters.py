@@ -164,3 +164,8 @@ def remove(value, text_to_replace):
 @register.filter(name='get_item')
 def get_item(value, item):
     return value[item]
+
+
+@register.filter(name='get_model_name')
+def get_model_name(value):
+    return value._meta.model_name
