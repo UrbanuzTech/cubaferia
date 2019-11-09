@@ -124,7 +124,7 @@ def reinsert_item(modelAdmin, request, queryset):
     messages.success(request, _('items uploaded.').capitalize())
 
 
-reinsert_item.short_description = 'Re-upload selected'
+reinsert_item.short_description = 'To launch selected'
 
 
 @admin.register(Announcement)
@@ -227,7 +227,7 @@ class ObjectDetailsView(DetailView):
         model_name = self.kwargs.get('model_name', None)
         model = get_model_by_name(model_name)
         obj = get_object_or_404(model, pk=pk)
-        return render(self.request, 'details/%s.html' % model_name, locals())
+        return render(request, 'details/%s.html' % model_name, locals())
 
 
 class ObjectReInsertView(View):

@@ -11,6 +11,7 @@
         }
     </style>
     <div class="table-responsive">
+        {% get_current_language as current_language %}
         <table class="table table-bordered table-hover" id="table-results">
             <thead>
             <tr>
@@ -68,7 +69,7 @@
                             {% if cl.opts.model_name == 'announcement' or cl.opts.model_name == 'event' %}
                                 <a style="cursor: pointer;" onclick="reinsert_item('{{ forloop.counter }}')"
                                    class="btn-reinsert margin-r-5"
-                                   title="{% trans 're-upload'|capfirst %}">
+                                   title="{% trans 'to launch'|capfirst %}">
                                     <i class="fa fa-refresh text-green" style="font-size: 14px;"></i>
                                 </a>
                             {% endif %}
@@ -128,7 +129,7 @@
             function reinsert_item(index) {
                 {% with cl.opts|admin_urlname:'change' as change_url %}
                     let pk = $($($($('#table-results').find('tr')[parseInt(index)]).find('td'))[0]).find('input[type=checkbox]').val();
-                    let url = '/admin/reinsert/' + '{{ cl.opts.model_name }}' + '/' + pk;
+                    let url = '/{{ current_language }}/admin/reinsert/' + '{{ cl.opts.model_name }}' + '/' + pk;
                     if (window.location.search) {
                         url += '?_changelist_filters=' + window.location.search.replace('?', '');
                     }
@@ -138,14 +139,12 @@
 
             function details_item(index) {
                 let pk = $($($($('#table-results').find('tr')[parseInt(index)]).find('td'))[0]).find('input[type=checkbox]').val();
-                let url = '/admin/details/' + '{{ cl.opts.model_name }}' + '/' + pk;
+                let url = '/{{ current_language }}/admin/details/' + '{{ cl.opts.model_name }}' + '/' + pk;
                 if (window.location.search) {
-                        url += '?_changelist_filters=' + window.location.search.replace('?', '');
-                    }
+                    url += '?_changelist_filters=' + window.location.search.replace('?', '');
+                }
                 window.location.href = url;
             }
-
-            $()
         </script>
     {% endif %}
 {% else %}

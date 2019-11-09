@@ -1,5 +1,6 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_urls staticfiles admin_list custom_filters %}
+{% load i18n %}
+{% load admin_urls staticfiles admin_list custom_filters %}
 
 {% block title %}
     {% trans 'details of '|capfirst %} {{ obj }}

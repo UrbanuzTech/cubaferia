@@ -92,3 +92,7 @@
 .upload_field {
     display: none !important;
 }
+
+.user-footer img {
+    width: 25px !important;
+}

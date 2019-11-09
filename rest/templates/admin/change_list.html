@@ -60,8 +60,9 @@
                                         <a href="{% add_preserved_filters add_url is_popup to_field %}"
                                            class="btn bg-blue btn-sm float-right margin-r-5" style="color: white">
                                             <i class="fa fa-plus margin-r-5"></i>
-                                            {% blocktrans with cl.opts.verbose_name as name %}Add
-                                                {{ name }}{% endblocktrans %}
+                                            {% blocktrans with cl.opts.verbose_name as name %}
+                                                Add {{ name }}
+                                            {% endblocktrans %}
                                         </a>
                                     {% endif %}
                                 </div>
@@ -238,6 +239,17 @@
                 $upload_btn.click(function () {
                     $('select[name=action]').val('reinsert_item');
                     $('#changelist-form').submit();
+                });
+                $('#table-results').find('tr').each(function (i, e) {
+                    if (i > 0) {
+                        let $td = $($(e).find('td')[1]);
+                        {% trans 'details'|capfirst as title %}
+                        $td.html('<a style="cursor: pointer;" onclick="details_item(\'' + i + '\')"' +
+                            '   class="margin-r-5"' +
+                            '   title="{{ title }}">' +
+                            $td.clone().html() +
+                            '</a>');
+                    }
                 });
             }
         }

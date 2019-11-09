@@ -1,3 +1,12 @@
 {% extends 'adminlte/lib/_main_footer.html' %}
+{% load i18n %}
+
+{% block legal %}
+    <strong>Copyright &copy; {% now "Y" %}{% if not site %}.{% endif %}
+        {% if site %}
+            <a href="http://{{ site.domain }}">{{ site.name }}</a>
+        {% endif %}
+    </strong> {% trans 'all rights reserved'|capfirst %}
+{% endblock %}
 
 {% block version %}1.0{% endblock %}

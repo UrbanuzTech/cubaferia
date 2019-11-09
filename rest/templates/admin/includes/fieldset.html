@@ -17,8 +17,7 @@
                         {% if field.is_checkbox %}
                             {{ field.field }}{% trans field.label_tag %}
                         {% else %}
-                            {{ field.label_tag }}
-
+                            {% trans field.label_tag %}
                             {{ field.field }}
                         {% endif %}
 
