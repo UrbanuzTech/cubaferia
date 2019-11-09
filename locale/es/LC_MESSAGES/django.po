@@ -748,7 +748,7 @@ msgstr "visto por primera vez"
 
 #: rest/templates/registration/logged_out.html:6
 msgid "Thanks for spending some quality time with the Web site today."
-msgstr "Gracias por utilizar el sistema hoy."
+msgstr "Gracias por utilizar el sistema."
 
 #: rest/templates/registration/logged_out.html:12
 msgid "Log in again"
