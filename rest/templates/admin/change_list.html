@@ -214,6 +214,7 @@
                 let $actions = $('.action-select');
                 let $delete_btn = $('#delete-selected');
                 let $upload_btn = $('#reinsert-item');
+                let $btn_delete = $('.btn-delete');
                 $actions.change(function () {
                     if ($('.action-select:checked').length > 0) {
                         $delete_btn.prop('disabled', false);
@@ -239,6 +240,25 @@
                 $upload_btn.click(function () {
                     $('select[name=action]').val('reinsert_item');
                     $('#changelist-form').submit();
+                });
+                $btn_delete.click(function () {
+                    let url = $(this).data('href');
+                    if (window.location.search) {
+                        url += '?_changelist_filters=' + window.location.search.replace('?', '');
+                    }
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+                        success: function (data) {
+                            let $modal = $('#modal-delete-confirmation');
+                            $modal.find('.modal-body').html(data);
+                            $modal.find('form').append('<input type="hidden"/>');
+                            $modal.modal('toggle');
+                        },
+                        error: function () {
+
+                        }
+                    });
                 });
                 {% if 'logentry' not in request.path %}
                     $('#table-results').find('tr').each(function (i, e) {
