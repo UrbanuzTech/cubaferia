@@ -102,9 +102,44 @@ class UserAdmin(admin.ModelAdmin):
         })
     )
     list_per_page = 20
-    list_display = ('first_name', 'last_name', 'username', 'nationality', 'is_active', 'is_superuser', 'is_staff')
+    list_display = (
+        'title_column', 'last_name', 'username', 'nationality', 'is_active', 'is_superuser', 'is_staff',
+        'action_column')
     search_fields = ('first_name', 'last_name', 'username')
     filter_horizontal = ('groups', 'user_permissions',)
+
+    def title_column(self, obj):
+        return mark_safe('<a href="%s" style="cursor: pointer;" title="%s">'
+                         '   %s'
+                         '</a>' % (
+                             reverse_lazy('object_details', kwargs={'model_name': 'user', 'pk': obj.pk}),
+                             _('details').capitalize(),
+                             obj.first_name
+                         ))
+
+    title_column.allow_tags = True
+    title_column.short_description = _('first name').capitalize()
+
+    def action_column(self, obj):
+        return mark_safe('<a href="%s" style="cursor: pointer;" class="margin-r-5" title="%s">'
+                         '   <i class="fa fa-eye" style="font-size: 14px;"></i>'
+                         '</a>'
+                         '<a href="%s" style="cursor: pointer;" class="margin-r-5" title="%s">'
+                         '   <i class="fa fa-pencil text-blue" style="font-size: 14px;"></i>'
+                         '</a>'
+                         '<a data-href="%s" style="cursor: pointer;" class="btn-delete" title="%s">'
+                         '   <i class="fa fa-remove text-danger" style="font-size: 14px;"></i>'
+                         '</a>' % (
+                             reverse_lazy('object_details', kwargs={'model_name': 'user', 'pk': obj.pk}),
+                             _('details').capitalize(),
+                             reverse_lazy('admin:auth_user_change', kwargs={'object_id': obj.pk}),
+                             _('edit').capitalize(),
+                             reverse_lazy('admin:auth_user_delete', kwargs={'object_id': obj.pk}),
+                             _('delete').capitalize()
+                         ))
+
+    action_column.allow_tags = True
+    action_column.short_description = _('actions').capitalize()
 
     def get_readonly_fields(self, request, obj=None):
         if obj is not None:

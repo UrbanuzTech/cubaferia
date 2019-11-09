@@ -260,19 +260,6 @@
                         }
                     });
                 });
-                {% if 'logentry' not in request.path %}
-                    $('#table-results').find('tr').each(function (i, e) {
-                        if (i > 0) {
-                            let $td = $($(e).find('td')[1]);
-                            {% trans 'details'|capfirst as title %}
-                            $td.html('<a style="cursor: pointer;" onclick="details_item(\'' + i + '\')"' +
-                                '   class="margin-r-5"' +
-                                '   title="{{ title }}">' +
-                                $td.clone().html() +
-                                '</a>');
-                        }
-                    });
-                {% endif %}
             }
         }
     </script>
