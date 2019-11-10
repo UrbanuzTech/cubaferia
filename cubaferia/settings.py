@@ -22,7 +22,7 @@ SECRET_KEY = '1!=p+oisv78wttw8#xuws5%yuqdh@@g(a_ay35hvo88dgxeo1v'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.auth',

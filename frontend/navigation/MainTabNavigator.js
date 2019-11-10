@@ -16,8 +16,8 @@ const config = Platform.select({
 
 const navigation_config = ({navigation}) => {
     return {
-        headerRight: (
-            <FontAwesome style={{marginRight: 20}} name={'bars'} size={21} color={'white'}
+        headerLeft: (
+            <FontAwesome style={{marginLeft: 20}} name={'bars'} size={21} color={'white'}
                          onPress={() => navigation.openDrawer()}/>
         ),
         title: 'Cubaferia',

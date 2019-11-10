@@ -2,7 +2,7 @@ import {AppLoading} from 'expo';
 import {Asset} from 'expo-asset';
 import * as Font from 'expo-font';
 import React, {useState, Component} from 'react';
-import {Platform, StatusBar, StyleSheet, View, Text} from 'react-native';
+import {Platform, StatusBar, StyleSheet, View} from 'react-native';
 import {FontAwesome, Ionicons} from '@expo/vector-icons';
 import {Button, ScrollView, SafeAreaView} from "react-native-web";
 import constant from './constants/Colors'
@@ -99,7 +99,7 @@ const AppDrawerNavigator = createDrawerNavigator({
     },
 
 }, {
-    drawerPosition: "right",
+    drawerPosition: "left",
     drawerBackgroundColor: "white",
     contentComponent: CustomDrawerComponent
 });
