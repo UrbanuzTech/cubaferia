@@ -2,9 +2,9 @@ import {AppLoading} from 'expo';
 import {Asset} from 'expo-asset';
 import * as Font from 'expo-font';
 import React, {useState, Component} from 'react';
-import {Platform, StatusBar, StyleSheet, View} from 'react-native';
+import {Platform, StatusBar, StyleSheet} from 'react-native';
 import {FontAwesome, Ionicons} from '@expo/vector-icons';
-import {Button, ScrollView, SafeAreaView} from "react-native-web";
+import {ScrollView, SafeAreaView, Text, View, TouchableOpacity} from "react-native-web";
 import constant from './constants/Colors'
 
 import {
@@ -40,8 +40,43 @@ export default function App(props) {
 class WelcomeScreen extends Component {
     render() {
         return (
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#1c1c1c'}}>
-                <Button onPress={() => this.props.navigation.navigate('AppNavigator')} title={'CubaFeria'}/>
+            <View style={styles.container}>
+                <View>
+                    <TouchableOpacity style={{textAlign: 'right', margin: 10}}
+                                      onPress={() => this.props.navigation.navigate('AppNavigator')}>
+                        <FontAwesome name={'close'} size={21} color={'gray'}/>
+                    </TouchableOpacity>
+                </View>
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffff'}}>
+                    <Text style={{fontSize: 24, textAlign: 'center', color: 'black',marginBottom:50}}><b>Cuba</b>feria</Text>
+                    <TouchableOpacity
+                        style={styles.loginButton} onPress={() => this.props.navigation.navigate('AppNavigator')}>
+                        <FontAwesome style={{flex: 1, textAlign: 'center'}} name={'facebook'} size={21}
+                                     color={'white'}/>
+                        <Text style={{flex: 4, textAlign: 'center', color: 'white'}}>Continúa con Facebook</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.loginButton} onPress={() => this.props.navigation.navigate('AppNavigator')}>
+                        <FontAwesome style={{flex: 1, textAlign: 'center'}} name={'google'} size={21} color={'white'}/>
+                        <Text style={{flex: 4, textAlign: 'center', color: 'white'}}>Continúa con Google</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.loginButton} onPress={() => this.props.navigation.navigate('AppNavigator')}>
+                        <FontAwesome style={{flex: 1, textAlign: 'center'}} name={'sign-in'} size={21} color={'white'}/>
+                        <Text style={{flex: 4, textAlign: 'center', color: 'white'}}>Regístrate Gratis</Text>
+                    </TouchableOpacity>
+                    <View style={{
+                        flexDirection: 'row',
+                        textAlign: 'center',
+                        marginTop: 20
+                    }}>
+                        <Text style={{flex: 1, fontSize: 10, color: 'black'}}>Ya tienes una cuenta? </Text>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('')}>
+                            <Text style={{flex: 1, fontSize: 10, color: 'black', textDecoration: 'underline'}}>Inicia
+                                sesión</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
             </View>
         );
     }
@@ -67,36 +102,47 @@ const AppDrawerNavigator = createDrawerNavigator({
             ),
         }
     },
-    SignUpFacebook: {
+    AnnouncementCreate: {
         screen: MainTabNavigator,
         navigationOptions: {
-            title: 'Continuar Facebook',
+            title: 'Insertar Anuncio',
             drawerIcon: ({focused}) => (
-                <FontAwesome style={{marginRight: 20}} name={'facebook-square'} size={21}
+                <FontAwesome style={{marginRight: 20}} name={'plus'} size={21}
                              color={focused ? constant.tintColor : 'black'}/>
             ),
         }
     },
-    SignUpGoogle: {
+    Terms: {
         screen: MainTabNavigator,
         navigationOptions: {
-            title: 'Continuar Google',
+            title: 'Términos y condiciones',
             drawerIcon: ({focused}) => (
-                <FontAwesome style={{marginRight: 20}} name={'google'} size={21}
+                <FontAwesome style={{marginRight: 20}} name={'print'} size={21}
                              color={focused ? constant.tintColor : 'black'}/>
             ),
         }
     },
-    SignUp: {
+    Help: {
         screen: MainTabNavigator,
         navigationOptions: {
-            title: 'Registrate Gratis',
+            title: 'Ayuda',
             drawerIcon: ({focused}) => (
-                <FontAwesome style={{marginRight: 20}} name={'sign-in'} size={21}
+                <FontAwesome style={{marginRight: 20}} name={'question-circle'} size={21}
                              color={focused ? constant.tintColor : 'black'}/>
             ),
         }
     },
+    AboutUs: {
+        screen: MainTabNavigator,
+        navigationOptions: {
+            title: 'Contáctanos',
+            drawerIcon: ({focused}) => (
+                <FontAwesome style={{marginRight: 20}} name={'envelope-o'} size={21}
+                             color={focused ? constant.tintColor : 'black'}/>
+            ),
+        }
+    },
+
 
 }, {
     drawerPosition: "left",
@@ -142,6 +188,14 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
+    loginButton: {
+        marginTop: 20,
+        flexDirection: 'row',
+        backgroundColor: constant.tintColor,
+        padding: 10,
+        width: 230,
+        borderRadius: 30
+    }
 });
 
 
