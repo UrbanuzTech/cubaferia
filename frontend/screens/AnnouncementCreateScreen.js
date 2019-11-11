@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {
     ScrollView,
-    Button,
     TextInput,
     StyleSheet,
     View,
     Keyboard,
     Picker,
+    Text,
+    TouchableOpacity,
 } from "react-native-web";
 import constant from "../constants/Colors";
 import * as Provider from "../misc/Provider";
@@ -116,8 +117,10 @@ export default class AnnouncementCreateScreen extends Component {
                     </Picker>
                 }
                 <View style={{alignItems: 'center', margin: 10}}>
-                    <Button style={{backgroundColor: constant.primaryColor}} onPress={this.createData}
-                            title={'Crear Anuncio'}/>
+                    <TouchableOpacity
+                        style={styles.createButton} onPress={() => this.createData()}>
+                        <Text style={{textAlign: 'center', color: 'white'}}>Crear</Text>
+                    </TouchableOpacity>
                 </View>
 
             </ScrollView>
@@ -136,5 +139,12 @@ const styles = StyleSheet.create({
         width: '90%',
         borderWidth: 0,
         paddingLeft: 10,
+    },
+    createButton: {
+        marginTop: 20,
+        backgroundColor: constant.tintColor,
+        padding: 10,
+        width: 150,
+        borderRadius: 30
     }
 });

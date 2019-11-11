@@ -4,6 +4,7 @@ import {
     ScrollView,
     StyleSheet, Text,
     View,
+    TouchableOpacity
 } from 'react-native-web';
 
 import ElementsList from "../components/ElementsList";
@@ -11,7 +12,6 @@ import constant from "../constants/Colors";
 import {FontAwesome} from "@expo/vector-icons";
 import * as Provider from "../misc/Provider";
 import {ActivityIndicator} from "react-native";
-
 
 export default class HomeScreen extends Component {
     categoryList = [];
@@ -51,10 +51,12 @@ export default class HomeScreen extends Component {
                             {
                                 this.categoryList.map((element) => (
                                     <View key={element.id} style={styles.categoriesFilterMenuElements}>
-                                        <FontAwesome style={{textAlign: 'center'}} name={"photo"} size={21}
-                                                     color={constant.tintColor}/>
-                                        <Text style={{textAlign: 'center', marginTop: 5}}
-                                              allowFontScaling={true}>{element.name}</Text>
+                                        <TouchableOpacity>
+                                            <FontAwesome style={{textAlign: 'center'}} name={"photo"} size={21}
+                                                         color={constant.tintColor}/>
+                                            <Text style={{textAlign: 'center', marginTop: 5}}
+                                                  allowFontScaling={true}>{element.name}</Text>
+                                        </TouchableOpacity>
                                     </View>
                                 ))
                             }

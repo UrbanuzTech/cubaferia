@@ -1,4 +1,3 @@
-import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import Constants from 'expo-constants';
 import {StyleSheet, Image, Text, View, ActivityIndicator} from 'react-native';
@@ -40,7 +39,7 @@ export default class ElementsList extends React.Component {
                                 key={element.id}
                                 style={styles.option}
                                 background={Touchable.Ripple('#ccc', false)}
-                                onPress={this._handlePressDocs}>
+                                onPress={() => this.props.navigation.navigate('')}>
                                 <View style={{flexDirection: 'row'}}>
                                     <View style={styles.optionIconContainer}>
                                         <Ionicons name="ios-chatboxes" size={22} color="#ccc"/>
@@ -58,10 +57,6 @@ export default class ElementsList extends React.Component {
             </View>
         );
     }
-
-    _handlePressDocs = () => {
-        WebBrowser.openBrowserAsync('http://docs.expo.io');
-    };
 }
 
 const styles = StyleSheet.create({
