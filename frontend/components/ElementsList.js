@@ -1,10 +1,17 @@
 import React from 'react';
 import Constants from 'expo-constants';
-import {StyleSheet, Image, Text, View, ActivityIndicator} from 'react-native';
-import Touchable from 'react-native-platform-touchable';
-import {Ionicons} from '@expo/vector-icons';
+import {FontAwesome} from '@expo/vector-icons';
 import * as Provider from '../misc/Provider'
 import constant from '../constants/Colors'
+import {
+    TouchableOpacity,
+    Text,
+    View,
+    ActivityIndicator,
+    Platform,
+    StyleSheet,
+    Image
+} from "react-native-web";
 
 export default class ElementsList extends React.Component {
     constructor(...props) {
@@ -29,26 +36,22 @@ export default class ElementsList extends React.Component {
     render() {
         const {manifest = {}} = Constants;
         return (
-            <View>
-                <Text style={styles.optionsTitleText}>Anuncios</Text>
+            <View style={Platform.OS === "web" ? styles.containerWeb : styles.container}>
                 {console.log(this.state.dataSource)}
                 {
                     !this.state.isLoading ?
                         this.state.dataSource.map(element => (
-                            <Touchable
-                                key={element.id}
-                                style={styles.option}
-                                background={Touchable.Ripple('#ccc', false)}
-                                onPress={() => this.props.navigation.navigate('')}>
-                                <View style={{flexDirection: 'row'}}>
-                                    <View style={styles.optionIconContainer}>
-                                        <Ionicons name="ios-chatboxes" size={22} color="#ccc"/>
-                                    </View>
-                                    <View style={styles.optionTextContainer}>
-                                        <Text style={styles.optionText}>{element.title}</Text>
-                                    </View>
-                                </View>
-                            </Touchable>
+                            <TouchableOpacity key={element.id} style={{margin: 20}}>
+                                {
+                                    element.main_image ?
+                                        <FontAwesome style={{textAlign: 'center'}} name={"photo"} size={140}
+                                                     color={constant.tintColor}/>
+                                        :
+                                        <Image style={{width: 140}} source={element.main_image}/>
+                                }
+                                <Text style={{textAlign: 'center', marginTop: 5}}
+                                      allowFontScaling={true}>{element.title}</Text>
+                            </TouchableOpacity>
                         ))
                         :
                         <ActivityIndicator style={styles.listActivityIndicator} color={constant.primaryColor}
@@ -61,30 +64,18 @@ export default class ElementsList extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        paddingTop: 15,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        width: 400,
     },
-    optionsTitleText: {
-        fontSize: 16,
-        marginLeft: 15,
-        marginTop: 9,
-        marginBottom: 12,
-    },
-    optionIconContainer: {
-        marginRight: 9,
-    },
-    option: {
-        backgroundColor: '#fdfdfd',
-        paddingHorizontal: 15,
-        paddingVertical: 15,
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: '#EDEDED',
-    },
-    optionText: {
-        fontSize: 15,
-        marginTop: 1,
+    containerWeb: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
     },
     listActivityIndicator: {
         flex: 1,
+        marginTop: 100
     },
 });
