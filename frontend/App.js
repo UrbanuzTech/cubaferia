@@ -67,12 +67,11 @@ class WelcomeScreen extends Component {
                     </TouchableOpacity>
                     <View style={{
                         flexDirection: 'row',
-                        textAlign: 'center',
                         marginTop: 20
                     }}>
                         <Text style={{flex: 1, fontSize: 10, color: 'black'}}>Ya tienes una cuenta? </Text>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('')}>
-                            <Text style={{flex: 1, fontSize: 10, color: 'black', textDecoration: 'underline'}}>Inicia
+                            <Text style={{flex: 1, fontSize: 10, color: 'black', textDecorationLine: 'underline'}}>Inicia
                                 sesión</Text>
                         </TouchableOpacity>
                     </View>

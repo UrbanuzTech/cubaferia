@@ -11,7 +11,6 @@ import ElementsList from "../components/ElementsList";
 import constant from "../constants/Colors";
 import {FontAwesome} from "@expo/vector-icons";
 import * as Provider from "../misc/Provider";
-import {ActivityIndicator} from "react-native";
 
 export default class HomeScreen extends Component {
     categoryList = [];
@@ -60,14 +59,10 @@ export default class HomeScreen extends Component {
                                     </View>
                                 ))
                             }
-                        </ScrollView>
-                        :
-                        <ActivityIndicator style={styles.listActivityIndicator} color={constant.primaryColor}
-                                           size='small'/>
+                        </ScrollView> : null
                 }
                 <ScrollView
-                    style={styles.container}
-                    contentContainerStyle={styles.contentContainer}>
+                    style={styles.container}>
                     <ElementsList/>
                 </ScrollView>
             </View>
@@ -90,6 +85,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     categoriesFilterMenu: {
+        marginTop: 5,
         maxHeight: 90,
         backgroundColor: '#fff',
         overflowX: 'auto',
@@ -97,49 +93,6 @@ const styles = StyleSheet.create({
     categoriesFilterMenuElements: {
         margin: 10,
         width: 80,
-    },
-    developmentModeText: {
-        marginBottom: 20,
-        color: 'rgba(0,0,0,0.4)',
-        fontSize: 14,
-        lineHeight: 19,
-        textAlign: 'center',
-    },
-    contentContainer: {
-        paddingTop: 30,
-    },
-    welcomeContainer: {
-        alignItems: 'center',
-        marginTop: 10,
-        marginBottom: 20,
-    },
-    welcomeImage: {
-        width: 100,
-        height: 80,
-        resizeMode: 'contain',
-        marginTop: 3,
-        marginLeft: -10,
-    },
-    getStartedContainer: {
-        alignItems: 'center',
-        marginHorizontal: 50,
-    },
-    homeScreenFilename: {
-        marginVertical: 7,
-    },
-    codeHighlightText: {
-        color: 'rgba(96,100,109, 0.8)',
-    },
-    codeHighlightContainer: {
-        backgroundColor: 'rgba(0,0,0,0.05)',
-        borderRadius: 3,
-        paddingHorizontal: 4,
-    },
-    getStartedText: {
-        fontSize: 17,
-        color: 'rgba(96,100,109, 1)',
-        lineHeight: 24,
-        textAlign: 'center',
     },
     tabBarInfoContainer: {
         position: 'absolute',
@@ -160,24 +113,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fbfbfb',
         paddingVertical: 20,
-    },
-    tabBarInfoText: {
-        fontSize: 17,
-        color: 'rgba(96,100,109, 1)',
-        textAlign: 'center',
-    },
-    navigationFilename: {
-        marginTop: 5,
-    },
-    helpContainer: {
-        marginTop: 15,
-        alignItems: 'center',
-    },
-    helpLink: {
-        paddingVertical: 15,
-    },
-    helpLinkText: {
-        fontSize: 14,
-        color: '#2e78b7',
     },
 });

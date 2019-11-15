@@ -10,7 +10,7 @@ class CategoryField(serializers.RelatedField):
         return str(value)
 
     def to_internal_value(self, data):
-        value = Nomenclature.objects.get(id=data)
+        value = Nomenclature.objects.get(name=data)
         return value
 
 
@@ -19,7 +19,7 @@ class CityField(serializers.RelatedField):
         return str(value)
 
     def to_internal_value(self, data):
-        value = Nomenclature.objects.get(id=data)
+        value = Nomenclature.objects.get(name=data)
         return value
 
 
