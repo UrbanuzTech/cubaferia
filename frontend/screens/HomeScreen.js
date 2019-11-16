@@ -92,7 +92,8 @@ export default class HomeScreen extends Component {
                         padding: 10,
                         width: 230,
                         borderRadius: 30,
-                        boxShadow: '0px 2px 10px 0px #000'
+                        boxShadow: '0px 2px 10px 0px #000',
+                        marginBottom: 10
                     }}>
                         <Text style={{textAlign: 'center', color: 'white'}}
                               allowFontScaling={true}>Insertar Anuncio</Text>
@@ -155,12 +156,4 @@ const styles = StyleSheet.create({
         backgroundColor: '#fbfbfb',
         paddingVertical: 20,
     },
-    AddButton: {
-        marginTop: 20,
-        flexDirection: 'row',
-        backgroundColor: constant.tintColor,
-        padding: 10,
-        width: 230,
-        borderRadius: 30,
-    }
 });
