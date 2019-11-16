@@ -32,7 +32,7 @@ export async function login(username, password) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: {"username": username, "password": password},
+            body: JSON.stringify({username: username, password: password}),
         })
             .then(data => {
                 resolve(data);

@@ -16,6 +16,7 @@ import {
 
 import MainTabNavigator from './navigation/MainTabNavigator';
 import RegisterScreen from "./screens/RegisterScreen";
+import LoginScreen from "./screens/LoginScreen";
 
 export default function App(props) {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -71,7 +72,7 @@ class WelcomeScreen extends Component {
                         marginTop: 20
                     }}>
                         <Text style={{flex: 1, fontSize: 10, color: 'black'}}>Ya tienes una cuenta? </Text>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginScreen')}>
                             <Text style={{flex: 1, fontSize: 10, color: 'black', textDecorationLine: 'underline'}}>Inicia
                                 sesión</Text>
                         </TouchableOpacity>
@@ -153,6 +154,7 @@ const AppDrawerNavigator = createDrawerNavigator({
 const AppSwitchNavigator = createSwitchNavigator({
     WelcomeScreen: WelcomeScreen,
     RegisterScreen: RegisterScreen,
+    LoginScreen: LoginScreen,
     AppNavigator: AppDrawerNavigator,
 });
 
