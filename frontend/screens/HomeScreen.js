@@ -21,7 +21,8 @@ export default class HomeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoading: true
+            isLoading: true,
+            showButton: true
         };
     }
 
@@ -77,9 +78,26 @@ export default class HomeScreen extends Component {
                         </ScrollView> : null
                 }
                 <ScrollView
-                    style={styles.container}>
+                    style={styles.container} scrollEventThrottle={16} onTouchMove={() => {
+                    this.setState({showButton: false});
+                }} onTouchEnd={() => {
+                    this.setState({showButton: true})
+                }}>
                     <ElementsList/>
                 </ScrollView>
+                <View style={{alignItems: 'center', backgroundColor: 'transparent'}}>
+                    <TouchableOpacity style={{
+                        visibility: this.state.showButton ? 'visible' : 'hidden',
+                        backgroundColor: constant.tintColor,
+                        padding: 10,
+                        width: 230,
+                        borderRadius: 30,
+                        boxShadow: '0px 2px 10px 0px #000'
+                    }}>
+                        <Text style={{textAlign: 'center', color: 'white'}}
+                              allowFontScaling={true}>Insertar Anuncio</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }
@@ -137,4 +155,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#fbfbfb',
         paddingVertical: 20,
     },
+    AddButton: {
+        marginTop: 20,
+        flexDirection: 'row',
+        backgroundColor: constant.tintColor,
+        padding: 10,
+        width: 230,
+        borderRadius: 30,
+    }
 });
