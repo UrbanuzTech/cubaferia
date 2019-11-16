@@ -43,7 +43,7 @@ export default class ElementsList extends React.Component {
                         this.state.dataSource.map(element => (
                             <TouchableOpacity key={element.id} style={{margin: 20}}>
                                 {
-                                    element.main_image ?
+                                    element.main_image === null ?
                                         <FontAwesome style={{textAlign: 'center'}} name={"photo"} size={140}
                                                      color={constant.tintColor}/>
                                         :
