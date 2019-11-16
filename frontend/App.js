@@ -15,6 +15,7 @@ import {
 } from "react-navigation";
 
 import MainTabNavigator from './navigation/MainTabNavigator';
+import RegisterScreen from "./screens/RegisterScreen";
 
 export default function App(props) {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -61,7 +62,7 @@ class WelcomeScreen extends Component {
                         <Text style={{flex: 4, textAlign: 'center', color: 'white'}}>Continúa con Google</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={styles.loginButton} onPress={() => this.props.navigation.navigate('AppNavigator')}>
+                        style={styles.loginButton} onPress={() => this.props.navigation.navigate('RegisterScreen')}>
                         <FontAwesome style={{flex: 1, textAlign: 'center'}} name={'sign-in'} size={21} color={'white'}/>
                         <Text style={{flex: 4, textAlign: 'center', color: 'white'}}>Regístrate Gratis</Text>
                     </TouchableOpacity>
@@ -151,6 +152,7 @@ const AppDrawerNavigator = createDrawerNavigator({
 
 const AppSwitchNavigator = createSwitchNavigator({
     WelcomeScreen: WelcomeScreen,
+    RegisterScreen: RegisterScreen,
     AppNavigator: AppDrawerNavigator,
 });
 

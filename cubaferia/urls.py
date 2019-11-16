@@ -25,11 +25,13 @@ from rest.admin import ObjectDetailsView, ObjectReInsertView, ObjectDeleteView
 from rest.views.AnnouncementViewSet import AnnouncementViewSet
 from rest.views.EventViewSet import EventViewSet
 from rest.views.NomenclatureViewSet import NomenclatureViewSet
+from rest.views.UserViewSet import UserViewSet
 
 router = routers.DefaultRouter()
 router.register(r'announcement', AnnouncementViewSet)
 router.register(r'event', EventViewSet)
 router.register(r'nomenclature', NomenclatureViewSet)
+router.register(r'user', UserViewSet)
 
 urlpatterns = i18n_patterns(
     path('admin/details/<str:model_name>/<int:pk>', ObjectDetailsView.as_view(), name='object_details'),
