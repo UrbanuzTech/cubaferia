@@ -2,10 +2,13 @@ import React, {Component} from 'react';
 import {
     Platform,
     ScrollView,
-    StyleSheet, Text,
+    StyleSheet,
     View,
-    TouchableOpacity
+    TouchableOpacity,
+    TextInput,
+    Text
 } from 'react-native-web';
+import {Header, Item, Icon} from "native-base";
 
 import ElementsList from "../components/ElementsList";
 import constant from "../constants/Colors";
@@ -42,7 +45,19 @@ export default class HomeScreen extends Component {
 
     render() {
         return (
+
             <View style={styles.container}>
+                <Header searchBar style={styles.header}>
+                    <Item style={styles.searchBar}>
+                        <Icon name="menu" onPress={() => this.props.navigation.openDrawer()}/>
+                        <TextInput returnKeyType={'search'} style={{width: '100%', marginTop: 2}}
+                                   placeholder={"Buscar producto en Cubaferia"}
+                                   onChangeText={() => {
+                                   }}/>
+                        <Icon name="ios-search"/>
+                    </Item>
+                </Header>
+
                 {
                     !this.state.isLoading ?
                         <ScrollView style={styles.categoriesFilterMenu} horizontal={true}
@@ -71,11 +86,7 @@ export default class HomeScreen extends Component {
 }
 
 HomeScreen.navigationOptions = {
-    title: 'Cubaferia',
-    headerStyle: {
-        backgroundColor: constant.primaryColor
-    },
-    headerTintColor: '#fff',
+    header: null
 };
 
 
@@ -83,6 +94,18 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+    },
+    header: {
+        backgroundColor: constant.primaryColor,
+        height: 64,
+        boxShadow: '0px 0px 2px 0px #000'
+    },
+    searchBar: {
+        borderRadius: 5,
+        paddingLeft: 15,
+        paddingRight: 15,
+        flex: 5,
+        flexDirection: 'row',
     },
     categoriesFilterMenu: {
         marginTop: 5,
