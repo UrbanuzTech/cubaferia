@@ -1,4 +1,5 @@
 const api = 'http://127.0.0.1:8000/es/api/';
+const api_without_i18n = 'http://127.0.0.1:8000/api/';
 
 /**
  * Get value list
@@ -14,6 +15,27 @@ export async function getValueList(type) {
         })
             .then(data => {
                 resolve(data.json());
+            }, (err) => {
+                reject(err);
+            });
+    });
+}
+
+/**
+ * Login
+ */
+export async function login(username, password) {
+    let url = api_without_i18n + 'token/';
+    return await new Promise((resolve, reject) => {
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: {"username": username, "password": password},
+        })
+            .then(data => {
+                resolve(data);
             }, (err) => {
                 reject(err);
             });
