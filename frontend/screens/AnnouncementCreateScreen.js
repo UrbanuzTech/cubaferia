@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {
     ScrollView,
-    TextInput,
     StyleSheet,
     View,
     Keyboard,
@@ -11,6 +10,8 @@ import {
 } from "react-native-web";
 import constant from "../constants/Colors";
 import * as Provider from "../misc/Provider";
+import {Label, Item, Input} from "native-base";
+
 
 export default class AnnouncementCreateScreen extends Component {
     categoryList = [];
@@ -47,8 +48,8 @@ export default class AnnouncementCreateScreen extends Component {
                     else if (elem.active && elem.nomenclature_type === 'city')
                         this.cityList.push(elem);
                 this.setState({
-                    category: this.categoryList[0].id,
-                    city: this.cityList[0].id,
+                    category: this.categoryList[0].name,
+                    city: this.cityList[0].name,
                     isLoading: false,
                 })
             },
@@ -62,7 +63,8 @@ export default class AnnouncementCreateScreen extends Component {
     }
 
     createData = () => {
-        Provider.createValue('announcement', this.state).then({},
+        Provider.createValue('announcement', this.state).then(() => {
+            },
             (err) => {
                 console.log(err);
             });
@@ -72,49 +74,69 @@ export default class AnnouncementCreateScreen extends Component {
     render() {
         return (
             <ScrollView style={styles.container}>
-                <TextInput style={styles.inputs} placeholder={"Título"}
-                           onChangeText={title => this.setState({title})}/>
-                <TextInput style={styles.inputs} placeholder={"Descripción"}
-                           onChangeText={description => this.setState({description})}/>
-                <TextInput style={styles.inputs} keyboardType={"phone-pad"} placeholder={"Teléfono"}
+                <Item floatingLabel style={styles.inputs}>
+                    <Label>Título</Label>
+                    <Input onChangeText={title => this.setState({title})}/>
+                </Item>
+                <Item floatingLabel style={styles.inputs}>
+                    <Label>Descripción</Label>
+                    <Input onChangeText={description => this.setState({description})}/>
+                </Item>
+                <Item floatingLabel style={styles.inputs}>
+                    <Label>Teléfono</Label>
+                    <Input keyboardType={"phone-pad"}
                            onChangeText={phone => this.setState({phone})}/>
-                <TextInput style={styles.inputs} keyboardType={"email-address"} placeholder={"Email"}
+                </Item>
+                <Item floatingLabel style={styles.inputs}>
+                    <Label>Email</Label>
+                    <Input keyboardType={"email-address"}
                            onChangeText={email => this.setState({email})}/>
-                <TextInput style={styles.inputs} placeholder={"Nombre de contacto"}
-                           onChangeText={name => this.setState({name})}/>
-                <TextInput style={styles.inputs} placeholder={"Dirección"}
-                           onChangeText={address => this.setState({address})}/>
-                <TextInput style={styles.inputs} placeholder={"Imagen principal"}
-                           onChangeText={main_image => this.setState({main_image})}/>
-                <TextInput style={styles.inputs} placeholder={"Imagen 1"}
-                           onChangeText={image1 => this.setState({image1})}/>
-                <TextInput style={styles.inputs} placeholder={"Imagen 2"}
-                           onChangeText={image2 => this.setState({image2})}/>
-                <TextInput style={styles.inputs} placeholder={"Imagen 3"}
-                           onChangeText={image3 => this.setState({image3})}/>
-                <TextInput style={styles.inputs} keyboardType={"numeric"} placeholder={"Precio"}
+                </Item>
+                <Item floatingLabel style={styles.inputs}>
+                    <Label>Nombre de contacto</Label>
+                    <Input onChangeText={name => this.setState({name})}/>
+                </Item>
+                <Item floatingLabel style={styles.inputs}>
+                    <Label>Dirección</Label>
+                    <Input onChangeText={address => this.setState({address})}/>
+                </Item>
+                <Item floatingLabel style={styles.inputs}>
+                    <Label>Imagen principal</Label>
+                    <Input onChangeText={main_image => this.setState({main_image})}/>
+                </Item>
+                <Item floatingLabel style={styles.inputs}>
+                    <Label>Imagen 1</Label>
+                    <Input onChangeText={image1 => this.setState({image1})}/>
+                </Item>
+                <Item floatingLabel style={styles.inputs}>
+                    <Label>Imagen 2</Label>
+                    <Input onChangeText={image2 => this.setState({image2})}/>
+                </Item>
+                <Item floatingLabel style={styles.inputs}>
+                    <Label>Imagen 3</Label>
+                    <Input onChangeText={image3 => this.setState({image3})}/>
+                </Item>
+                <Item floatingLabel style={styles.inputs}>
+                    <Label>Precio</Label>
+                    <Input keyboardType={"numeric"}
                            onChangeText={price => this.setState({price})}/>
+                </Item>
+
                 {!this.state.isLoading ?
-                    <Picker style={styles.inputs} onValueChange={category => this.setState({category})}>
+                    <Picker style={styles.inputsPicker} onValueChange={category => this.setState({category})}>
                         {this.categoryList.map(element => (
-                            <Picker.Item key={element.id} value={element.id} label={element.name}/>
+                            <Picker.Item key={element.id} value={element.name} label={element.name}/>
                         ))}
                     </Picker>
-                    :
-                    <Picker style={styles.inputs}>
-                        <Picker.Item label=''/>
-                    </Picker>
+                    : null
                 }
                 {!this.state.isLoading ?
-                    <Picker style={styles.inputs} onValueChange={city => this.setState({city})}>
+                    <Picker style={styles.inputsPicker} onValueChange={city => this.setState({city})}>
                         {this.cityList.map(element => (
-                            <Picker.Item key={element.id} value={element.id} label={element.name}/>
+                            <Picker.Item key={element.id} value={element.name} label={element.name}/>
                         ))}
                     </Picker>
-                    :
-                    <Picker style={styles.inputs}>
-                        <Picker.Item label=''/>
-                    </Picker>
+                    : null
                 }
                 <View style={{alignItems: 'center', margin: 10}}>
                     <TouchableOpacity
@@ -133,12 +155,14 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 15,
         backgroundColor: '#fff',
+        padding: 30
     },
     inputs: {
-        margin: 20,
-        width: '90%',
-        borderWidth: 0,
-        paddingLeft: 10,
+        paddingTop: 15,
+        marginTop: 20
+    },
+    inputsPicker: {
+        marginBottom: 20
     },
     createButton: {
         marginTop: 20,

@@ -50,7 +50,7 @@ class WelcomeScreen extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffff'}}>
-                    <Text style={{fontSize: 24, textAlign: 'center', color: 'black',marginBottom:50}}><b>Cuba</b>feria</Text>
+                    <Text style={{fontSize: 24, textAlign: 'center', color: 'black', marginBottom: 50}}><b>Cuba</b>feria</Text>
                     <TouchableOpacity
                         style={styles.loginButton} onPress={() => this.props.navigation.navigate('AppNavigator')}>
                         <FontAwesome style={{flex: 1, textAlign: 'center'}} name={'facebook'} size={21}
@@ -85,6 +85,17 @@ class WelcomeScreen extends Component {
 
 const CustomDrawerComponent = props => (
     <ScrollView style={{flex: 1}}>
+        <View style={{
+            backgroundColor: constant.primaryColor,
+            height: 200,
+            justifyContent: 'center',
+            alignItems: 'center',
+        }}>
+            <TouchableOpacity onPress={() => props.navigation.navigate('WelcomeScreen')}>
+                <Text style={{fontSize: 20, color: 'white'}}>Inicia
+                    sesión o regístrate</Text>
+            </TouchableOpacity>
+        </View>
         <SafeAreaView>
             <DrawerItems {...props}/>
         </SafeAreaView>
@@ -152,10 +163,10 @@ const AppDrawerNavigator = createDrawerNavigator({
 });
 
 const AppSwitchNavigator = createSwitchNavigator({
+    AppNavigator: AppDrawerNavigator,
     WelcomeScreen: WelcomeScreen,
     RegisterScreen: RegisterScreen,
     LoginScreen: LoginScreen,
-    AppNavigator: AppDrawerNavigator,
 });
 
 const AppContainer = createAppContainer(AppSwitchNavigator);
