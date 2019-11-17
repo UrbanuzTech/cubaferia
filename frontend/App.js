@@ -44,7 +44,7 @@ class WelcomeScreen extends Component {
         return (
             <View style={styles.container}>
                 <View>
-                    <TouchableOpacity style={{textAlign: 'right', margin: 10}}
+                    <TouchableOpacity style={{margin: 10}}
                                       onPress={() => this.props.navigation.navigate('AppNavigator')}>
                         <FontAwesome name={'close'} size={21} color={'gray'}/>
                     </TouchableOpacity>

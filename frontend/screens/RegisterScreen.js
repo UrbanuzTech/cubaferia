@@ -11,6 +11,8 @@ import {
 } from "react-native-web";
 import constant from "../constants/Colors";
 import * as Provider from "../misc/Provider";
+import {FontAwesome} from "@expo/vector-icons";
+import {Input, Item, Label} from "native-base";
 
 export default class AnnouncementCreateScreen extends Component {
     constructor(props) {
@@ -35,25 +37,53 @@ export default class AnnouncementCreateScreen extends Component {
 
     render() {
         return (
-            <ScrollView style={styles.container}>
-                <TextInput style={styles.inputs} placeholder={"Nombre"}
-                           onChangeText={first_name => this.setState({first_name})}/>
-                <TextInput style={styles.inputs} placeholder={"Apellidos"}
-                           onChangeText={last_name => this.setState({last_name})}/>
-                <TextInput style={styles.inputs} placeholder={"Nombre de usuario"}
-                           onChangeText={username => this.setState({username})}/>
-                <TextInput style={styles.inputs} placeholder={"Correo electronico"}
-                           onChangeText={email => this.setState({email})}/>
-                <TextInput style={styles.inputs} placeholder={"Contrasenna"}
-                           onChangeText={password => this.setState({password})}/>
-                <View style={{alignItems: 'center', margin: 10}}>
-                    <TouchableOpacity
-                        style={styles.createButton} onPress={() => this.createData()}>
-                        <Text style={{textAlign: 'center', color: 'white'}}>Registrar</Text>
+            <View style={styles.container}>
+                <View>
+                    <TouchableOpacity style={{margin: 10}}
+                                      onPress={() => this.props.navigation.navigate('WelcomeScreen')}>
+                        <FontAwesome name={'arrow-left'} size={21} color={'gray'}/>
                     </TouchableOpacity>
                 </View>
-
-            </ScrollView>
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                    <Text style={styles.header}>Únete a <b>Cuba</b>feria</Text>
+                    <Item floatingLabel style={styles.inputs}>
+                        <Label>Nombre</Label>
+                        <Input returnKeyType={'next'} onChangeText={first_name => this.setState({first_name})}/>
+                    </Item>
+                    <Item floatingLabel style={styles.inputs}>
+                        <Label>Apellidos</Label>
+                        <Input returnKeyType={'next'} onChangeText={last_name => this.setState({last_name})}/>
+                    </Item>
+                    <Item floatingLabel style={styles.inputs}>
+                        <Label>Nombre de usuario</Label>
+                        <Input returnKeyType={'next'} onChangeText={username => this.setState({username})}/>
+                    </Item>
+                    <Item floatingLabel style={styles.inputs}>
+                        <Label>Correo electrónico</Label>
+                        <Input returnKeyType={'next'} keyboardType={'email-address'}
+                               onChangeText={email => this.setState({email})}/>
+                    </Item>
+                    <Item floatingLabel style={styles.inputs}>
+                        <Label>Contraseña</Label>
+                        <Input secureTextEntry returnKeyType={'send'}
+                               onChangeText={password => this.setState({password})}/>
+                    </Item>
+                    <View style={{alignItems: 'center', margin: 10}}>
+                        <TouchableOpacity
+                            style={styles.createButton} onPress={() => this.createData()}>
+                            <Text style={{textAlign: 'center', color: 'white'}}>Registrar</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <Text style={styles.footer}>Al registrarte o iniciar sesión aceptas nuestros </Text>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginScreen')}>
+                        <Text style={styles.footerUnderline}>Términos y Condiciones</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.footer}>y la </Text>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginScreen')}>
+                        <Text style={styles.footerUnderline}>Política de Privacidad</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
         )
     }
 }
@@ -61,14 +91,18 @@ export default class AnnouncementCreateScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 15,
         backgroundColor: '#fff',
     },
     inputs: {
-        margin: 20,
-        width: '90%',
-        borderWidth: 0,
-        paddingLeft: 10,
+        paddingTop: 15,
+        marginTop: 20,
+        width: '90%'
+    },
+    header: {
+        fontSize: 24,
+        textAlign: 'center',
+        color: 'black',
+        marginBottom: 50
     },
     createButton: {
         marginTop: 20,
@@ -76,5 +110,14 @@ const styles = StyleSheet.create({
         padding: 10,
         width: 150,
         borderRadius: 30
+    },
+    footer: {
+        fontSize: 10,
+        color: 'black'
+    },
+    footerUnderline: {
+        fontSize: 10,
+        color: 'black',
+        textDecorationLine: 'underline'
     }
 });
