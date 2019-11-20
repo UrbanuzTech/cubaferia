@@ -8,7 +8,7 @@ import {
     TextInput,
     Text
 } from 'react-native-web';
-import {Header, Item, Icon} from "native-base";
+import {Header, Item, Icon, Button} from "native-base";
 
 import ElementsList from "../components/ElementsList";
 import constant from "../constants/Colors";
@@ -29,7 +29,7 @@ export default class HomeScreen extends Component {
     getNomenclatures() {
         Provider.getValueList('nomenclature').then(
             (data) => {
-                for (const elem of data)
+                for (const elem of data.results)
                     if (elem.active && elem.nomenclature_type === 'announcement_category')
                         this.categoryList.push(elem);
                 this.setState({isLoading: false})
@@ -57,6 +57,17 @@ export default class HomeScreen extends Component {
                                    }}/>
                         <Icon name="ios-search"/>
                     </Item>
+                    <Button style={{
+                        flex: 1,
+                        justifyContent: 'center',
+                        marginLeft: 10,
+                        height: 40,
+                        backgroundColor: 'white',
+                        boxShadow: '0px 1px 5px 0px #000',
+                        borderRadius: 5
+                    }}>
+                        <Text style={{fontSize: 15, color: '#1c1c1c'}}>Filtrar</Text>
+                    </Button>
                 </Header>
 
                 {
@@ -69,7 +80,7 @@ export default class HomeScreen extends Component {
                                         <TouchableOpacity>
                                             <FontAwesome style={{textAlign: 'center'}} name={"photo"} size={21}
                                                          color={constant.tintColor}/>
-                                            <Text style={{textAlign: 'center', marginTop: 5}}
+                                            <Text center style={{textAlign: 'center ', marginTop: 5}}
                                                   allowFontScaling={true}>{element.name}</Text>
                                         </TouchableOpacity>
                                     </View>
@@ -121,8 +132,8 @@ const styles = StyleSheet.create({
     },
     searchBar: {
         borderRadius: 5,
-        paddingLeft: 15,
-        paddingRight: 15,
+        paddingLeft: 10,
+        paddingRight: 10,
         flex: 5,
         flexDirection: 'row',
     },
