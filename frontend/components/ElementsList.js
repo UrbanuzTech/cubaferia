@@ -40,7 +40,7 @@ export default class ElementsList extends React.Component {
                 {console.log(this.state.dataSource)}
                 {
                     !this.state.isLoading ?
-                        this.state.dataSource.map(element => (
+                        this.state.dataSource.results.map(element => (
                             <TouchableOpacity key={element.id} style={{margin: 20}}>
                                 {
                                     element.main_image === null ?
