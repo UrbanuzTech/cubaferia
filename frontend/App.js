@@ -86,11 +86,12 @@ class WelcomeScreen extends Component {
 const CustomDrawerComponent = props => (
     <ScrollView style={{flex: 1}}>
         <View style={{
-            backgroundColor: constant.primaryColor,
+            background: 'linear-gradient(#4630EB, #000)',
             height: 200,
             justifyContent: 'center',
             alignItems: 'center',
         }}>
+            <Text style={{fontSize: 24, textAlign: 'center', color: 'white', marginBottom: 10}}><b>Cuba</b>feria</Text>
             <TouchableOpacity onPress={() => props.navigation.navigate('WelcomeScreen')}>
                 <Text style={{fontSize: 20, color: 'white'}}>Inicia
                     sesión o regístrate</Text>
