@@ -40,7 +40,7 @@ export default class ElementsList extends React.Component {
                 {console.log(this.state.dataSource)}
                 {
                     !this.state.isLoading ?
-                        this.state.dataSource.results.map(element => (
+                        this.state.dataSource.map(element => (
                             <Touchable
                                 key={element.id}
                                 style={styles.option}

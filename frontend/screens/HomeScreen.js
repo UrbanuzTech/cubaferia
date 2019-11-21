@@ -12,7 +12,7 @@ import {Header, Item, Icon, Button} from "native-base";
 
 import ElementsList from "../components/ElementsList";
 import constant from "../constants/Colors";
-import {FontAwesome} from "@expo/vector-icons";
+import {FontAwesome5} from "@expo/vector-icons";
 import * as Provider from "../misc/Provider";
 
 export default class HomeScreen extends Component {
@@ -29,7 +29,7 @@ export default class HomeScreen extends Component {
     getNomenclatures() {
         Provider.getValueList('nomenclature').then(
             (data) => {
-                for (const elem of data.results)
+                for (const elem of data)
                     if (elem.active && elem.nomenclature_type === 'announcement_category')
                         this.categoryList.push(elem);
                 this.setState({isLoading: false})
@@ -69,7 +69,6 @@ export default class HomeScreen extends Component {
                         <Text style={{fontSize: 15, color: '#1c1c1c'}}>Filtrar</Text>
                     </Button>
                 </Header>
-
                 {
                     !this.state.isLoading ?
                         <ScrollView style={styles.categoriesFilterMenu} horizontal={true}
@@ -78,7 +77,8 @@ export default class HomeScreen extends Component {
                                 this.categoryList.map((element) => (
                                     <View key={element.id} style={styles.categoriesFilterMenuElements}>
                                         <TouchableOpacity>
-                                            <FontAwesome style={{textAlign: 'center'}} name={"photo"} size={21}
+                                            <FontAwesome5 style={{textAlign: 'center'}}
+                                                         name={element.logo ? element.logo : "photo"} size={21}
                                                          color={constant.tintColor}/>
                                             <Text center style={{textAlign: 'center ', marginTop: 5}}
                                                   allowFontScaling={true}>{element.name}</Text>

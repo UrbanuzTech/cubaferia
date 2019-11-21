@@ -28,7 +28,7 @@ class Nomenclature(models.Model):
     nomenclature_type = models.CharField(max_length=100, choices=NOMENCLATURE_TYPES,
                                          verbose_name=_('nomenclature type'))
     parent = models.ForeignKey('self', on_delete=DO_NOTHING, blank=True, null=True, verbose_name=_('parent'))
-    logo = models.FileField(upload_to='nomenclatures', blank=True, null=True, verbose_name=_('logo'))
+    logo = models.TextField(blank=True, null=True)
     active = models.BooleanField(verbose_name=_('active'))
 
     def save(self, *args, **kwargs):
