@@ -5,6 +5,7 @@
     "fields": {
       "name": "Moda y Accesorios",
       "nomenclature_type": "announcement_category",
+      "logo": "tshirt",
       "active": true
     }
   },
@@ -14,6 +15,7 @@
     "fields": {
       "name": "TV, Audio y Foto",
       "nomenclature_type": "announcement_category",
+      "logo": "tv",
       "active": true
     }
   },
@@ -23,6 +25,7 @@
     "fields": {
       "name": "Móviles y Telefonía",
       "nomenclature_type": "announcement_category",
+      "logo": "mobile",
       "active": true
     }
   },
@@ -32,6 +35,7 @@
     "fields": {
       "name": "Informática y Electrónica",
       "nomenclature_type": "announcement_category",
+      "logo": "memory",
       "active": true
     }
   },
@@ -41,6 +45,7 @@
     "fields": {
       "name": "Coches",
       "nomenclature_type": "announcement_category",
+      "logo": "car",
       "active": true
     }
   },
@@ -50,6 +55,7 @@
     "fields": {
       "name": "Motos",
       "nomenclature_type": "announcement_category",
+      "logo": "motorcycle",
       "active": true
     }
   },
@@ -59,6 +65,7 @@
     "fields": {
       "name": "Motor y Accesorios",
       "nomenclature_type": "announcement_category",
+      "logo": "cogs",
       "active": true
     }
   },
@@ -68,6 +75,7 @@
     "fields": {
       "name": "Bicicletas",
       "nomenclature_type": "announcement_category",
+      "logo": "bicycle",
       "active": true
     }
   },
@@ -77,6 +85,7 @@
     "fields": {
       "name": "Inmobiliaria",
       "nomenclature_type": "announcement_category",
+      "logo": "city",
       "active": true
     }
   },
@@ -86,6 +95,7 @@
     "fields": {
       "name": "Deporte y Ocio",
       "nomenclature_type": "announcement_category",
+      "logo": "table-tennis",
       "active": true
     }
   },
@@ -95,6 +105,7 @@
     "fields": {
       "name": "Consolas y Videojuegos",
       "nomenclature_type": "announcement_category",
+      "logo": "gamepad",
       "active": true
     }
   },
@@ -104,6 +115,7 @@
     "fields": {
       "name": "Hogar y Jardín",
       "nomenclature_type": "announcement_category",
+      "logo": "warehouse",
       "active": true
     }
   },
@@ -113,6 +125,7 @@
     "fields": {
       "name": "Electrodomésticos",
       "nomenclature_type": "announcement_category",
+      "logo": "blender",
       "active": true
     }
   },
@@ -120,8 +133,9 @@
     "model": "rest.nomenclature",
     "pk": 14,
     "fields": {
-      "name": "Cine, Libros y Música",
+      "name": "Eventos",
       "nomenclature_type": "announcement_category",
+      "logo": "bullhorn",
       "active": true
     }
   },
@@ -131,6 +145,7 @@
     "fields": {
       "name": "Niños y Bebés",
       "nomenclature_type": "announcement_category",
+      "logo": "baby",
       "active": true
     }
   },
@@ -140,6 +155,7 @@
     "fields": {
       "name": "Coleccionismo",
       "nomenclature_type": "announcement_category",
+      "logo": "gem",
       "active": true
     }
   },
@@ -149,6 +165,7 @@
     "fields": {
       "name": "Materiales de construcción",
       "nomenclature_type": "announcement_category",
+      "logo": "paint-roller",
       "active": true
     }
   },
@@ -158,6 +175,7 @@
     "fields": {
       "name": "Industria y Agricultura",
       "nomenclature_type": "announcement_category",
+      "logo": "industry",
       "active": true
     }
   },
@@ -167,6 +185,7 @@
     "fields": {
       "name": "Empleo",
       "nomenclature_type": "announcement_category",
+      "logo": "briefcase",
       "active": true
     }
   },
@@ -176,6 +195,7 @@
     "fields": {
       "name": "Servicios",
       "nomenclature_type": "announcement_category",
+      "logo": "business-time",
       "active": true
     }
   },
@@ -185,6 +205,7 @@
     "fields": {
       "name": "Otros",
       "nomenclature_type": "announcement_category",
+      "logo": "ellipsis-h",
       "active": true
     }
   },

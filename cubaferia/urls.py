@@ -25,17 +25,26 @@ from rest.admin import ObjectDetailsView, ObjectReInsertView, ObjectDeleteView
 from rest.views.AnnouncementViewSet import AnnouncementViewSet
 from rest.views.EventViewSet import EventViewSet
 from rest.views.NomenclatureViewSet import NomenclatureViewSet
+from rest.views.UserViewSet import UserViewSet
+
+from rest_framework_simplejwt import views as jwt_views
 
 router = routers.DefaultRouter()
 router.register(r'announcement', AnnouncementViewSet)
 router.register(r'event', EventViewSet)
 router.register(r'nomenclature', NomenclatureViewSet)
+router.register(r'user', UserViewSet)
 
 urlpatterns = i18n_patterns(
     path('admin/details/<str:model_name>/<int:pk>', ObjectDetailsView.as_view(), name='object_details'),
     path('admin/reinsert/<str:model_name>/<int:pk>', ObjectReInsertView.as_view(), name='object_reinsert'),
     path('admin/delete/<str:model_name>/<int:pk>', ObjectDeleteView.as_view(), name='object_delete'),
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    path('api/', include(router.urls))
 )
+urlpatterns += [
+    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    path('api-auth/', include('rest_framework.urls')),
+]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

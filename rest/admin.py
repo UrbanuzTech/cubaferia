@@ -1,3 +1,5 @@
+import json
+
 from django import forms
 from django.contrib import admin, messages
 from django.contrib.admin.models import LogEntry
@@ -6,8 +8,10 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
+from django.template.loader import render_to_string
+from django.urls import reverse, reverse_lazy
 from django.utils import timezone
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
 from django.views.generic.base import View
@@ -43,7 +47,23 @@ class LogEntryAdmin(admin.ModelAdmin):
     list_per_page = 20
     actions_on_top = False
     actions = []
-    list_display = ('user', 'object_repr', 'content_type', 'action_flag', 'action_time', 'change_message')
+    list_display = ('user', 'object_repr', 'content_type', 'action_flag', 'action_time', 'get_change_message')
+
+    def get_change_message(self, obj):
+        if obj.action_flag == 1:
+            return mark_safe('<span class="label label-success">%s</span>' % _('Addition'))
+        elif obj.action_flag == 2:
+            data = json.loads(obj.change_message)
+            result = '<span class="label label-primary">%s</span><ul class="text-left">' % _('Change')
+            for item in data[0]['changed']['fields']:
+                result += '<li>%s</li>' % item
+            result += '</ul>'
+            return mark_safe(result)
+        else:
+            return mark_safe('<span class="label label-danger red">%s</span>' % _('Deletion'))
+
+    get_change_message.allow_tags = True
+    get_change_message.short_description = _('Change message')
 
     def has_delete_permission(self, request, obj=None):
         return False
@@ -82,9 +102,44 @@ class UserAdmin(admin.ModelAdmin):
         })
     )
     list_per_page = 20
-    list_display = ('first_name', 'last_name', 'username', 'nationality', 'is_active', 'is_superuser', 'is_staff')
+    list_display = (
+        'title_column', 'last_name', 'username', 'nationality', 'is_active', 'is_superuser', 'is_staff',
+        'action_column')
     search_fields = ('first_name', 'last_name', 'username')
     filter_horizontal = ('groups', 'user_permissions',)
+
+    def title_column(self, obj):
+        return mark_safe('<a href="%s" style="cursor: pointer;" title="%s">'
+                         '   %s'
+                         '</a>' % (
+                             reverse_lazy('object_details', kwargs={'model_name': 'user', 'pk': obj.pk}),
+                             _('details').capitalize(),
+                             obj.first_name
+                         ))
+
+    title_column.allow_tags = True
+    title_column.short_description = _('first name').capitalize()
+
+    def action_column(self, obj):
+        return mark_safe('<a href="%s" style="cursor: pointer;" class="margin-r-5" title="%s">'
+                         '   <i class="fa fa-eye" style="font-size: 14px;"></i>'
+                         '</a>'
+                         '<a href="%s" style="cursor: pointer;" class="margin-r-5" title="%s">'
+                         '   <i class="fa fa-pencil text-blue" style="font-size: 14px;"></i>'
+                         '</a>'
+                         '<a data-href="%s" style="cursor: pointer;" class="btn-delete" title="%s">'
+                         '   <i class="fa fa-remove text-danger" style="font-size: 14px;"></i>'
+                         '</a>' % (
+                             reverse_lazy('object_details', kwargs={'model_name': 'user', 'pk': obj.pk}),
+                             _('details').capitalize(),
+                             reverse_lazy('admin:auth_user_change', kwargs={'object_id': obj.pk}),
+                             _('edit').capitalize(),
+                             reverse_lazy('admin:auth_user_delete', kwargs={'object_id': obj.pk}),
+                             _('delete').capitalize()
+                         ))
+
+    action_column.allow_tags = True
+    action_column.short_description = _('actions').capitalize()
 
     def get_readonly_fields(self, request, obj=None):
         if obj is not None:
@@ -131,7 +186,7 @@ reinsert_item.short_description = 'To launch selected'
 class AnnouncementAdmin(admin.ModelAdmin):
     list_display_links = None
     readonly_fields = ('visit_count', 'created_by')
-    list_display = ('title', 'price', 'city', 'visit_count', 'category', 'created_by')
+    list_display = ('title_column', 'price', 'city', 'visit_count', 'category', 'created_by', 'action_column')
     list_filter = (
         ('title', ContainsFieldListFilter),
         'city',
@@ -145,6 +200,44 @@ class AnnouncementAdmin(admin.ModelAdmin):
     list_per_page = 20
     actions = [reinsert_item]
     search_fields = ('price', 'title')
+
+    def action_column(self, obj):
+        return mark_safe('<a href="%s" style="cursor: pointer;" class="margin-r-5" title="%s">'
+                         '   <i class="fa fa-eye" style="font-size: 14px;"></i>'
+                         '</a>'
+                         '<a href="%s" style="cursor: pointer;" class="btn-reinsert margin-r-5" title="%s">'
+                         '   <i class="fa fa-refresh text-green" style="font-size: 14px;"></i>'
+                         '</a>'
+                         '<a href="%s" style="cursor: pointer;" class="margin-r-5" title="%s">'
+                         '   <i class="fa fa-pencil text-blue" style="font-size: 14px;"></i>'
+                         '</a>'
+                         '<a data-href="%s" style="cursor: pointer;" class="btn-delete" title="%s">'
+                         '   <i class="fa fa-remove text-danger" style="font-size: 14px;"></i>'
+                         '</a>' % (
+                             reverse_lazy('object_details', kwargs={'model_name': 'announcement', 'pk': obj.pk}),
+                             _('details').capitalize(),
+                             reverse_lazy('object_reinsert', kwargs={'model_name': 'announcement', 'pk': obj.pk}),
+                             _('to launch').capitalize(),
+                             reverse_lazy('admin:rest_announcement_change', kwargs={'object_id': obj.pk}),
+                             _('edit').capitalize(),
+                             reverse_lazy('admin:rest_announcement_delete', kwargs={'object_id': obj.pk}),
+                             _('delete').capitalize()
+                         ))
+
+    action_column.allow_tags = True
+    action_column.short_description = _('actions').capitalize()
+
+    def title_column(self, obj):
+        return mark_safe('<a href="%s" style="cursor: pointer;" title="%s">'
+                         '   %s'
+                         '</a>' % (
+                             reverse_lazy('object_details', kwargs={'model_name': 'announcement', 'pk': obj.pk}),
+                             _('details').capitalize(),
+                             obj.title
+                         ))
+
+    title_column.allow_tags = True
+    title_column.short_description = _('title').capitalize()
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'city':
@@ -175,7 +268,8 @@ class EventAdmin(admin.ModelAdmin):
     readonly_fields = ('visit_count', 'created_by')
 
     list_display = (
-        'title', 'price_for_children', 'price_for_adults', 'city', 'visit_count', 'category', 'created_by')
+        'title_column', 'price_for_children', 'price_for_adults', 'city', 'visit_count', 'category', 'created_by',
+        'action_column')
     list_filter = (
         ('title', ContainsFieldListFilter),
         'city',
@@ -197,6 +291,44 @@ class EventAdmin(admin.ModelAdmin):
     actions = [reinsert_item]
     search_fields = ('price_for_children', 'price_for_adults', 'title')
     list_per_page = 20
+
+    def title_column(self, obj):
+        return mark_safe('<a href="%s" style="cursor: pointer;" title="%s">'
+                         '   %s'
+                         '</a>' % (
+                             reverse_lazy('object_details', kwargs={'model_name': 'event', 'pk': obj.pk}),
+                             _('details').capitalize(),
+                             obj.title
+                         ))
+
+    title_column.allow_tags = True
+    title_column.short_description = _('title').capitalize()
+
+    def action_column(self, obj):
+        return mark_safe('<a href="%s" style="cursor: pointer;" class="margin-r-5" title="%s">'
+                         '   <i class="fa fa-eye" style="font-size: 14px;"></i>'
+                         '</a>'
+                         '<a href="%s" style="cursor: pointer;" class="btn-reinsert margin-r-5" title="%s">'
+                         '   <i class="fa fa-refresh text-green" style="font-size: 14px;"></i>'
+                         '</a>'
+                         '<a href="%s" style="cursor: pointer;" class="margin-r-5" title="%s">'
+                         '   <i class="fa fa-pencil text-blue" style="font-size: 14px;"></i>'
+                         '</a>'
+                         '<a data-href="%s" style="cursor: pointer;" class="btn-delete" title="%s">'
+                         '   <i class="fa fa-remove text-danger" style="font-size: 14px;"></i>'
+                         '</a>' % (
+                             reverse_lazy('object_details', kwargs={'model_name': 'event', 'pk': obj.pk}),
+                             _('details').capitalize(),
+                             reverse_lazy('object_reinsert', kwargs={'model_name': 'event', 'pk': obj.pk}),
+                             _('to launch').capitalize(),
+                             reverse_lazy('admin:rest_event_change', kwargs={'object_id': obj.pk}),
+                             _('edit').capitalize(),
+                             reverse_lazy('admin:rest_event_delete', kwargs={'object_id': obj.pk}),
+                             _('delete').capitalize()
+                         ))
+
+    action_column.allow_tags = True
+    action_column.short_description = _('actions').capitalize()
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'city':

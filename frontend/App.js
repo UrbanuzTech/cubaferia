@@ -2,9 +2,9 @@ import {AppLoading} from 'expo';
 import {Asset} from 'expo-asset';
 import * as Font from 'expo-font';
 import React, {useState, Component} from 'react';
-import {Platform, StatusBar, StyleSheet, View, Text} from 'react-native';
+import {Platform, StatusBar, StyleSheet} from 'react-native';
 import {FontAwesome, Ionicons} from '@expo/vector-icons';
-import {Button, ScrollView, SafeAreaView} from "react-native-web";
+import {ScrollView, SafeAreaView, Text, View, TouchableOpacity} from "react-native-web";
 import constant from './constants/Colors'
 
 import {
@@ -15,6 +15,9 @@ import {
 } from "react-navigation";
 
 import MainTabNavigator from './navigation/MainTabNavigator';
+import RegisterScreen from "./screens/RegisterScreen";
+import LoginScreen from "./screens/LoginScreen";
+import HomeScreen from "./screens/HomeScreen";
 
 export default function App(props) {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -40,8 +43,42 @@ export default function App(props) {
 class WelcomeScreen extends Component {
     render() {
         return (
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#1c1c1c'}}>
-                <Button onPress={() => this.props.navigation.navigate('AppNavigator')} title={'CubaFeria'}/>
+            <View style={styles.container}>
+                <View>
+                    <TouchableOpacity style={{margin: 10}}
+                                      onPress={() => this.props.navigation.navigate('AppNavigator')}>
+                        <FontAwesome name={'close'} size={21} color={'gray'}/>
+                    </TouchableOpacity>
+                </View>
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffff'}}>
+                    <Text style={{fontSize: 24, textAlign: 'center', color: 'black', marginBottom: 50}}><b>Cuba</b>feria</Text>
+                    <TouchableOpacity
+                        style={styles.loginButton} onPress={() => this.props.navigation.navigate('MainTabNavigator')}>
+                        <FontAwesome style={{flex: 1, textAlign: 'center'}} name={'facebook'} size={21}
+                                     color={'white'}/>
+                        <Text style={{flex: 4, textAlign: 'center', color: 'white'}}>Continúa con Facebook</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.loginButton} onPress={() => this.props.navigation.navigate('MainTabNavigator')}>
+                        <FontAwesome style={{flex: 1, textAlign: 'center'}} name={'google'} size={21} color={'white'}/>
+                        <Text style={{flex: 4, textAlign: 'center', color: 'white'}}>Continúa con Google</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.loginButton} onPress={() => this.props.navigation.navigate('RegisterScreen')}>
+                        <FontAwesome style={{flex: 1, textAlign: 'center'}} name={'sign-in'} size={21} color={'white'}/>
+                        <Text style={{flex: 4, textAlign: 'center', color: 'white'}}>Regístrate Gratis</Text>
+                    </TouchableOpacity>
+                    <View style={{
+                        flexDirection: 'row',
+                        marginTop: 20
+                    }}>
+                        <Text style={{flex: 1, fontSize: 10, color: 'black'}}>Ya tienes una cuenta? </Text>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginScreen')}>
+                            <Text style={{flex: 1, fontSize: 10, color: 'black', textDecorationLine: 'underline'}}>Inicia
+                                sesión</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
             </View>
         );
     }
@@ -49,6 +86,18 @@ class WelcomeScreen extends Component {
 
 const CustomDrawerComponent = props => (
     <ScrollView style={{flex: 1}}>
+        <View style={{
+            background: 'linear-gradient(#4630EB, #000)',
+            height: 200,
+            justifyContent: 'center',
+            alignItems: 'center',
+        }}>
+            <Text style={{fontSize: 24, textAlign: 'center', color: 'white', marginBottom: 10}}><b>Cuba</b>feria</Text>
+            <TouchableOpacity onPress={() => props.navigation.navigate('WelcomeScreen')}>
+                <Text style={{fontSize: 20, color: 'white'}}>Inicia
+                    sesión o regístrate</Text>
+            </TouchableOpacity>
+        </View>
         <SafeAreaView>
             <DrawerItems {...props}/>
         </SafeAreaView>
@@ -58,7 +107,7 @@ const CustomDrawerComponent = props => (
 
 const AppDrawerNavigator = createDrawerNavigator({
     Home: {
-        screen: MainTabNavigator,
+        screen: HomeScreen,
         navigationOptions: {
             title: 'Inicio',
             drawerIcon: ({focused}) => (
@@ -67,46 +116,60 @@ const AppDrawerNavigator = createDrawerNavigator({
             ),
         }
     },
-    SignUpFacebook: {
-        screen: MainTabNavigator,
+    AnnouncementCreate: {
+        screen: HomeScreen,
         navigationOptions: {
-            title: 'Continuar Facebook',
+            title: 'Insertar Anuncio',
             drawerIcon: ({focused}) => (
-                <FontAwesome style={{marginRight: 20}} name={'facebook-square'} size={21}
+                <FontAwesome style={{marginRight: 20}} name={'plus'} size={21}
                              color={focused ? constant.tintColor : 'black'}/>
             ),
         }
     },
-    SignUpGoogle: {
-        screen: MainTabNavigator,
+    Terms: {
+        screen: HomeScreen,
         navigationOptions: {
-            title: 'Continuar Google',
+            title: 'Términos y condiciones',
             drawerIcon: ({focused}) => (
-                <FontAwesome style={{marginRight: 20}} name={'google'} size={21}
+                <FontAwesome style={{marginRight: 20}} name={'print'} size={21}
                              color={focused ? constant.tintColor : 'black'}/>
             ),
         }
     },
-    SignUp: {
-        screen: MainTabNavigator,
+    Help: {
+        screen: HomeScreen,
         navigationOptions: {
-            title: 'Registrate Gratis',
+            title: 'Ayuda',
             drawerIcon: ({focused}) => (
-                <FontAwesome style={{marginRight: 20}} name={'sign-in'} size={21}
+                <FontAwesome style={{marginRight: 20}} name={'question-circle'} size={21}
+                             color={focused ? constant.tintColor : 'black'}/>
+            ),
+        }
+    },
+    AboutUs: {
+        screen: HomeScreen,
+        navigationOptions: {
+            title: 'Contáctanos',
+            drawerIcon: ({focused}) => (
+                <FontAwesome style={{marginRight: 20}} name={'envelope-o'} size={21}
                              color={focused ? constant.tintColor : 'black'}/>
             ),
         }
     },
 
+
 }, {
-    drawerPosition: "right",
+    drawerPosition: "left",
     drawerBackgroundColor: "white",
     contentComponent: CustomDrawerComponent
 });
 
 const AppSwitchNavigator = createSwitchNavigator({
-    WelcomeScreen: WelcomeScreen,
     AppNavigator: AppDrawerNavigator,
+    WelcomeScreen: WelcomeScreen,
+    MainTabNavigator: MainTabNavigator,
+    RegisterScreen: RegisterScreen,
+    LoginScreen: LoginScreen
 });
 
 const AppContainer = createAppContainer(AppSwitchNavigator);
@@ -142,6 +205,14 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
+    loginButton: {
+        marginTop: 20,
+        flexDirection: 'row',
+        backgroundColor: constant.tintColor,
+        padding: 10,
+        width: 230,
+        borderRadius: 30
+    }
 });
 
 

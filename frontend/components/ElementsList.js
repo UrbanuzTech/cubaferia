@@ -1,11 +1,17 @@
-import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import Constants from 'expo-constants';
-import {StyleSheet, Image, Text, View, ActivityIndicator} from 'react-native';
-import Touchable from 'react-native-platform-touchable';
-import {Ionicons} from '@expo/vector-icons';
+import {FontAwesome} from '@expo/vector-icons';
 import * as Provider from '../misc/Provider'
 import constant from '../constants/Colors'
+import Touchable from 'react-native-platform-touchable';
+
+import {
+    Text,
+    View,
+    ActivityIndicator,
+    StyleSheet,
+    Image
+} from "react-native-web";
 
 export default class ElementsList extends React.Component {
     constructor(...props) {
@@ -30,8 +36,7 @@ export default class ElementsList extends React.Component {
     render() {
         const {manifest = {}} = Constants;
         return (
-            <View>
-                <Text style={styles.optionsTitleText}>Anuncios</Text>
+            <View style={styles.container}>
                 {console.log(this.state.dataSource)}
                 {
                     !this.state.isLoading ?
@@ -40,13 +45,20 @@ export default class ElementsList extends React.Component {
                                 key={element.id}
                                 style={styles.option}
                                 background={Touchable.Ripple('#ccc', false)}
-                                onPress={this._handlePressDocs}>
+                                onPress={() => {
+                                }}>
                                 <View style={{flexDirection: 'row'}}>
                                     <View style={styles.optionIconContainer}>
-                                        <Ionicons name="ios-chatboxes" size={22} color="#ccc"/>
+                                        {
+                                            !element.main_image ?
+                                                <FontAwesome name="photo" size={40} color={constant.tintColor}/>
+                                                :
+                                                <Image style={{width: 40}} source={element.main_image}/>
+                                        }
                                     </View>
-                                    <View style={styles.optionTextContainer}>
+                                    <View style={{marginLeft: 20}}>
                                         <Text style={styles.optionText}>{element.title}</Text>
+                                        <Text style={styles.optionSubText}>$ {element.price}</Text>
                                     </View>
                                 </View>
                             </Touchable>
@@ -58,10 +70,6 @@ export default class ElementsList extends React.Component {
             </View>
         );
     }
-
-    _handlePressDocs = () => {
-        WebBrowser.openBrowserAsync('http://docs.expo.io');
-    };
 }
 
 const styles = StyleSheet.create({
@@ -69,14 +77,9 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 15,
     },
-    optionsTitleText: {
-        fontSize: 16,
-        marginLeft: 15,
-        marginTop: 9,
-        marginBottom: 12,
-    },
-    optionIconContainer: {
-        marginRight: 9,
+    listActivityIndicator: {
+        flex: 1,
+        marginTop: 100
     },
     option: {
         backgroundColor: '#fdfdfd',
@@ -89,7 +92,18 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginTop: 1,
     },
-    listActivityIndicator: {
-        flex: 1,
+    optionSubText: {
+        fontSize: 15,
+        marginTop: 1,
+        color: '#a8a8a8',
+    },
+    optionIconContainer: {
+        marginRight: 9,
+    },
+    optionsTitleText: {
+        fontSize: 16,
+        marginLeft: 15,
+        marginTop: 9,
+        marginBottom: 12,
     },
 });

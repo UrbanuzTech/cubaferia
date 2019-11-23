@@ -1,33 +1,122 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {
     Platform,
     ScrollView,
     StyleSheet,
     View,
-} from 'react-native';
+    TouchableOpacity,
+    TextInput,
+    Text
+} from 'react-native-web';
+import {Header, Item, Icon, Button} from "native-base";
 
 import ElementsList from "../components/ElementsList";
 import constant from "../constants/Colors";
+import {FontAwesome5} from "@expo/vector-icons";
+import * as Provider from "../misc/Provider";
+
+export default class HomeScreen extends Component {
+    categoryList = [];
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoading: true,
+            showButton: true
+        };
+    }
+
+    getNomenclatures() {
+        Provider.getValueList('nomenclature').then(
+            (data) => {
+                for (const elem of data)
+                    if (elem.active && elem.nomenclature_type === 'announcement_category')
+                        this.categoryList.push(elem);
+                this.setState({isLoading: false})
+            },
+            (err) => {
+                console.log(err);
+            });
+    }
 
 
-export default function HomeScreen() {
-    return (
-        <View style={styles.container}>
-            <ScrollView
-                style={styles.container}
-                contentContainerStyle={styles.contentContainer}>
-                <ElementsList/>
-            </ScrollView>
-        </View>
-    );
+    componentDidMount() {
+        this.getNomenclatures();
+    }
+
+    render() {
+        return (
+
+            <View style={styles.container}>
+                <Header searchBar style={styles.header}>
+                    <Item style={styles.searchBar}>
+                        <Icon name="menu" onPress={() => this.props.navigation.openDrawer()}/>
+                        <TextInput returnKeyType={'search'} style={{width: '100%', marginTop: 2}}
+                                   placeholder={"Buscar producto en Cubaferia"}
+                                   onChangeText={() => {
+                                   }}/>
+                        <Icon name="ios-search"/>
+                    </Item>
+                    <Button style={{
+                        flex: 1,
+                        justifyContent: 'center',
+                        marginLeft: 10,
+                        height: 40,
+                        backgroundColor: 'white',
+                        boxShadow: '0px 1px 5px 0px #000',
+                        borderRadius: 5
+                    }}>
+                        <Text style={{fontSize: 15, color: '#1c1c1c'}}>Filtrar</Text>
+                    </Button>
+                </Header>
+                {
+                    !this.state.isLoading ?
+                        <ScrollView style={styles.categoriesFilterMenu} horizontal={true}
+                                    keyboardDismissMode={'on-drag'}>
+                            {
+                                this.categoryList.map((element) => (
+                                    <View key={element.id} style={styles.categoriesFilterMenuElements}>
+                                        <TouchableOpacity>
+                                            <FontAwesome5 style={{textAlign: 'center'}}
+                                                         name={element.logo ? element.logo : "photo"} size={21}
+                                                         color={constant.tintColor}/>
+                                            <Text center style={{textAlign: 'center ', marginTop: 5}}
+                                                  allowFontScaling={true}>{element.name}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                ))
+                            }
+                        </ScrollView> : null
+                }
+                <ScrollView
+                    style={styles.container} scrollEventThrottle={16} onTouchMove={() => {
+                    this.setState({showButton: false});
+                }} onTouchEnd={() => {
+                    this.setState({showButton: true})
+                }}>
+                    <ElementsList/>
+                </ScrollView>
+                <View style={{alignItems: 'center', backgroundColor: 'transparent'}}>
+                    <TouchableOpacity style={{
+                        visibility: this.state.showButton ? 'visible' : 'hidden',
+                        backgroundColor: constant.tintColor,
+                        padding: 10,
+                        width: 230,
+                        borderRadius: 30,
+                        boxShadow: '0px 2px 10px 0px #000',
+                        marginBottom: 20
+                    }}>
+                        <Text style={{textAlign: 'center', color: 'white'}}
+                              allowFontScaling={true}>Insertar Anuncio</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        );
+    }
 }
 
 HomeScreen.navigationOptions = {
-    title: 'Cubaferia',
-    headerStyle: {
-        backgroundColor: constant.primaryColor
-    },
-    headerTintColor: '#fff',
+    header: null
 };
 
 
@@ -36,48 +125,27 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
-    developmentModeText: {
-        marginBottom: 20,
-        color: 'rgba(0,0,0,0.4)',
-        fontSize: 14,
-        lineHeight: 19,
-        textAlign: 'center',
+    header: {
+        backgroundColor: constant.primaryColor,
+        height: 64,
+        boxShadow: '0px 0px 2px 0px #000'
     },
-    contentContainer: {
-        paddingTop: 30,
+    searchBar: {
+        borderRadius: 5,
+        paddingLeft: 10,
+        paddingRight: 10,
+        flex: 5,
+        flexDirection: 'row',
     },
-    welcomeContainer: {
-        alignItems: 'center',
-        marginTop: 10,
-        marginBottom: 20,
+    categoriesFilterMenu: {
+        marginTop: 5,
+        maxHeight: 90,
+        backgroundColor: '#fff',
+        overflowX: 'auto',
     },
-    welcomeImage: {
-        width: 100,
-        height: 80,
-        resizeMode: 'contain',
-        marginTop: 3,
-        marginLeft: -10,
-    },
-    getStartedContainer: {
-        alignItems: 'center',
-        marginHorizontal: 50,
-    },
-    homeScreenFilename: {
-        marginVertical: 7,
-    },
-    codeHighlightText: {
-        color: 'rgba(96,100,109, 0.8)',
-    },
-    codeHighlightContainer: {
-        backgroundColor: 'rgba(0,0,0,0.05)',
-        borderRadius: 3,
-        paddingHorizontal: 4,
-    },
-    getStartedText: {
-        fontSize: 17,
-        color: 'rgba(96,100,109, 1)',
-        lineHeight: 24,
-        textAlign: 'center',
+    categoriesFilterMenuElements: {
+        margin: 10,
+        width: 80,
     },
     tabBarInfoContainer: {
         position: 'absolute',
@@ -98,24 +166,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fbfbfb',
         paddingVertical: 20,
-    },
-    tabBarInfoText: {
-        fontSize: 17,
-        color: 'rgba(96,100,109, 1)',
-        textAlign: 'center',
-    },
-    navigationFilename: {
-        marginTop: 5,
-    },
-    helpContainer: {
-        marginTop: 15,
-        alignItems: 'center',
-    },
-    helpLink: {
-        paddingVertical: 15,
-    },
-    helpLinkText: {
-        fontSize: 14,
-        color: '#2e78b7',
     },
 });

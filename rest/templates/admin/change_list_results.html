@@ -44,13 +44,6 @@
                         <div class="clear"></div>
                     </th>
                 {% endfor %}
-                {% if cl.opts|can_crud %}
-                    <th scope="col">
-                        <div class="text text-center" style="margin-bottom: 5px;">
-                            {% trans 'actions'|capfirst %}
-                        </div>
-                    </th>
-                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -59,94 +52,11 @@
                     {% for item in result %}
                         {{ item }}
                     {% endfor %}
-                    {% if cl.opts|can_crud %}
-                        <td>
-                            <a style="cursor: pointer;" onclick="details_item('{{ forloop.counter }}')"
-                               class="margin-r-5"
-                               title="{% trans 'details'|capfirst %}">
-                                <i class="fa fa-eye" style="font-size: 14px;"></i>
-                            </a>
-                            {% if cl.opts.model_name == 'announcement' or cl.opts.model_name == 'event' %}
-                                <a style="cursor: pointer;" onclick="reinsert_item('{{ forloop.counter }}')"
-                                   class="btn-reinsert margin-r-5"
-                                   title="{% trans 'to launch'|capfirst %}">
-                                    <i class="fa fa-refresh text-green" style="font-size: 14px;"></i>
-                                </a>
-                            {% endif %}
-                            <a style="cursor: pointer;" onclick="edit_item('{{ forloop.counter }}')"
-                               class="btn-edit margin-r-5"
-                               title="{% trans 'Edit' %}">
-                                <i class="fa fa-pencil text-blue" style="font-size: 14px;"></i>
-                            </a>
-                            <a style="cursor: pointer;" onclick="delete_item('{{ forloop.counter }}')"
-                               class="btn-delete"
-                               title="{% trans 'Delete' %}">
-                                <i class="fa fa-remove text-danger" style="font-size: 14px;"></i>
-                            </a>
-                        </td>
-                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
-    {% if cl.opts|can_crud %}
-        <script>
-            function delete_item(index) {
-                {% with cl.opts|admin_urlname:'delete' as delete_url %}
-                    let pk = $($($($('#table-results').find('tr')[parseInt(index)]).find('td'))[0]).find('input[type=checkbox]').val();
-                    let url = "{% url delete_url -1 %}".replace('-1', pk);
-                    if (window.location.search) {
-                        url += '?_changelist_filters=' + window.location.search.replace('?', '');
-                    }
-                    $.ajax({
-                        type: 'GET',
-                        url: url,
-                        success: function (data) {
-                            let $modal = $('#modal-delete-confirmation');
-                            $modal.find('.modal-body').html(data);
-                            $modal.find('form').append('<input type="hidden"/>');
-                            $modal.modal('toggle');
-                        },
-                        error: function () {
-
-                        }
-                    });
-                {% endwith %}
-            }
-
-            function edit_item(index) {
-                {% with cl.opts|admin_urlname:'change' as change_url %}
-                    let pk = $($($($('#table-results').find('tr')[parseInt(index)]).find('td'))[0]).find('input[type=checkbox]').val();
-                    let url = "{% url change_url -1 %}".replace('-1', pk);
-                    if (window.location.search) {
-                        url += '?_changelist_filters=' + window.location.search.replace('?', '');
-                    }
-                    window.location.href = url;
-                {% endwith %}
-            }
-
-            function reinsert_item(index) {
-                {% with cl.opts|admin_urlname:'change' as change_url %}
-                    let pk = $($($($('#table-results').find('tr')[parseInt(index)]).find('td'))[0]).find('input[type=checkbox]').val();
-                    let url = '/{{ current_language }}/admin/reinsert/' + '{{ cl.opts.model_name }}' + '/' + pk;
-                    if (window.location.search) {
-                        url += '?_changelist_filters=' + window.location.search.replace('?', '');
-                    }
-                    window.location.href = url;
-                {% endwith %}
-            }
-
-            function details_item(index) {
-                let pk = $($($($('#table-results').find('tr')[parseInt(index)]).find('td'))[0]).find('input[type=checkbox]').val();
-                let url = '/{{ current_language }}/admin/details/' + '{{ cl.opts.model_name }}' + '/' + pk;
-                if (window.location.search) {
-                    url += '?_changelist_filters=' + window.location.search.replace('?', '');
-                }
-                window.location.href = url;
-            }
-        </script>
-    {% endif %}
 {% else %}
     <div class="bg-primary alert" style="margin-top: 25px;">
         {% trans 'No' %} {{ cl.opts.verbose_name_plural }} {% trans 'available' %}.

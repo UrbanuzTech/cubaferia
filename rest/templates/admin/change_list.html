@@ -214,6 +214,7 @@
                 let $actions = $('.action-select');
                 let $delete_btn = $('#delete-selected');
                 let $upload_btn = $('#reinsert-item');
+                let $btn_delete = $('.btn-delete');
                 $actions.change(function () {
                     if ($('.action-select:checked').length > 0) {
                         $delete_btn.prop('disabled', false);
@@ -240,19 +241,25 @@
                     $('select[name=action]').val('reinsert_item');
                     $('#changelist-form').submit();
                 });
-                {% if 'logentry' not in request.path %}
-                    $('#table-results').find('tr').each(function (i, e) {
-                        if (i > 0) {
-                            let $td = $($(e).find('td')[1]);
-                            {% trans 'details'|capfirst as title %}
-                            $td.html('<a style="cursor: pointer;" onclick="details_item(\'' + i + '\')"' +
-                                '   class="margin-r-5"' +
-                                '   title="{{ title }}">' +
-                                $td.clone().html() +
-                                '</a>');
+                $btn_delete.click(function () {
+                    let url = $(this).data('href');
+                    if (window.location.search) {
+                        url += '?_changelist_filters=' + window.location.search.replace('?', '');
+                    }
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+                        success: function (data) {
+                            let $modal = $('#modal-delete-confirmation');
+                            $modal.find('.modal-body').html(data);
+                            $modal.find('form').append('<input type="hidden"/>');
+                            $modal.modal('toggle');
+                        },
+                        error: function () {
+
                         }
                     });
-                {% endif %}
+                });
             }
         }
     </script>

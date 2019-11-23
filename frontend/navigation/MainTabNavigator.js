@@ -16,8 +16,8 @@ const config = Platform.select({
 
 const navigation_config = ({navigation}) => {
     return {
-        headerRight: (
-            <FontAwesome style={{marginRight: 20}} name={'bars'} size={21} color={'white'}
+        headerLeft: (
+            <FontAwesome style={{marginLeft: 20}} name={'bars'} size={21} color={'white'}
                          onPress={() => navigation.openDrawer()}/>
         ),
         title: 'Cubaferia',
@@ -32,19 +32,18 @@ const HomeStack = createStackNavigator(
     {
         Home: {
             screen: HomeScreen,
-            navigationOptions: navigation_config,
         },
     },
     config
 );
 
 HomeStack.navigationOptions = {
-    tabBarLabel: 'Inicio',
+    tabBarLabel: 'Anuncios',
     tabBarIcon: ({focused}) => (
         <TabBarIcon focused={focused} name={
             Platform.OS === 'ios'
-                ? `home${focused ? '' : '-outline'}`
-                : 'home'
+                ? `list-ol${focused ? '' : '-outline'}`
+                : 'list-ol'
         }
         />
     ),
@@ -52,24 +51,24 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
-const AnnouncementCreateStack = createStackNavigator(
+const MyAnnouncementStacks = createStackNavigator(
     {
         Links: {
-            screen: AnnouncementCreateScreen,
+            screen: HomeScreen,
             navigationOptions: navigation_config
         },
     },
     config
 );
 
-AnnouncementCreateStack.navigationOptions = {
-    tabBarLabel: 'Nuevo Anuncio',
+MyAnnouncementStacks.navigationOptions = {
+    tabBarLabel: 'Mis anuncios',
     tabBarIcon: ({focused}) => (
-        <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'plus' : 'plus'}/>
+        <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'bullhorn' : 'bullhorn'}/>
     ),
 };
 
-AnnouncementCreateStack.path = '';
+MyAnnouncementStacks.path = '';
 
 const ProfileStack = createStackNavigator(
     {
@@ -92,7 +91,7 @@ ProfileStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
     HomeStack,
-    AnnouncementCreateStack,
+    MyAnnouncementStacks,
     ProfileStack,
 });
 

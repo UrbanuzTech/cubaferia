@@ -1,11 +1,11 @@
 import React from 'react';
-import {FontAwesome} from '@expo/vector-icons';
+import {FontAwesome5} from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
 
 export default function TabBarIcon(props) {
     return (
-        <FontAwesome
+        <FontAwesome5
             name={props.name}
             size={26}
             style={{marginBottom: -3}}
