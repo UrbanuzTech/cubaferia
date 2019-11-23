@@ -38,12 +38,12 @@ const HomeStack = createStackNavigator(
 );
 
 HomeStack.navigationOptions = {
-    tabBarLabel: 'Inicio',
+    tabBarLabel: 'Anuncios',
     tabBarIcon: ({focused}) => (
         <TabBarIcon focused={focused} name={
             Platform.OS === 'ios'
-                ? `home${focused ? '' : '-outline'}`
-                : 'home'
+                ? `list-ol${focused ? '' : '-outline'}`
+                : 'list-ol'
         }
         />
     ),
@@ -51,24 +51,24 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
-const AnnouncementCreateStack = createStackNavigator(
+const MyAnnouncementStacks = createStackNavigator(
     {
         Links: {
-            screen: AnnouncementCreateScreen,
+            screen: HomeScreen,
             navigationOptions: navigation_config
         },
     },
     config
 );
 
-AnnouncementCreateStack.navigationOptions = {
-    tabBarLabel: 'Nuevo Anuncio',
+MyAnnouncementStacks.navigationOptions = {
+    tabBarLabel: 'Mis anuncios',
     tabBarIcon: ({focused}) => (
-        <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'plus' : 'plus'}/>
+        <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'bullhorn' : 'bullhorn'}/>
     ),
 };
 
-AnnouncementCreateStack.path = '';
+MyAnnouncementStacks.path = '';
 
 const ProfileStack = createStackNavigator(
     {
@@ -91,7 +91,7 @@ ProfileStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
     HomeStack,
-    AnnouncementCreateStack,
+    MyAnnouncementStacks,
     ProfileStack,
 });
 

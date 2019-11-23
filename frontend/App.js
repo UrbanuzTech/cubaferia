@@ -17,6 +17,7 @@ import {
 import MainTabNavigator from './navigation/MainTabNavigator';
 import RegisterScreen from "./screens/RegisterScreen";
 import LoginScreen from "./screens/LoginScreen";
+import HomeScreen from "./screens/HomeScreen";
 
 export default function App(props) {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -52,13 +53,13 @@ class WelcomeScreen extends Component {
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffff'}}>
                     <Text style={{fontSize: 24, textAlign: 'center', color: 'black', marginBottom: 50}}><b>Cuba</b>feria</Text>
                     <TouchableOpacity
-                        style={styles.loginButton} onPress={() => this.props.navigation.navigate('AppNavigator')}>
+                        style={styles.loginButton} onPress={() => this.props.navigation.navigate('MainTabNavigator')}>
                         <FontAwesome style={{flex: 1, textAlign: 'center'}} name={'facebook'} size={21}
                                      color={'white'}/>
                         <Text style={{flex: 4, textAlign: 'center', color: 'white'}}>Continúa con Facebook</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={styles.loginButton} onPress={() => this.props.navigation.navigate('AppNavigator')}>
+                        style={styles.loginButton} onPress={() => this.props.navigation.navigate('MainTabNavigator')}>
                         <FontAwesome style={{flex: 1, textAlign: 'center'}} name={'google'} size={21} color={'white'}/>
                         <Text style={{flex: 4, textAlign: 'center', color: 'white'}}>Continúa con Google</Text>
                     </TouchableOpacity>
@@ -106,7 +107,7 @@ const CustomDrawerComponent = props => (
 
 const AppDrawerNavigator = createDrawerNavigator({
     Home: {
-        screen: MainTabNavigator,
+        screen: HomeScreen,
         navigationOptions: {
             title: 'Inicio',
             drawerIcon: ({focused}) => (
@@ -116,7 +117,7 @@ const AppDrawerNavigator = createDrawerNavigator({
         }
     },
     AnnouncementCreate: {
-        screen: MainTabNavigator,
+        screen: HomeScreen,
         navigationOptions: {
             title: 'Insertar Anuncio',
             drawerIcon: ({focused}) => (
@@ -126,7 +127,7 @@ const AppDrawerNavigator = createDrawerNavigator({
         }
     },
     Terms: {
-        screen: MainTabNavigator,
+        screen: HomeScreen,
         navigationOptions: {
             title: 'Términos y condiciones',
             drawerIcon: ({focused}) => (
@@ -136,7 +137,7 @@ const AppDrawerNavigator = createDrawerNavigator({
         }
     },
     Help: {
-        screen: MainTabNavigator,
+        screen: HomeScreen,
         navigationOptions: {
             title: 'Ayuda',
             drawerIcon: ({focused}) => (
@@ -146,7 +147,7 @@ const AppDrawerNavigator = createDrawerNavigator({
         }
     },
     AboutUs: {
-        screen: MainTabNavigator,
+        screen: HomeScreen,
         navigationOptions: {
             title: 'Contáctanos',
             drawerIcon: ({focused}) => (
@@ -166,8 +167,9 @@ const AppDrawerNavigator = createDrawerNavigator({
 const AppSwitchNavigator = createSwitchNavigator({
     AppNavigator: AppDrawerNavigator,
     WelcomeScreen: WelcomeScreen,
+    MainTabNavigator: MainTabNavigator,
     RegisterScreen: RegisterScreen,
-    LoginScreen: LoginScreen,
+    LoginScreen: LoginScreen
 });
 
 const AppContainer = createAppContainer(AppSwitchNavigator);

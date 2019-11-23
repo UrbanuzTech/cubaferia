@@ -104,7 +104,7 @@ export default class HomeScreen extends Component {
                         width: 230,
                         borderRadius: 30,
                         boxShadow: '0px 2px 10px 0px #000',
-                        marginBottom: 10
+                        marginBottom: 20
                     }}>
                         <Text style={{textAlign: 'center', color: 'white'}}
                               allowFontScaling={true}>Insertar Anuncio</Text>
