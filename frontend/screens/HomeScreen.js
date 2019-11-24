@@ -49,8 +49,10 @@ export default class HomeScreen extends Component {
 
             <View style={styles.container}>
                 <Header searchBar style={styles.header}>
+                    <Icon style={styles.drawerButton}
+                          name="menu"
+                          onPress={() => this.props.navigation.openDrawer()}/>
                     <Item style={styles.searchBar}>
-                        <Icon name="menu" onPress={() => this.props.navigation.openDrawer()}/>
                         <TextInput returnKeyType={'search'} style={{width: '100%', marginTop: 2}}
                                    placeholder={"Buscar producto en Cubaferia"}
                                    onChangeText={() => {
@@ -78,8 +80,8 @@ export default class HomeScreen extends Component {
                                     <View key={element.id} style={styles.categoriesFilterMenuElements}>
                                         <TouchableOpacity>
                                             <FontAwesome5 style={{textAlign: 'center'}}
-                                                         name={element.logo ? element.logo : "photo"} size={21}
-                                                         color={constant.tintColor}/>
+                                                          name={element.logo ? element.logo : "photo"} size={21}
+                                                          color={constant.tintColor}/>
                                             <Text center style={{textAlign: 'center ', marginTop: 5}}
                                                   allowFontScaling={true}>{element.name}</Text>
                                         </TouchableOpacity>
@@ -130,10 +132,18 @@ const styles = StyleSheet.create({
         height: 64,
         boxShadow: '0px 0px 2px 0px #000'
     },
+    drawerButton: {
+        marginTop: 17,
+        marginLeft: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: 'white'
+    },
     searchBar: {
         borderRadius: 5,
-        paddingLeft: 10,
+        paddingLeft: 20,
         paddingRight: 10,
+        marginLeft: 15,
         flex: 5,
         flexDirection: 'row',
     },

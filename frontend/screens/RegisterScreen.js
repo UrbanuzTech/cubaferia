@@ -20,7 +20,6 @@ export default class AnnouncementCreateScreen extends Component {
         this.state = {
             first_name: '',
             last_name: '',
-            username: '',
             email: '',
             password: '',
             isLoading: true
@@ -53,10 +52,6 @@ export default class AnnouncementCreateScreen extends Component {
                     <Item floatingLabel style={styles.inputs}>
                         <Label>Apellidos</Label>
                         <Input returnKeyType={'next'} onChangeText={last_name => this.setState({last_name})}/>
-                    </Item>
-                    <Item floatingLabel style={styles.inputs}>
-                        <Label>Nombre de usuario</Label>
-                        <Input returnKeyType={'next'} onChangeText={username => this.setState({username})}/>
                     </Item>
                     <Item floatingLabel style={styles.inputs}>
                         <Label>Correo electrónico</Label>

@@ -42,7 +42,7 @@ export default class LoginScreen extends Component {
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                     <Text style={styles.header}>Bienvenido a <b>Cuba</b>feria</Text>
                     <Item floatingLabel style={styles.inputs}>
-                        <Label>Nombre de usuario</Label>
+                        <Label>Correo electrónico o teléfono</Label>
                         <Input returnKeyType={'next'} onChangeText={username => this.setState({username})}/>
                     </Item>
                     <Item floatingLabel style={styles.inputs}>
