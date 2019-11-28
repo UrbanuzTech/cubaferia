@@ -4,7 +4,7 @@ import * as Font from 'expo-font';
 import React, {useState, Component} from 'react';
 import {Platform, StatusBar, StyleSheet} from 'react-native';
 import {FontAwesome, Ionicons} from '@expo/vector-icons';
-import {ScrollView, SafeAreaView, Text, View, TouchableOpacity} from "react-native-web";
+import {ScrollView, SafeAreaView, Text, View, TouchableOpacity, Image} from "react-native-web";
 import constant from './constants/Colors'
 
 import {
@@ -53,21 +53,26 @@ class WelcomeScreen extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffff'}}>
-                    <Text style={{fontSize: 24, textAlign: 'center', color: 'black', marginBottom: 50}}><b>Cuba</b>feria</Text>
+                    <Image style={{width: 200, height: 200, marginBottom: 40}}
+                           source={require('./assets/images/logo-y.png')}/>
                     <TouchableOpacity
-                        style={styles.loginButton} onPress={() => this.props.navigation.navigate('MainTabNavigator')}>
+                        style={styles.loginButton}
+                        onPress={() => this.props.navigation.navigate('AppLoggedNavigator')}>
                         <FontAwesome style={{flex: 1, textAlign: 'center'}} name={'facebook'} size={21}
                                      color={'white'}/>
                         <Text style={{flex: 4, textAlign: 'center', color: 'white'}}>Continúa con Facebook</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={styles.loginButton} onPress={() => this.props.navigation.navigate('MainTabNavigator')}>
-                        <FontAwesome style={{flex: 1, textAlign: 'center'}} name={'google'} size={21} color={'white'}/>
+                        style={styles.loginButton}
+                        onPress={() => this.props.navigation.navigate('AppLoggedNavigator')}>
+                        <FontAwesome style={{flex: 1, textAlign: 'center'}} name={'google'} size={21}
+                                     color={'white'}/>
                         <Text style={{flex: 4, textAlign: 'center', color: 'white'}}>Continúa con Google</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.loginButton} onPress={() => this.props.navigation.navigate('RegisterScreen')}>
-                        <FontAwesome style={{flex: 1, textAlign: 'center'}} name={'sign-in'} size={21} color={'white'}/>
+                        <FontAwesome style={{flex: 1, textAlign: 'center'}} name={'sign-in'} size={21}
+                                     color={'white'}/>
                         <Text style={{flex: 4, textAlign: 'center', color: 'white'}}>Regístrate Gratis</Text>
                     </TouchableOpacity>
                     <View style={{
@@ -124,7 +129,7 @@ const StackNavigator = createStackNavigator({
 const CustomDrawerComponent = props => (
     <ScrollView style={{flex: 1}}>
         <View style={{
-            background: 'linear-gradient(#4630EB, #000)',
+            background: 'linear-gradient(#4630EB,' + constant.tintColor + ')',
             height: 200,
             justifyContent: 'center',
             alignItems: 'center',
@@ -132,7 +137,7 @@ const CustomDrawerComponent = props => (
             <Image style={{width: 200, height: 60, marginBottom: 10}}
                    source={require('./assets/images/logo-x.png')}/>
             <TouchableOpacity onPress={() => props.navigation.navigate('WelcomeScreen')}>
-                <Text style={{fontSize: 20, color: 'white'}}>Inicia
+                <Text style={{fontSize: 20, color: '#000', textShadow: '0px 1px 5px #fff',}}>Inicia
                     sesión o regístrate</Text>
             </TouchableOpacity>
         </View>
