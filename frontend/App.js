@@ -19,7 +19,7 @@ import MainTabNavigator from './navigation/MainTabNavigator';
 import RegisterScreen from "./screens/RegisterScreen";
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
-import AnnouncementCreateScreen from "./screens/AnnouncementCreateScreen";
+import AnnouncementCreateScreen, {AnnouncementFormCreateScreen} from "./screens/AnnouncementCreateScreen";
 
 export default function App(props) {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -286,6 +286,7 @@ const AppLoggedDrawerNavigator = createDrawerNavigator({
 });
 
 const AppSwitchNavigator = createSwitchNavigator({
+    FormScreen: AnnouncementFormCreateScreen,
     AppNavigator: AppDrawerNavigator,
     AppLoggedNavigator: AppLoggedDrawerNavigator,
 });
