@@ -35,7 +35,7 @@ export default class LoginScreen extends Component {
             <View style={styles.container}>
                 <View>
                     <TouchableOpacity style={{margin: 10}}
-                                      onPress={() => this.props.navigation.navigate('WelcomeScreen')}>
+                                      onPress={() => this.props.navigation.goBack()}>
                         <FontAwesome name={'arrow-left'} size={21} color={'gray'}/>
                     </TouchableOpacity>
                 </View>

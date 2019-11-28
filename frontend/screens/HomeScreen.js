@@ -6,23 +6,29 @@ import {
     View,
     TouchableOpacity,
     TextInput,
-    Text
+    Text,
+    Image,
+    ActivityIndicator
 } from 'react-native-web';
 import {Header, Item, Icon, Button} from "native-base";
 
-import ElementsList from "../components/ElementsList";
 import constant from "../constants/Colors";
 import {FontAwesome5} from "@expo/vector-icons";
 import * as Provider from "../misc/Provider";
+import Touchable from 'react-native-platform-touchable';
+
 
 export default class HomeScreen extends Component {
     categoryList = [];
+    announcementsList = [];
 
     constructor(props) {
         super(props);
         this.state = {
             isLoading: true,
-            showButton: true
+            showButton: true,
+            dataSource: [],
+            announcementsList: []
         };
     }
 
@@ -39,9 +45,35 @@ export default class HomeScreen extends Component {
             });
     }
 
+    getAnnouncements() {
+        Provider.getValueList('announcement').then(
+            (data) => {
+                this.setState({
+                    dataSource: data,
+                });
+                this.announcementsList = data;
+            },
+            (err) => {
+                console.log(err);
+            });
+    }
+
+    filterElements(value) {
+        if (value === '')
+            this.setState({dataSource: this.announcementsList});
+        else {
+            let filteredList = [];
+            this.announcementsList.filter((item) => {
+                if (item.title.toLowerCase().indexOf(value.toLowerCase()) > -1)
+                    filteredList.push(item);
+            });
+            this.setState({dataSource: filteredList});
+        }
+    }
 
     componentDidMount() {
         this.getNomenclatures();
+        this.getAnnouncements();
     }
 
     render() {
@@ -55,8 +87,7 @@ export default class HomeScreen extends Component {
                     <Item style={styles.searchBar}>
                         <TextInput returnKeyType={'search'} style={{width: '100%', marginTop: 2}}
                                    placeholder={"Buscar producto en Cubaferia"}
-                                   onChangeText={() => {
-                                   }}/>
+                                   onChangeText={(value) => this.filterElements(value)}/>
                         <Icon name="ios-search"/>
                     </Item>
                     <Button style={{
@@ -80,7 +111,7 @@ export default class HomeScreen extends Component {
                                     <View key={element.id} style={styles.categoriesFilterMenuElements}>
                                         <TouchableOpacity>
                                             <FontAwesome5 style={{textAlign: 'center'}}
-                                                          name={element.logo ? element.logo : "photo"} size={21}
+                                                          name={element.logo ? element.logo : "image"} size={21}
                                                           color={constant.tintColor}/>
                                             <Text center style={{textAlign: 'center ', marginTop: 5}}
                                                   allowFontScaling={true}>{element.name}</Text>
@@ -96,7 +127,41 @@ export default class HomeScreen extends Component {
                 }} onTouchEnd={() => {
                     this.setState({showButton: true})
                 }}>
-                    <ElementsList/>
+                    <View style={{flex: 1, marginLeft: 10}}>
+                        {console.log(this.state.dataSource)}
+                        {
+                            !this.state.isLoading ?
+                                this.state.dataSource.map(element => (
+                                    <Touchable
+                                        key={element.id}
+                                        style={styles.option}
+                                        background={Touchable.Ripple('#ccc', false)}
+                                        onPress={() => {
+                                        }}>
+                                        <View style={{flexDirection: 'row'}}>
+                                            <View style={styles.optionIconContainer}>
+                                                {
+                                                    !element.main_image ?
+                                                        <FontAwesome5 name="image" size={60}
+                                                                      color={constant.tintColor}/>
+                                                        :
+                                                        <Image style={{width: 60, height: 60}}
+                                                               source={{uri: element.main_image}}/>
+                                                }
+                                            </View>
+                                            <View style={{marginLeft: 20}}>
+                                                <Text style={styles.optionTitle}>{element.title}</Text>
+                                                <Text style={styles.optionDescription}>{element.description}</Text>
+                                                <Text style={styles.optionPrice}>$ {element.price}</Text>
+                                            </View>
+                                        </View>
+                                    </Touchable>
+                                ))
+                                :
+                                <ActivityIndicator style={styles.listActivityIndicator} color={constant.primaryColor}
+                                                   size='large'/>
+                        }
+                    </View>
                 </ScrollView>
                 <View style={{alignItems: 'center', backgroundColor: 'transparent'}}>
                     <TouchableOpacity style={{
@@ -107,7 +172,7 @@ export default class HomeScreen extends Component {
                         borderRadius: 30,
                         boxShadow: '0px 2px 10px 0px #000',
                         marginBottom: 20
-                    }}>
+                    }} onPress={() => this.props.navigation.navigate('AnnouncementCreateScreen')}>
                         <Text style={{textAlign: 'center', color: 'white'}}
                               allowFontScaling={true}>Insertar Anuncio</Text>
                     </TouchableOpacity>
@@ -128,7 +193,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     header: {
-        backgroundColor: constant.primaryColor,
+        backgroundColor: constant.tintColor,
         height: 64,
         boxShadow: '0px 0px 2px 0px #000'
     },
@@ -176,5 +241,40 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fbfbfb',
         paddingVertical: 20,
+    },
+    option: {
+        backgroundColor: '#fdfdfd',
+        paddingHorizontal: 15,
+        paddingVertical: 15,
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderBottomColor: '#EDEDED',
+    },
+    optionTitle: {
+        fontSize: 15,
+        marginTop: 1,
+    },
+    optionDescription: {
+        fontSize: 11,
+        marginTop: 1,
+    },
+    optionPrice: {
+        fontSize: 15,
+        marginTop: 1,
+        color: '#a8a8a8',
+    },
+    optionIconContainer: {
+        marginRight: 9,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    optionsTitleText: {
+        fontSize: 16,
+        marginLeft: 15,
+        marginTop: 9,
+        marginBottom: 12,
+    },
+    listActivityIndicator: {
+        flex: 1,
+        marginTop: 100
     },
 });
