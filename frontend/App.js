@@ -159,7 +159,7 @@ const AppDrawerNavigator = createDrawerNavigator({
         }
     },
     AnnouncementCreate: {
-        screen: HomeScreen,
+        screen: AnnouncementCreateScreen,
         navigationOptions: {
             title: 'Insertar Anuncio',
             drawerIcon: ({focused}) => (
