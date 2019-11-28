@@ -172,7 +172,7 @@ export default class HomeScreen extends Component {
                         borderRadius: 30,
                         boxShadow: '0px 2px 10px 0px #000',
                         marginBottom: 20
-                    }}>
+                    }} onPress={() => this.props.navigation.navigate('AnnouncementCreateScreen')}>
                         <Text style={{textAlign: 'center', color: 'white'}}
                               allowFontScaling={true}>Insertar Anuncio</Text>
                     </TouchableOpacity>

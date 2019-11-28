@@ -11,6 +11,7 @@ import {
     createAppContainer,
     createSwitchNavigator,
     createDrawerNavigator,
+    createStackNavigator,
     DrawerItems,
 } from "react-navigation";
 
@@ -18,6 +19,7 @@ import MainTabNavigator from './navigation/MainTabNavigator';
 import RegisterScreen from "./screens/RegisterScreen";
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
+import AnnouncementCreateScreen from "./screens/AnnouncementCreateScreen";
 
 export default function App(props) {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -46,7 +48,7 @@ class WelcomeScreen extends Component {
             <View style={styles.container}>
                 <View>
                     <TouchableOpacity style={{margin: 10}}
-                                      onPress={() => this.props.navigation.navigate('AppNavigator')}>
+                                      onPress={() => this.props.navigation.goBack()}>
                         <FontAwesome name={'close'} size={21} color={'gray'}/>
                     </TouchableOpacity>
                 </View>
@@ -84,6 +86,41 @@ class WelcomeScreen extends Component {
     }
 }
 
+// Normal session components
+
+const StackNavigator = createStackNavigator({
+    HomeScreen: {
+        screen: HomeScreen,
+        navigationOptions: {
+            header: null,
+        }
+    },
+    AnnouncementCreateScreen: {
+        screen: AnnouncementCreateScreen,
+        navigationOptions: {
+            header: null
+        }
+    },
+    WelcomeScreen: {
+        screen: WelcomeScreen,
+        navigationOptions: {
+            header: null
+        }
+    },
+    RegisterScreen: {
+        screen: RegisterScreen,
+        navigationOptions: {
+            header: null
+        }
+    },
+    LoginScreen: {
+        screen: LoginScreen,
+        navigationOptions: {
+            header: null
+        }
+    },
+});
+
 const CustomDrawerComponent = props => (
     <ScrollView style={{flex: 1}}>
         <View style={{
@@ -92,7 +129,8 @@ const CustomDrawerComponent = props => (
             justifyContent: 'center',
             alignItems: 'center',
         }}>
-            <Text style={{fontSize: 24, textAlign: 'center', color: 'white', marginBottom: 10}}><b>Cuba</b>feria</Text>
+            <Image style={{width: 200, height: 60, marginBottom: 10}}
+                   source={require('./assets/images/logo-x.png')}/>
             <TouchableOpacity onPress={() => props.navigation.navigate('WelcomeScreen')}>
                 <Text style={{fontSize: 20, color: 'white'}}>Inicia
                     sesión o regístrate</Text>
@@ -104,10 +142,9 @@ const CustomDrawerComponent = props => (
     </ScrollView>
 );
 
-
 const AppDrawerNavigator = createDrawerNavigator({
     Home: {
-        screen: HomeScreen,
+        screen: StackNavigator,
         navigationOptions: {
             title: 'Inicio',
             drawerIcon: ({focused}) => (
@@ -156,20 +193,96 @@ const AppDrawerNavigator = createDrawerNavigator({
             ),
         }
     },
-
-
 }, {
     drawerPosition: "left",
     drawerBackgroundColor: "white",
     contentComponent: CustomDrawerComponent
 });
 
+// Logged session components
+
+const LoggedCustomDrawerComponent = props => (
+    <ScrollView style={{flex: 1}}>
+        <View style={{
+            background: 'linear-gradient(#4630EB, #000)',
+            height: 200,
+            justifyContent: 'center',
+            alignItems: 'center',
+        }}>
+            <Text style={{
+                fontSize: 24,
+                textAlign: 'center',
+                color: 'white',
+                marginBottom: 10
+            }}><b>Cuba</b>feria</Text>
+            <Text style={{fontSize: 20, textAlign: 'center', color: 'white', marginBottom: 10}}>Fulano</Text>
+        </View>
+        <SafeAreaView>
+            <DrawerItems {...props}/>
+        </SafeAreaView>
+    </ScrollView>
+);
+
+const AppLoggedDrawerNavigator = createDrawerNavigator({
+    Home: {
+        screen: MainTabNavigator,
+        navigationOptions: {
+            title: 'Inicio',
+            drawerIcon: ({focused}) => (
+                <FontAwesome style={{marginRight: 20}} name={'home'} size={21}
+                             color={focused ? constant.tintColor : 'black'}/>
+            ),
+        }
+    },
+    AnnouncementCreate: {
+        screen: AnnouncementCreateScreen,
+        navigationOptions: {
+            title: 'Insertar Anuncio',
+            drawerIcon: ({focused}) => (
+                <FontAwesome style={{marginRight: 20}} name={'plus'} size={21}
+                             color={focused ? constant.tintColor : 'black'}/>
+            ),
+        }
+    },
+    Terms: {
+        screen: MainTabNavigator,
+        navigationOptions: {
+            title: 'Términos y condiciones',
+            drawerIcon: ({focused}) => (
+                <FontAwesome style={{marginRight: 20}} name={'print'} size={21}
+                             color={focused ? constant.tintColor : 'black'}/>
+            ),
+        }
+    },
+    Help: {
+        screen: MainTabNavigator,
+        navigationOptions: {
+            title: 'Ayuda',
+            drawerIcon: ({focused}) => (
+                <FontAwesome style={{marginRight: 20}} name={'question-circle'} size={21}
+                             color={focused ? constant.tintColor : 'black'}/>
+            ),
+        }
+    },
+    AboutUs: {
+        screen: MainTabNavigator,
+        navigationOptions: {
+            title: 'Contáctanos',
+            drawerIcon: ({focused}) => (
+                <FontAwesome style={{marginRight: 20}} name={'envelope-o'} size={21}
+                             color={focused ? constant.tintColor : 'black'}/>
+            ),
+        }
+    },
+}, {
+    drawerPosition: "left",
+    drawerBackgroundColor: "white",
+    contentComponent: LoggedCustomDrawerComponent
+});
+
 const AppSwitchNavigator = createSwitchNavigator({
     AppNavigator: AppDrawerNavigator,
-    WelcomeScreen: WelcomeScreen,
-    MainTabNavigator: MainTabNavigator,
-    RegisterScreen: RegisterScreen,
-    LoginScreen: LoginScreen
+    AppLoggedNavigator: AppLoggedDrawerNavigator,
 });
 
 const AppContainer = createAppContainer(AppSwitchNavigator);

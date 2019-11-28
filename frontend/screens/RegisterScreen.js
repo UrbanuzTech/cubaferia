@@ -14,7 +14,7 @@ import * as Provider from "../misc/Provider";
 import {FontAwesome} from "@expo/vector-icons";
 import {Input, Item, Label} from "native-base";
 
-export default class AnnouncementCreateScreen extends Component {
+export default class RegisterScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -39,7 +39,7 @@ export default class AnnouncementCreateScreen extends Component {
             <View style={styles.container}>
                 <View>
                     <TouchableOpacity style={{margin: 10}}
-                                      onPress={() => this.props.navigation.navigate('WelcomeScreen')}>
+                                      onPress={() => this.props.navigation.goBack()}>
                         <FontAwesome name={'arrow-left'} size={21} color={'gray'}/>
                     </TouchableOpacity>
                 </View>

@@ -33,6 +33,12 @@ const HomeStack = createStackNavigator(
         Home: {
             screen: HomeScreen,
         },
+        AnnouncementCreateScreen: {
+            screen: AnnouncementCreateScreen,
+            navigationOptions: {
+                header: null
+            }
+        }
     },
     config
 );
