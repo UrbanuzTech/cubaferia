@@ -106,6 +106,12 @@ const StackNavigator = createStackNavigator({
             header: null
         }
     },
+    AnnouncementFormCreateScreen: {
+        screen: AnnouncementFormCreateScreen,
+        navigationOptions: {
+            header: null
+        }
+    },
     WelcomeScreen: {
         screen: WelcomeScreen,
         navigationOptions: {
@@ -286,7 +292,6 @@ const AppLoggedDrawerNavigator = createDrawerNavigator({
 });
 
 const AppSwitchNavigator = createSwitchNavigator({
-    FormScreen: AnnouncementFormCreateScreen,
     AppNavigator: AppDrawerNavigator,
     AppLoggedNavigator: AppLoggedDrawerNavigator,
 });

@@ -83,6 +83,9 @@ export default class AnnouncementCreateScreen extends Component {
                             this.state.categoryList.map(element => (
                                 <TouchableOpacity key={element.id} style={{margin: 20, width: 90}}
                                                   onPress={() => {
+                                                      this.prop.navigation.navigate('AnnouncementFormCreateScreen', {
+                                                          'category': element.id
+                                                      })
                                                   }}>
                                     {
                                         <FontAwesome5 style={{textAlign: 'center'}} name={element.logo} size={60}
@@ -113,8 +116,10 @@ export class AnnouncementFormCreateScreen extends Component {
         this.state = {
             title: '',
             description: '',
-            phone: '',
-            email: '',
+            phoneValues: ['', '', ''],
+            phoneVisibility: [true, false, false],
+            emailValues: ['', '', ''],
+            emailVisibility: [true, false, false],
             name: '',
             address: '',
             main_image: '',
@@ -122,7 +127,7 @@ export class AnnouncementFormCreateScreen extends Component {
             image2: '',
             image3: '',
             price: '',
-            category: this.props,
+            category: this.props.navigation.getParam('category'),
             city: '',
             visit_count: 0,
             created_by: 1,
@@ -154,11 +159,13 @@ export class AnnouncementFormCreateScreen extends Component {
     }
 
     createData = () => {
-        Provider.createValue('announcement', this.state).then(() => {
-            },
-            (err) => {
-                console.log(err);
-            });
+        // Provider.createValue('announcement', this.state).then(() => {
+        //
+        //     },
+        //     (err) => {
+        //         console.log(err);
+        //     });
+        console.log(this.state);
         Keyboard.dismiss();
     };
 
@@ -172,48 +179,187 @@ export class AnnouncementFormCreateScreen extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+
                     <Item floatingLabel style={styles.inputs}>
                         <Label>Título</Label>
                         <Input onChangeText={title => this.setState({title})}/>
                     </Item>
+
                     <Item floatingLabel style={styles.inputs}>
                         <Label>Descripción</Label>
                         <Input onChangeText={description => this.setState({description})}/>
                     </Item>
-                    <Item floatingLabel style={styles.inputs}>
-                        <Label>Teléfono</Label>
-                        <Input keyboardType={"phone-pad"}
-                               onChangeText={phone => this.setState({phone})}/>
+
+                    <View style={{
+                        width: '90%',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                    }}>
+                        <Item floatingLabel style={{
+                            flex: 20,
+                            paddingTop: 15,
+                            marginTop: 20,
+                        }}>
+                            <Label>Teléfono</Label>
+                            <Input keyboardType={"phone-pad"}
+                                   onChangeText={phone => this.setState({'phoneValues': [phone, this.state.phoneValues[1], this.state.phoneValues[2]]})}/>
+                        </Item>
+                        {
+                            !this.state.phoneVisibility[2] ?
+                                <TouchableOpacity
+                                    style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 50}}
+                                    onPress={() => {
+                                        if (!this.state.phoneVisibility[1])
+                                            this.setState({'phoneVisibility': [true, true, false]});
+                                        else
+                                            this.setState({'phoneVisibility': [true, true, true]});
+                                    }}>
+                                    <FontAwesome name={'plus'} size={21} color={'green'}/>
+                                </TouchableOpacity>
+                                : null
+                        }
+                        {
+                            this.state.phoneVisibility[1] ?
+                                <TouchableOpacity
+                                    style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 50}}
+                                    onPress={() => {
+                                        if (this.state.phoneVisibility[2]) {
+                                            this.setState({'phoneVisibility': [true, true, false]});
+                                            this.setState({'phoneValues': [this.state.phoneValues[0], this.state.phoneValues[1], '']});
+                                        } else {
+                                            this.setState({'phoneVisibility': [true, false, false]});
+                                            this.setState({'phoneValues': [this.state.phoneValues[0], '', '']});
+                                        }
+                                    }}>
+                                    <FontAwesome name={'minus'} size={21} color={'red'}/>
+                                </TouchableOpacity>
+                                : null
+                        }
+                    </View>
+
+                    <Item floatingLabel style={{
+                        paddingTop: 15,
+                        marginTop: 20,
+                        width: '90%',
+                        display: this.state.phoneVisibility[1] ? 'block' : 'none'
+                    }}>
+                        <Label>Teléfono 2</Label>
+                        <Input keyboardType={"phone-pad"} style={{width: '100%'}}
+                               onChangeText={phone => this.setState({'phoneValues': [this.state.phoneValues[0], phone, this.state.phoneValues[2]]})}/>
                     </Item>
-                    <Item floatingLabel style={styles.inputs}>
-                        <Label>Email</Label>
-                        <Input keyboardType={"email-address"}
-                               onChangeText={email => this.setState({email})}/>
+
+                    <Item floatingLabel style={{
+                        paddingTop: 15,
+                        marginTop: 20,
+                        width: '90%',
+                        display: this.state.phoneVisibility[2] ? 'block' : 'none'
+                    }}>
+                        <Label>Teléfono 3</Label>
+                        <Input keyboardType={"phone-pad"} style={{width: '100%'}}
+                               onChangeText={phone => this.setState({'phoneValues': [this.state.phoneValues[0], this.state.phoneValues[1], phone]})}/>
                     </Item>
+
+                    <View style={{
+                        width: '90%',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                    }}>
+                        <Item floatingLabel style={{
+                            flex: 20,
+                            paddingTop: 15,
+                            marginTop: 20,
+                        }}>
+                            <Label>Correo Electrónico</Label>
+                            <Input keyboardType={"email-address"}
+                                   onChangeText={email => this.setState({'emailValues': [email, this.state.emailValues[1], this.state.emailValues[2]]})}/>
+                        </Item>
+                        {
+                            !this.state.emailVisibility[2] ?
+                                <TouchableOpacity
+                                    style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 50}}
+                                    onPress={() => {
+                                        if (!this.state.emailVisibility[1])
+                                            this.setState({'emailVisibility': [true, true, false]});
+                                        else
+                                            this.setState({'emailVisibility': [true, true, true]});
+                                    }}>
+                                    <FontAwesome name={'plus'} size={21} color={'green'}/>
+                                </TouchableOpacity>
+                                : null
+                        }
+                        {
+                            this.state.emailVisibility[1] ?
+                                <TouchableOpacity
+                                    style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 50}}
+                                    onPress={() => {
+                                        if (this.state.emailVisibility[2]) {
+                                            this.setState({'emailVisibility': [true, true, false]});
+                                            this.setState({'emailValues': [this.state.emailValues[0], this.state.emailValues[1], '']});
+                                        } else {
+                                            this.setState({'emailVisibility': [true, false, false]});
+                                            this.setState({'emailValues': [this.state.emailValues[0], '', '']});
+                                        }
+                                    }}>
+                                    <FontAwesome name={'minus'} size={21} color={'red'}/>
+                                </TouchableOpacity>
+                                : null
+                        }
+                    </View>
+
+                    <Item floatingLabel style={{
+                        paddingTop: 15,
+                        marginTop: 20,
+                        width: '90%',
+                        display: this.state.emailVisibility[1] ? 'block' : 'none'
+                    }}>
+                        <Label>Correo electrónico 2</Label>
+                        <Input keyboardType={"email-address"} style={{width: '100%'}}
+                               onChangeText={email => this.setState({'emailValues': [this.state.emailValues[0], email, this.state.emailValues[2]]})}/>
+                    </Item>
+
+                    <Item floatingLabel style={{
+                        paddingTop: 15,
+                        marginTop: 20,
+                        width: '90%',
+                        display: this.state.emailVisibility[2] ? 'block' : 'none'
+                    }}>
+                        <Label>Correo electrónico 3</Label>
+                        <Input keyboardType={"email-address"} style={{width: '100%'}}
+                               onChangeText={email => this.setState({'emailValues': [this.state.emailValues[0], this.state.emailValues[1], email]})}/>
+                    </Item>
+
                     <Item floatingLabel style={styles.inputs}>
                         <Label>Nombre de contacto</Label>
                         <Input onChangeText={name => this.setState({name})}/>
                     </Item>
+
                     <Item floatingLabel style={styles.inputs}>
                         <Label>Dirección</Label>
                         <Input onChangeText={address => this.setState({address})}/>
                     </Item>
+
                     <Item floatingLabel style={styles.inputs}>
                         <Label>Imagen principal</Label>
                         <Input onChangeText={main_image => this.setState({main_image})}/>
                     </Item>
+
                     <Item floatingLabel style={styles.inputs}>
                         <Label>Imagen 1</Label>
                         <Input onChangeText={image1 => this.setState({image1})}/>
                     </Item>
+
                     <Item floatingLabel style={styles.inputs}>
                         <Label>Imagen 2</Label>
                         <Input onChangeText={image2 => this.setState({image2})}/>
                     </Item>
+
                     <Item floatingLabel style={styles.inputs}>
                         <Label>Imagen 3</Label>
                         <Input onChangeText={image3 => this.setState({image3})}/>
                     </Item>
+
                     <Item floatingLabel style={styles.inputs}>
                         <Label>Precio</Label>
                         <Input keyboardType={"numeric"}
@@ -228,6 +374,7 @@ export class AnnouncementFormCreateScreen extends Component {
                         </Picker>
                         : null
                     }
+
                 </View>
                 <View style={{alignItems: 'center', margin: 10}}>
                     <TouchableOpacity
@@ -247,7 +394,6 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 15,
         backgroundColor: '#fff',
-        // padding: 30
     },
     inputs: {
         paddingTop: 15,
