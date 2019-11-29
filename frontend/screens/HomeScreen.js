@@ -109,7 +109,13 @@ export default class HomeScreen extends Component {
                             {
                                 this.categoryList.map((element) => (
                                     <View key={element.id} style={styles.categoriesFilterMenuElements}>
-                                        <TouchableOpacity>
+                                        <TouchableOpacity onPress={() => {
+                                            let filteredList = [];
+                                            for (const elem of this.announcementsList)
+                                                if (elem.category === element.name)
+                                                    filteredList.push(elem);
+                                            this.setState({dataSource: filteredList});
+                                        }}>
                                             <FontAwesome5 style={{textAlign: 'center'}}
                                                           name={element.logo ? element.logo : "image"} size={21}
                                                           color={constant.tintColor}/>
@@ -149,7 +155,7 @@ export default class HomeScreen extends Component {
                                                                source={{uri: element.main_image}}/>
                                                 }
                                             </View>
-                                            <View style={{marginLeft: 20}}>
+                                            <View style={{marginLeft: 20, justifyContent: 'center'}}>
                                                 <Text style={styles.optionTitle}>{element.title}</Text>
                                                 <Text style={styles.optionDescription}>{element.description}</Text>
                                                 <Text style={styles.optionPrice}>$ {element.price}</Text>
