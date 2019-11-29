@@ -19,7 +19,7 @@ import MainTabNavigator from './navigation/MainTabNavigator';
 import RegisterScreen from "./screens/RegisterScreen";
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
-import AnnouncementCreateScreen from "./screens/AnnouncementCreateScreen";
+import AnnouncementCreateScreen, {AnnouncementFormCreateScreen} from "./screens/AnnouncementCreateScreen";
 
 export default function App(props) {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -106,6 +106,12 @@ const StackNavigator = createStackNavigator({
             header: null
         }
     },
+    AnnouncementFormCreateScreen: {
+        screen: AnnouncementFormCreateScreen,
+        navigationOptions: {
+            header: null
+        }
+    },
     WelcomeScreen: {
         screen: WelcomeScreen,
         navigationOptions: {
@@ -129,7 +135,7 @@ const StackNavigator = createStackNavigator({
 const CustomDrawerComponent = props => (
     <ScrollView style={{flex: 1}}>
         <View style={{
-            background: 'linear-gradient(#4630EB,' + constant.tintColor + ')',
+            background: 'linear-gradient(#fff,' + constant.primaryColor + ')',
             height: 200,
             justifyContent: 'center',
             alignItems: 'center',
@@ -142,7 +148,7 @@ const CustomDrawerComponent = props => (
             </TouchableOpacity>
         </View>
         <SafeAreaView>
-            <DrawerItems {...props}/>
+            <DrawerItems {...props} activeTintColor={constant.tintColor}/>
         </SafeAreaView>
     </ScrollView>
 );
@@ -209,21 +215,17 @@ const AppDrawerNavigator = createDrawerNavigator({
 const LoggedCustomDrawerComponent = props => (
     <ScrollView style={{flex: 1}}>
         <View style={{
-            background: 'linear-gradient(#4630EB, #000)',
+            background: 'linear-gradient(#fff,' + constant.primaryColor + ')',
             height: 200,
             justifyContent: 'center',
             alignItems: 'center',
         }}>
-            <Text style={{
-                fontSize: 24,
-                textAlign: 'center',
-                color: 'white',
-                marginBottom: 10
-            }}><b>Cuba</b>feria</Text>
+            <Image style={{width: 200, height: 60, marginBottom: 10}}
+                   source={require('./assets/images/logo-x.png')}/>
             <Text style={{fontSize: 20, textAlign: 'center', color: 'white', marginBottom: 10}}>Fulano</Text>
         </View>
         <SafeAreaView>
-            <DrawerItems {...props}/>
+            <DrawerItems {...props} activeTintColor={constant.tintColor}/>
         </SafeAreaView>
     </ScrollView>
 );
@@ -326,7 +328,7 @@ const styles = StyleSheet.create({
     loginButton: {
         marginTop: 20,
         flexDirection: 'row',
-        backgroundColor: constant.tintColor,
+        backgroundColor: constant.primaryColor,
         padding: 10,
         width: 230,
         borderRadius: 30
