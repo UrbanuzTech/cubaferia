@@ -102,10 +102,15 @@ ProfileStack.navigationOptions = {
 ProfileStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
-    HomeStack,
-    MyAnnouncementStacks,
-    ProfileStack,
-});
+        HomeStack,
+        MyAnnouncementStacks,
+        ProfileStack,
+    },
+    {
+        tabBarOptions: {
+            activeTintColor: constant.tintColor
+        }
+    });
 
 tabNavigator.path = '';
 

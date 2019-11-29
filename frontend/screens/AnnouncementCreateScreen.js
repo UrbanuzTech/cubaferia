@@ -83,7 +83,7 @@ export default class AnnouncementCreateScreen extends Component {
                             this.state.categoryList.map(element => (
                                 <TouchableOpacity key={element.id} style={{margin: 20, width: 90}}
                                                   onPress={() => {
-                                                      this.prop.navigation.navigate('AnnouncementFormCreateScreen', {
+                                                      this.props.navigation.navigate('AnnouncementFormCreateScreen', {
                                                           'category': element.id
                                                       })
                                                   }}>
@@ -173,10 +173,14 @@ export class AnnouncementFormCreateScreen extends Component {
         return (
             <ScrollView style={styles.container}>
                 <View>
-                    <TouchableOpacity style={{margin: 10}}
+                    <TouchableOpacity style={{marginLeft: 10}}
                                       onPress={() => this.props.navigation.goBack()}>
                         <FontAwesome name={'arrow-left'} size={21} color={'gray'}/>
                     </TouchableOpacity>
+                </View>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                    <Text style={{fontSize: 24, textAlign: 'center', color: 'black', marginTop: 20}}>Creando
+                        anuncio</Text>
                 </View>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
 
@@ -222,7 +226,13 @@ export class AnnouncementFormCreateScreen extends Component {
                         {
                             this.state.phoneVisibility[1] ?
                                 <TouchableOpacity
-                                    style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 50}}
+                                    style={{
+                                        flex: 1,
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        marginTop: 50,
+                                        marginLeft: 10
+                                    }}
                                     onPress={() => {
                                         if (this.state.phoneVisibility[2]) {
                                             this.setState({'phoneVisibility': [true, true, false]});
@@ -292,7 +302,13 @@ export class AnnouncementFormCreateScreen extends Component {
                         {
                             this.state.emailVisibility[1] ?
                                 <TouchableOpacity
-                                    style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 50}}
+                                    style={{
+                                        flex: 1,
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        marginTop: 50,
+                                        marginLeft: 10
+                                    }}
                                     onPress={() => {
                                         if (this.state.emailVisibility[2]) {
                                             this.setState({'emailVisibility': [true, true, false]});
@@ -368,6 +384,7 @@ export class AnnouncementFormCreateScreen extends Component {
 
                     {!this.state.isLoading ?
                         <Picker style={styles.inputsPicker} onValueChange={city => this.setState({city})}>
+                            <Picker.Item key={0} value={0} label={'- Provincia -'}/>
                             {this.cityList.map(element => (
                                 <Picker.Item key={element.id} value={element.name} label={element.name}/>
                             ))}
@@ -401,7 +418,11 @@ const styles = StyleSheet.create({
         width: '90%'
     },
     inputsPicker: {
-        marginBottom: 20
+        marginTop: 40,
+        width: '90%',
+        height: 40,
+        borderRadius: 30,
+        paddingLeft: 10,
     },
     createButton: {
         marginTop: 20,
@@ -414,6 +435,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
+        marginTop: 10
     },
     listActivityIndicator: {
         flex: 1,

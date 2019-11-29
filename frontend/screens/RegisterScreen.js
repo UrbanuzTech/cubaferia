@@ -44,7 +44,7 @@ export default class RegisterScreen extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                    <Text style={styles.header}>Únete a <b>Cuba</b>feria</Text>
+                    <Text style={styles.header}>Únete a <b>cuba</b>feria</Text>
                     <Item floatingLabel style={styles.inputs}>
                         <Label>Nombre</Label>
                         <Input returnKeyType={'next'} onChangeText={first_name => this.setState({first_name})}/>

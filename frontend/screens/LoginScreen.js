@@ -40,7 +40,7 @@ export default class LoginScreen extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                    <Text style={styles.header}>Bienvenido a <b>Cuba</b>feria</Text>
+                    <Text style={styles.header}>Bienvenido a <b>cuba</b>feria</Text>
                     <Item floatingLabel style={styles.inputs}>
                         <Label>Correo electrónico o teléfono</Label>
                         <Input returnKeyType={'next'} onChangeText={username => this.setState({username})}/>

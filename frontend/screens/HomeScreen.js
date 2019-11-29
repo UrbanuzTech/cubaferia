@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     header: {
-        backgroundColor: constant.tintColor,
+        backgroundColor: constant.primaryColor,
         height: 64,
         boxShadow: '0px 0px 2px 0px #000'
     },
