@@ -47,11 +47,19 @@ export default class HomeScreen extends Component {
 
     getAnnouncements() {
         Provider.getValueList('announcement').then(
-            (data) => {
-                this.setState({
-                    dataSource: data,
-                });
-                this.announcementsList = data;
+            (announcements) => {
+                this.announcementsList = announcements;
+                Provider.getValueList('event').then(
+                    (events) => {
+                        this.announcementsList.concat(events);
+                        this.setState({
+                            dataSource: this.announcementsList,
+                        });
+                    },
+                    (err) => {
+                        console.log(err);
+                    }
+                );
             },
             (err) => {
                 console.log(err);
