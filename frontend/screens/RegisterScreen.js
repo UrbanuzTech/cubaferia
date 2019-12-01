@@ -7,7 +7,7 @@ import {
     Keyboard,
     Picker,
     Text,
-    TouchableOpacity,
+    TouchableOpacity, Image,
 } from "react-native-web";
 import constant from "../constants/Colors";
 import * as Provider from "../misc/Provider";
@@ -44,22 +44,24 @@ export default class RegisterScreen extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                    <Text style={styles.header}>Únete a <b>cuba</b>feria</Text>
+                    <Image style={{width: 200, height: 60, margin: 10}}
+                           source={require('../assets/images/logo-x.png')}/>
+                    <Text style={styles.header}>Únete a nosotros</Text>
                     <Item floatingLabel style={styles.inputs}>
-                        <Label>Nombre</Label>
+                        <Label>Nombre<Text style={{color: 'red'}}> *</Text></Label>
                         <Input returnKeyType={'next'} onChangeText={first_name => this.setState({first_name})}/>
                     </Item>
                     <Item floatingLabel style={styles.inputs}>
-                        <Label>Apellidos</Label>
+                        <Label>Apellidos<Text style={{color: 'red'}}> *</Text></Label>
                         <Input returnKeyType={'next'} onChangeText={last_name => this.setState({last_name})}/>
                     </Item>
                     <Item floatingLabel style={styles.inputs}>
-                        <Label>Correo electrónico</Label>
+                        <Label>Correo electrónico o teléfono<Text style={{color: 'red'}}> *</Text></Label>
                         <Input returnKeyType={'next'} keyboardType={'email-address'}
                                onChangeText={email => this.setState({email})}/>
                     </Item>
                     <Item floatingLabel style={styles.inputs}>
-                        <Label>Contraseña</Label>
+                        <Label>Contraseña<Text style={{color: 'red'}}> *</Text></Label>
                         <Input secureTextEntry returnKeyType={'send'}
                                onChangeText={password => this.setState({password})}/>
                     </Item>
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
     },
     createButton: {
         marginTop: 20,
-        backgroundColor: constant.tintColor,
+        backgroundColor: constant.primaryColor,
         padding: 10,
         width: 150,
         borderRadius: 30

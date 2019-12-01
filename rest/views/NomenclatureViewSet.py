@@ -8,5 +8,5 @@ class NomenclatureViewSet(viewsets.ModelViewSet):
     """
       API endpoint that allows Nomenclatures to be viewed or edited.
       """
-    queryset = Nomenclature.objects.all()
+    queryset = Nomenclature.objects.all().order_by('priority')
     serializer_class = NomenclatureSerializer

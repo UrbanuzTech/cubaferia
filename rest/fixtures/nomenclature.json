@@ -6,6 +6,7 @@
       "name": "Moda y Accesorios",
       "nomenclature_type": "announcement_category",
       "logo": "tshirt",
+      "priority": 3,
       "active": true
     }
   },
@@ -16,6 +17,7 @@
       "name": "TV, Audio y Foto",
       "nomenclature_type": "announcement_category",
       "logo": "tv",
+      "priority": 2,
       "active": true
     }
   },
@@ -26,6 +28,7 @@
       "name": "Móviles y Telefonía",
       "nomenclature_type": "announcement_category",
       "logo": "mobile",
+      "priority": 1,
       "active": true
     }
   },
@@ -36,6 +39,7 @@
       "name": "Informática y Electrónica",
       "nomenclature_type": "announcement_category",
       "logo": "memory",
+      "priority": 1,
       "active": true
     }
   },
@@ -46,6 +50,7 @@
       "name": "Coches",
       "nomenclature_type": "announcement_category",
       "logo": "car",
+      "priority": 1,
       "active": true
     }
   },
@@ -56,6 +61,7 @@
       "name": "Motos",
       "nomenclature_type": "announcement_category",
       "logo": "motorcycle",
+      "priority": 2,
       "active": true
     }
   },
@@ -66,6 +72,7 @@
       "name": "Motor y Accesorios",
       "nomenclature_type": "announcement_category",
       "logo": "cogs",
+      "priority": 3,
       "active": true
     }
   },
@@ -76,6 +83,7 @@
       "name": "Bicicletas",
       "nomenclature_type": "announcement_category",
       "logo": "bicycle",
+      "priority": 3,
       "active": true
     }
   },
@@ -86,6 +94,7 @@
       "name": "Inmobiliaria",
       "nomenclature_type": "announcement_category",
       "logo": "city",
+      "priority": 4,
       "active": true
     }
   },
@@ -96,6 +105,7 @@
       "name": "Deporte y Ocio",
       "nomenclature_type": "announcement_category",
       "logo": "table-tennis",
+      "priority": 4,
       "active": true
     }
   },
@@ -106,6 +116,7 @@
       "name": "Consolas y Videojuegos",
       "nomenclature_type": "announcement_category",
       "logo": "gamepad",
+      "priority": 4,
       "active": true
     }
   },
@@ -116,6 +127,7 @@
       "name": "Hogar y Jardín",
       "nomenclature_type": "announcement_category",
       "logo": "warehouse",
+      "priority": 4,
       "active": true
     }
   },
@@ -126,6 +138,7 @@
       "name": "Electrodomésticos",
       "nomenclature_type": "announcement_category",
       "logo": "blender",
+      "priority": 2,
       "active": true
     }
   },
@@ -136,6 +149,7 @@
       "name": "Eventos",
       "nomenclature_type": "announcement_category",
       "logo": "bullhorn",
+      "priority": 1,
       "active": true
     }
   },
@@ -146,6 +160,7 @@
       "name": "Niños y Bebés",
       "nomenclature_type": "announcement_category",
       "logo": "baby",
+      "priority": 4,
       "active": true
     }
   },
@@ -156,6 +171,7 @@
       "name": "Coleccionismo",
       "nomenclature_type": "announcement_category",
       "logo": "gem",
+      "priority": 4,
       "active": true
     }
   },
@@ -166,6 +182,7 @@
       "name": "Materiales de construcción",
       "nomenclature_type": "announcement_category",
       "logo": "paint-roller",
+      "priority": 3,
       "active": true
     }
   },
@@ -176,6 +193,7 @@
       "name": "Industria y Agricultura",
       "nomenclature_type": "announcement_category",
       "logo": "industry",
+      "priority": 4,
       "active": true
     }
   },
@@ -186,6 +204,7 @@
       "name": "Empleo",
       "nomenclature_type": "announcement_category",
       "logo": "briefcase",
+      "priority": 2,
       "active": true
     }
   },
@@ -196,6 +215,7 @@
       "name": "Servicios",
       "nomenclature_type": "announcement_category",
       "logo": "business-time",
+      "priority": 3,
       "active": true
     }
   },
@@ -206,6 +226,7 @@
       "name": "Otros",
       "nomenclature_type": "announcement_category",
       "logo": "ellipsis-h",
+      "priority": 5,
       "active": true
     }
   },

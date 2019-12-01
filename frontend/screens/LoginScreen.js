@@ -5,7 +5,7 @@ import {
     View,
     Keyboard,
     Text,
-    TouchableOpacity,
+    TouchableOpacity, Image,
 } from "react-native-web";
 import constant from "../constants/Colors";
 import * as Provider from "../misc/Provider";
@@ -40,13 +40,16 @@ export default class LoginScreen extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                    <Text style={styles.header}>Bienvenido a <b>cuba</b>feria</Text>
+                    <Image style={{width: 200, height: 60, margin: 10}}
+                           source={require('../assets/images/logo-x.png')}/>
+                    <Text style={styles.header}>Bienvenido</Text>
                     <Item floatingLabel style={styles.inputs}>
-                        <Label>Correo electrónico o teléfono</Label>
-                        <Input returnKeyType={'next'} onChangeText={username => this.setState({username})}/>
+                        <Label>Correo electrónico o teléfono<Text style={{color: 'red'}}> *</Text></Label>
+                        <Input returnKeyType={'next'} keyboardType={'email-address'}
+                               onChangeText={username => this.setState({username})}/>
                     </Item>
                     <Item floatingLabel style={styles.inputs}>
-                        <Label>Contraseña</Label>
+                        <Label>Contraseña<Text style={{color: 'red'}}> *</Text></Label>
                         <Input secureTextEntry returnKeyType={'send'}
                                onChangeText={password => this.setState({password})}/>
                     </Item>
@@ -88,7 +91,7 @@ const styles = StyleSheet.create({
     },
     createButton: {
         marginTop: 20,
-        backgroundColor: constant.tintColor,
+        backgroundColor: constant.primaryColor,
         padding: 10,
         width: 150,
         borderRadius: 30

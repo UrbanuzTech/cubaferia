@@ -143,8 +143,8 @@ const CustomDrawerComponent = props => (
             <Image style={{width: 200, height: 60, marginBottom: 10}}
                    source={require('./assets/images/logo-x.png')}/>
             <TouchableOpacity onPress={() => props.navigation.navigate('WelcomeScreen')}>
-                <Text style={{fontSize: 20, color: '#000', textShadow: '0px 1px 5px #fff',}}>Inicia
-                    sesión o regístrate</Text>
+                <Text style={{fontSize: 15, color: '#000', textShadow: '0px 1px 5px #fff',}}>INICIA SESIÓN O
+                    REGÍSTRATE</Text>
             </TouchableOpacity>
         </View>
         <SafeAreaView>
@@ -222,7 +222,7 @@ const LoggedCustomDrawerComponent = props => (
         }}>
             <Image style={{width: 200, height: 60, marginBottom: 10}}
                    source={require('./assets/images/logo-x.png')}/>
-            <Text style={{fontSize: 20, textAlign: 'center', color: 'white', marginBottom: 10}}>Fulano</Text>
+            <Text style={{fontSize: 15, color: '#000', textShadow: '0px 1px 5px #fff',}}>Fulano</Text>
         </View>
         <SafeAreaView>
             <DrawerItems {...props} activeTintColor={constant.tintColor}/>

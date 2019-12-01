@@ -185,7 +185,7 @@ export class AnnouncementFormCreateScreen extends Component {
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
 
                     <Item floatingLabel style={styles.inputs}>
-                        <Label>Título</Label>
+                        <Label>Título<Text style={{color: 'red'}}> *</Text></Label>
                         <Input onChangeText={title => this.setState({title})}/>
                     </Item>
 
@@ -205,7 +205,7 @@ export class AnnouncementFormCreateScreen extends Component {
                             paddingTop: 15,
                             marginTop: 20,
                         }}>
-                            <Label>Teléfono</Label>
+                            <Label>Teléfono<Text style={{color: 'red'}}> *</Text></Label>
                             <Input keyboardType={"phone-pad"}
                                    onChangeText={phone => this.setState({'phoneValues': [phone, this.state.phoneValues[1], this.state.phoneValues[2]]})}/>
                         </Item>
@@ -281,7 +281,7 @@ export class AnnouncementFormCreateScreen extends Component {
                             paddingTop: 15,
                             marginTop: 20,
                         }}>
-                            <Label>Correo Electrónico</Label>
+                            <Label>Correo Electrónico<Text style={{color: 'red'}}> *</Text></Label>
                             <Input keyboardType={"email-address"}
                                    onChangeText={email => this.setState({'emailValues': [email, this.state.emailValues[1], this.state.emailValues[2]]})}/>
                         </Item>
@@ -377,7 +377,7 @@ export class AnnouncementFormCreateScreen extends Component {
                     </Item>
 
                     <Item floatingLabel style={styles.inputs}>
-                        <Label>Precio</Label>
+                        <Label>Precio en CUC<Text style={{color: 'red'}}> *</Text></Label>
                         <Input keyboardType={"numeric"}
                                onChangeText={price => this.setState({price})}/>
                     </Item>
