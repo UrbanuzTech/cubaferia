@@ -30,5 +30,5 @@ class AnnouncementSerializer(serializers.ModelSerializer):
         model = Announcement
         fields = ['id', 'title', 'description', 'phones', 'emails',
                   'contact_name', 'address', 'main_image', 'image1', 'image2', 'image3', 'price', 'category', 'city',
-                  'created_by']
+                  'created_by', 'visit_count']
         read_only_fields = ['id', 'visit_count', 'created_at']

@@ -12,7 +12,7 @@ import {
 } from "react-native-web";
 import constant from "../constants/Colors";
 import * as Provider from "../misc/Provider";
-import {Label, Item, Input, Icon} from "native-base";
+import {Label, Item, Input, Icon, Toast} from "native-base";
 import {FontAwesome, FontAwesome5} from "@expo/vector-icons";
 
 
@@ -84,7 +84,7 @@ export default class AnnouncementCreateScreen extends Component {
                                 <TouchableOpacity key={element.id} style={{margin: 20, width: 90}}
                                                   onPress={() => {
                                                       this.props.navigation.navigate('AnnouncementFormCreateScreen', {
-                                                          'category': element.id
+                                                          'category': element.name
                                                       })
                                                   }}>
                                     {
@@ -108,7 +108,6 @@ export default class AnnouncementCreateScreen extends Component {
 
 
 export class AnnouncementFormCreateScreen extends Component {
-    categoryList = [];
     cityList = [];
 
     constructor(props) {
@@ -122,10 +121,10 @@ export class AnnouncementFormCreateScreen extends Component {
             emailVisibility: [true, false, false],
             name: '',
             address: '',
-            main_image: '',
-            image1: '',
-            image2: '',
-            image3: '',
+            main_image: null,
+            image1: null,
+            image2: null,
+            image3: null,
             price: '',
             category: this.props.navigation.getParam('category'),
             city: '',
@@ -139,12 +138,9 @@ export class AnnouncementFormCreateScreen extends Component {
         Provider.getValueList('nomenclature').then(
             (data) => {
                 for (const elem of data)
-                    if (elem.active && elem.nomenclature_type === 'announcement_category')
-                        this.categoryList.push(elem);
-                    else if (elem.active && elem.nomenclature_type === 'city')
+                    if (elem.active && elem.nomenclature_type === 'city')
                         this.cityList.push(elem);
                 this.setState({
-                    category: this.categoryList[0].name,
                     city: this.cityList[0].name,
                     isLoading: false,
                 })
@@ -159,13 +155,40 @@ export class AnnouncementFormCreateScreen extends Component {
     }
 
     createData = () => {
-        // Provider.createValue('announcement', this.state).then(() => {
-        //
-        //     },
-        //     (err) => {
-        //         console.log(err);
-        //     });
-        console.log(this.state);
+        let emails = [];
+        this.state.emailValues.map((value) => {
+            if (value)
+                emails.push(value);
+        });
+        let phones = [];
+        this.state.phoneValues.map((value) => {
+            if (value)
+                phones.push(value);
+        });
+        let newAnnouncement = {
+            title: this.state.title,
+            description: this.state.description,
+            phones: phones,
+            emails: emails,
+            contact_name: this.state.name,
+            address: this.state.address,
+            main_image: this.state.main_image,
+            image1: this.state.image1,
+            image2: this.state.image2,
+            image3: this.state.image3,
+            price: this.state.price,
+            category: this.state.category,
+            city: this.state.city,
+            visit_count: this.state.visit_count,
+            created_by: this.state.created_by,
+        };
+        Provider.createValue('announcement', newAnnouncement).then((data) => {
+                console.log(data);
+                this.props.navigation.navigate('HomeScreen', {'newAnnouncement': data});
+            },
+            (err) => {
+                console.log(err);
+            });
         Keyboard.dismiss();
     };
 
