@@ -21,6 +21,7 @@ import Touchable from 'react-native-platform-touchable';
 export default class HomeScreen extends Component {
     categoryList = [];
     announcementsList = [];
+    eventCategoriesList = [];
 
     constructor(props) {
         super(props);
@@ -38,6 +39,8 @@ export default class HomeScreen extends Component {
                 for (const elem of data)
                     if (elem.active && elem.nomenclature_type === 'announcement_category')
                         this.categoryList.push(elem);
+                    else if (elem.active && elem.nomenclature_type === 'event_category')
+                        this.eventCategoriesList.push(elem.name);
                 this.setState({isLoading: false})
             },
             (err) => {
@@ -115,12 +118,19 @@ export default class HomeScreen extends Component {
                                     keyboardDismissMode={'on-drag'}>
                             {
                                 this.categoryList.map((element) => (
-                                    <View key={element.id} style={styles.categoriesFilterMenuElements}>
+                                    <View key={element.name + '-' + element.id}
+                                          style={styles.categoriesFilterMenuElements}>
                                         <TouchableOpacity onPress={() => {
                                             let filteredList = [];
-                                            for (const elem of this.announcementsList)
-                                                if (elem.category === element.name)
+                                            for (const elem of this.announcementsList) {
+                                                if (element.name === 'Eventos')
+                                                    for (const event of this.eventCategoriesList) {
+                                                        if (elem.category === event)
+                                                            filteredList.push(elem);
+                                                    }
+                                                else if (elem.category === element.name)
                                                     filteredList.push(elem);
+                                            }
                                             this.setState({dataSource: filteredList});
                                         }}>
                                             <FontAwesome5 style={{textAlign: 'center'}}
@@ -146,7 +156,7 @@ export default class HomeScreen extends Component {
                             !this.state.isLoading ?
                                 this.state.dataSource.map(element => (
                                     <Touchable
-                                        key={element.id}
+                                        key={element.title + '-' + element.id}
                                         style={styles.option}
                                         background={Touchable.Ripple('#ccc', false)}
                                         onPress={() => {
