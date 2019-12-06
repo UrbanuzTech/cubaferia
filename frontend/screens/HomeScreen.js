@@ -159,8 +159,7 @@ export default class HomeScreen extends Component {
                                         key={element.title + '-' + element.id}
                                         style={styles.option}
                                         background={Touchable.Ripple('#ccc', false)}
-                                        onPress={() => {
-                                        }}>
+                                        onPress={() => this.props.navigation.navigate('AnnouncementDetailsScreen', {'announcement': element})}>
                                         <View style={{flexDirection: 'row'}}>
                                             <View style={styles.optionIconContainer}>
                                                 {

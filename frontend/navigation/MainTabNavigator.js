@@ -8,6 +8,7 @@ import AnnouncementCreateScreen, {AnnouncementFormCreateScreen} from '../screens
 import ProfileScreen from '../screens/ProfileScreen';
 import {FontAwesome} from "@expo/vector-icons";
 import constant from "../constants/Colors";
+import AnnouncementDetailsScreen from "../screens/AnnouncementDetailsScreen";
 
 const config = Platform.select({
     web: {headerMode: 'screen'},
@@ -44,7 +45,13 @@ const HomeStack = createStackNavigator(
             navigationOptions: {
                 header: null
             }
-        }
+        },
+        AnnouncementDetailsScreen: {
+            screen: AnnouncementDetailsScreen,
+            navigationOptions: {
+                header: null
+            }
+        },
     },
     config
 );

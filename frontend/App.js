@@ -20,6 +20,7 @@ import RegisterScreen from "./screens/RegisterScreen";
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
 import AnnouncementCreateScreen, {AnnouncementFormCreateScreen} from "./screens/AnnouncementCreateScreen";
+import AnnouncementDetailsScreen from "./screens/AnnouncementDetailsScreen";
 
 export default function App(props) {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -108,6 +109,12 @@ const StackNavigator = createStackNavigator({
     },
     AnnouncementFormCreateScreen: {
         screen: AnnouncementFormCreateScreen,
+        navigationOptions: {
+            header: null
+        }
+    },
+    AnnouncementDetailsScreen: {
+        screen: AnnouncementDetailsScreen,
         navigationOptions: {
             header: null
         }
