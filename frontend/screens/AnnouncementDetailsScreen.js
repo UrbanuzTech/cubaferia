@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {StyleSheet, Text, View, ScrollView, Image, TouchableOpacity} from "react-native-web";
+import {StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, Linking} from "react-native-web";
 import {FontAwesome, FontAwesome5} from "@expo/vector-icons";
 import constant from "../constants/Colors";
 
@@ -54,7 +54,7 @@ export default class AnnouncementDetailsScreen extends Component {
                                 : null
                         }
                     </ScrollView>
-                    <View style={{marginTop: 15, alignItems: 'center'}}>
+                    <View style={{marginTop: 15, alignItems: 'center', margin: 10}}>
                         <Text style={{color: 'black', fontSize: 25}}>{this.state.element.title}</Text>
                         {
                             this.state.element.description ?
@@ -72,10 +72,9 @@ export default class AnnouncementDetailsScreen extends Component {
                         }
                         <Text style={{color: 'black', marginTop: 10}}><b>Teléfonos:</b></Text>
                         <Text style={{color: 'black', marginTop: 10}}>{this.state.element.phones.map(value => (
-                            <div key={'phone-' + value}>
+                            <TouchableOpacity onPress={() => Linking.openURL('tel:' + value)}>
                                 {value}
-                                <br/>
-                            </div>
+                            </TouchableOpacity>
                         ))}
                         </Text>
                         <Text style={{color: 'black', marginTop: 10}}><b>Correos electrónicos:</b></Text>

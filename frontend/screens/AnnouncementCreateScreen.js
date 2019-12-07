@@ -12,7 +12,7 @@ import {
 } from "react-native-web";
 import constant from "../constants/Colors";
 import * as Provider from "../misc/Provider";
-import {Label, Item, Input, Icon, Toast} from "native-base";
+import {Label, Item, Input, Icon, Toast, Textarea, Form} from "native-base";
 import {FontAwesome, FontAwesome5} from "@expo/vector-icons";
 
 
@@ -214,7 +214,8 @@ export class AnnouncementFormCreateScreen extends Component {
 
                     <Item floatingLabel style={styles.inputs}>
                         <Label>Descripción</Label>
-                        <Input onChangeText={description => this.setState({description})}/>
+                        <Input multiline={true} style={{height: 150}} rowSpan={5}
+                               onChangeText={description => this.setState({description})}/>
                     </Item>
 
                     <View style={{
@@ -376,7 +377,8 @@ export class AnnouncementFormCreateScreen extends Component {
 
                     <Item floatingLabel style={styles.inputs}>
                         <Label>Dirección</Label>
-                        <Input onChangeText={address => this.setState({address})}/>
+                        <Input multiline={true} style={{height: 150}} rowSpan={5}
+                               onChangeText={description => this.setState({description})}/>
                     </Item>
 
                     <Item floatingLabel style={styles.inputs}>

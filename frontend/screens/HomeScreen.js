@@ -278,6 +278,7 @@ const styles = StyleSheet.create({
     optionDescription: {
         fontSize: 11,
         marginTop: 1,
+        width: "80%"
     },
     optionPrice: {
         fontSize: 15,
