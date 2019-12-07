@@ -100,3 +100,13 @@
 #table-results td {
     vertical-align: middle !important;
 }
+
+select[data-type=icon] + .select2 .select2-selection {
+    height: 50px !important;
+    font-size: 30px;
+    padding-top: 15px;
+}
+
+select[data-type=icon] + .select2 .select2-selection__arrow {
+    margin-top: 10px;
+}

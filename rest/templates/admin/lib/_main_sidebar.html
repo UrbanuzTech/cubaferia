@@ -23,7 +23,7 @@
 {% block nav_links %}
     <li {% if request.path == '/en/admin/' or request.path == '/es/admin/' %}class="active" {% endif %}>
         <a href="{% url 'admin:index' %}">
-            <i class="fa fa-dashboard"></i> <span>{% trans 'home'|capfirst %}</span>
+            <i class="fa fa-home"></i> <span>{% trans 'home'|capfirst %}</span>
         </a>
     </li>
     <li class="treeview">

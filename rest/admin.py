@@ -19,6 +19,7 @@ from django.views.generic.base import View
 from rest.filters import ContainsFieldListFilter, StartFieldFilter, EndFieldFilter, StartDateFieldFilter, \
     EndDateFieldFilter
 from rest.forms.event import EventAdminForm
+from rest.forms.nomenclature import NomenclatureForm
 from rest.forms.widgets import DynamicArrayWidget, FileUploadWidget
 from rest.models import Nomenclature, Announcement
 from rest.models.announcement import Event
@@ -28,11 +29,19 @@ from rest.utils import get_model_by_name
 
 @admin.register(Nomenclature)
 class NomenclatureAdmin(admin.ModelAdmin):
-    list_display = ('name', 'nomenclature_type', 'active')
+    list_display = ('get_logo', 'name', 'nomenclature_type', 'active')
     list_filter = ('active', 'nomenclature_type')
     search_fields = ('name', 'nomenclature_type')
     list_display_links = None
     list_per_page = 20
+    form = NomenclatureForm
+
+    def get_logo(self, obj):
+        if obj.logo:
+            return mark_safe('<i class="%s" style="font-size: 30px;"></i>' % obj.logo)
+        return ''
+
+    get_logo.short_description = _('Logo')
 
     def save_model(self, request, obj, form, change):
         if not hasattr(obj, 'created_by'):

@@ -15,7 +15,9 @@
         }
     </style>
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
-    <link rel="stylesheet" href="{% static 'plugins/bootstrap-datepicker/distribution/css/bootstrap-datepicker.min.css' %}">
+    <link rel="stylesheet"
+          href="{% static 'plugins/bootstrap-datepicker/distribution/css/bootstrap-datepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome5/css/all.min.css' %}">
 {% endblock %}
 
 {% block bodyclass %}hold-transition skin-blue fixed sidebar-mini{% endblock %}
@@ -23,7 +25,7 @@
 {% block content_header %}
     {% block breadcrumbs %}
         <ol class="breadcrumb">
-            <li><a href="{% url 'admin:index' %}"><i class="fa fa-dashboard"></i> {% trans 'Home' %}</a></li>
+            <li><a href="{% url 'admin:index' %}"><i class="fa fa-home"></i> {% trans 'Home' %}</a></li>
             {% if title %} &rsaquo; {{ title }}{% endif %}
         </ol>
     {% endblock %}
