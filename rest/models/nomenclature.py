@@ -23,7 +23,7 @@ NOMENCLATURE_TYPES = (
 )
 
 PRIORITIES = (
-    ('1', _('Very High')),
+    (1, _('Very High')),
     (2, _('High')),
     (3, _('Medium')),
     (4, _('Low')),
@@ -36,10 +36,8 @@ class Nomenclature(models.Model):
     nomenclature_type = models.CharField(max_length=100, choices=NOMENCLATURE_TYPES,
                                          verbose_name=_('nomenclature type'))
     parent = models.ForeignKey('self', on_delete=DO_NOTHING, blank=True, null=True, verbose_name=_('parent'))
-    logo = models.TextField(blank=True, null=True)
-    priority = models.CharField(max_length=10, default=1,
-                                choices=PRIORITIES,
-                                verbose_name=_('priority'))
+    logo = models.TextField(blank=True, null=True, verbose_name=_('logo'))
+    priority = models.CharField(max_length=10, choices=PRIORITIES, verbose_name=_('priority'))
     active = models.BooleanField(verbose_name=_('active'))
 
     def save(self, *args, **kwargs):

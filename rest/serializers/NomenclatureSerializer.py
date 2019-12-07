@@ -5,6 +5,10 @@ from rest.models.nomenclature import Nomenclature
 
 class NomenclatureSerializer(serializers.ModelSerializer):
     logo = serializers.SerializerMethodField()
+    real_logo = serializers.SerializerMethodField()
+
+    def get_real_logo(self, obj):
+        return obj.logo
 
     def get_logo(self, obj):
         if obj.logo:
@@ -14,5 +18,5 @@ class NomenclatureSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Nomenclature
-        fields = ['id', 'name', 'nomenclature_type', 'active', 'parent', 'logo']
+        fields = ['id', 'name', 'nomenclature_type', 'active', 'parent', 'logo', 'real_logo']
         read_only_fields = ['id']

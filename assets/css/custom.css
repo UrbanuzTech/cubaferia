@@ -110,3 +110,9 @@ select[data-type=icon] + .select2 .select2-selection {
 select[data-type=icon] + .select2 .select2-selection__arrow {
     margin-top: 10px;
 }
+
+.select2-results__option[id^=select2-id_logo] {
+    font-size: 30px !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
