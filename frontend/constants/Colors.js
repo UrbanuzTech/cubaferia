@@ -6,6 +6,8 @@ export default {
     primaryColor,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColor,
+    filterIconDefault: '#70dcd9',
+    filterIconSelected: primaryColor,
     tabBar: '#fefefe',
     errorBackground: 'red',
     errorText: '#fff',

@@ -29,7 +29,8 @@ export default class HomeScreen extends Component {
             isLoading: true,
             showButton: true,
             dataSource: [],
-            announcementsList: []
+            announcementsList: [],
+            selectedFilter: ''
         };
     }
 
@@ -116,6 +117,23 @@ export default class HomeScreen extends Component {
                     !this.state.isLoading ?
                         <ScrollView style={styles.categoriesFilterMenu} horizontal={true}
                                     keyboardDismissMode={'on-drag'}>
+                            <View style={styles.categoriesFilterMenuElements}>
+                                <TouchableOpacity onPress={() => {
+                                    this.setState({dataSource: this.announcementsList});
+                                    this.setState({selectedFilter: ''})
+                                }}>
+                                    <FontAwesome5 style={{textAlign: 'center'}}
+                                                  name={"list"} size={21}
+                                                  color={!this.state.selectedFilter ?
+                                                      constant.filterIconSelected : constant.filterIconDefault}/>
+                                    <Text center style={{
+                                        textAlign: 'center ',
+                                        marginTop: 5,
+                                        fontWeight: !this.state.selectedFilter ? 'bold' : 'normal'
+                                    }}
+                                          allowFontScaling={true}>Todos</Text>
+                                </TouchableOpacity>
+                            </View>
                             {
                                 this.categoryList.map((element) => (
                                     <View key={element.name + '-' + element.id}
@@ -132,11 +150,17 @@ export default class HomeScreen extends Component {
                                                     filteredList.push(elem);
                                             }
                                             this.setState({dataSource: filteredList});
+                                            this.setState({selectedFilter: element.id});
                                         }}>
                                             <FontAwesome5 style={{textAlign: 'center'}}
                                                           name={element.logo ? element.logo : "image"} size={21}
-                                                          color={constant.tintColor}/>
-                                            <Text center style={{textAlign: 'center ', marginTop: 5}}
+                                                          color={this.state.selectedFilter === element.id ?
+                                                              constant.filterIconSelected : constant.filterIconDefault}/>
+                                            <Text center style={{
+                                                textAlign: 'center ',
+                                                marginTop: 5,
+                                                fontWeight: this.state.selectedFilter === element.id ? 'bold' : 'normal'
+                                            }}
                                                   allowFontScaling={true}>{element.name}</Text>
                                         </TouchableOpacity>
                                     </View>
