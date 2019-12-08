@@ -54,37 +54,70 @@ export default class AnnouncementDetailsScreen extends Component {
                                 : null
                         }
                     </ScrollView>
-                    <View style={{marginTop: 15, alignItems: 'center', margin: 10}}>
+                    <View style={{marginTop: 15, margin: 10, width: '90%'}}>
                         <Text style={{color: 'black', fontSize: 25}}>{this.state.element.title}</Text>
-                        {
-                            this.state.element.description ?
-                                <Text style={{color: 'gray', marginTop: 10}}>{this.state.element.description}</Text>
-                                : null
-                        }
-                        <Text style={{color: 'black', marginTop: 10}}>{this.state.element.price} CUC</Text>
+                        <Text style={styles.details}>{this.state.element.price} CUC</Text>
+                        <View style={styles.detailsIcon}>
+                            <FontAwesome5 name="calendar-alt" size={25}
+                                          color={constant.tintColor}/>
+                            <Text>  {this.state.element.created_at}</Text>
+                        </View>
                         {
                             this.state.element.contact_name ?
-                                <Text style={{
-                                    color: 'black',
-                                    marginTop: 10
-                                }}><b>Contacto:</b> {this.state.element.contact_name}</Text>
+                                <View style={styles.detailsIcon}>
+                                    <FontAwesome5 name="user" size={25}
+                                                  color={constant.tintColor}/>
+                                    <Text>  {this.state.element.contact_name}</Text>
+                                </View>
                                 : null
                         }
-                        <Text style={{color: 'black', marginTop: 10}}><b>Teléfonos:</b></Text>
-                        <Text style={{color: 'black', marginTop: 10}}>{this.state.element.phones.map(value => (
-                            <TouchableOpacity onPress={() => Linking.openURL('tel:' + value)}>
-                                {value}
-                            </TouchableOpacity>
-                        ))}
-                        </Text>
-                        <Text style={{color: 'black', marginTop: 10}}><b>Correos electrónicos:</b></Text>
-                        <Text style={{color: 'black', marginTop: 10}}>{this.state.element.emails.map(value => (
-                            <div key={'email-' + value}>
-                                {value}
+                        {
+                            this.state.element.address ?
+                                <View style={styles.detailsIcon}>
+                                    <FontAwesome5 name="map" size={25}
+                                                  color={constant.tintColor}/>
+                                    <Text>  {this.state.element.address}</Text>
+                                </View>
+                                : null
+                        }
+                        <View style={styles.detailsIcon}>
+                            <FontAwesome5 name="map-marker-alt" size={25}
+                                          color={constant.tintColor}/>
+                            <Text>   {this.state.element.city}</Text>
+                        </View>
+                        <Text style={styles.details}>{this.state.element.phones.map(value => (
+                            <div key={'phone-' + value}>
+                                <TouchableOpacity style={styles.option}
+                                                  onPress={() => Linking.openURL('tel:' + value)}>
+                                    <FontAwesome5 name="phone-square" size={25}
+                                                  color={'green'}/>
+                                    <Text>  {value}</Text>
+                                </TouchableOpacity>
                                 <br/>
                             </div>
                         ))}
                         </Text>
+                        <Text style={styles.details}>{this.state.element.emails.map(value => (
+                            <div key={'mail-' + value}>
+                                <TouchableOpacity style={styles.option}
+                                                  onPress={() => Linking.openURL('mailto:' + value)}>
+                                    <FontAwesome5 name="envelope-square" size={25}
+                                                  color={'orange'}/>
+                                    <Text>  {value}</Text>
+                                </TouchableOpacity>
+                                <br/>
+                            </div>
+                        ))}
+                        </Text>
+                        {
+                            this.state.element.description ?
+                                <Text style={{
+                                    color: 'gray',
+                                    marginTop: 10,
+                                    width: '100%',
+                                }}>{this.state.element.description}</Text>
+                                : null
+                        }
                     </View>
                 </View>
             </ScrollView>
@@ -104,8 +137,20 @@ const styles = StyleSheet.create({
         width: screen.width * 0.96,
         height: 0.5 * screen.height,
         margin: 10
-    }
-
+    },
+    details: {
+        color: 'black',
+        marginTop: 10
+    },
+    detailsIcon: {
+        marginTop: 10,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    option: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
 });
 
 

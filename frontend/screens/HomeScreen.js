@@ -171,10 +171,20 @@ export default class HomeScreen extends Component {
                                                                source={{uri: element.main_image}}/>
                                                 }
                                             </View>
-                                            <View style={{marginLeft: 20, justifyContent: 'center'}}>
+                                            <View
+                                                style={{flex: 8, marginLeft: 20, justifyContent: 'center'}}>
                                                 <Text style={styles.optionTitle}>{element.title}</Text>
                                                 <Text style={styles.optionDescription}>{element.description}</Text>
-                                                <Text style={styles.optionPrice}>$ {element.price}</Text>
+                                                {
+                                                    element.price ?
+                                                        <Text style={styles.optionPrice}>$ {element.price}</Text>
+                                                        : null
+                                                }
+                                                <View style={styles.optionCity}>
+                                                    <FontAwesome5 name="map-marker-alt" size={15}
+                                                                  color={constant.tintColor}/>
+                                                    <Text style={styles.optionPrice}> {element.city}</Text>
+                                                </View>
                                             </View>
                                         </View>
                                     </Touchable>
@@ -278,14 +288,19 @@ const styles = StyleSheet.create({
     optionDescription: {
         fontSize: 11,
         marginTop: 1,
-        width: "80%"
     },
     optionPrice: {
         fontSize: 15,
         marginTop: 1,
         color: '#a8a8a8',
     },
+    optionCity: {
+        marginTop: 1,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
     optionIconContainer: {
+        flex: 1,
         marginRight: 9,
         alignItems: 'center',
         justifyContent: 'center'
