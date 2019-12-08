@@ -18,6 +18,8 @@ import {FontAwesome, FontAwesome5} from "@expo/vector-icons";
 
 export default class AnnouncementCreateScreen extends Component {
     categoryList = [];
+    eventCategoryList = [];
+    nomenclaturesList = [];
 
     constructor(props) {
         super(props);
@@ -30,9 +32,13 @@ export default class AnnouncementCreateScreen extends Component {
     getNomenclatures() {
         Provider.getValueList('nomenclature').then(
             (data) => {
-                for (const elem of data)
-                    if (elem.active && elem.nomenclature_type === 'announcement_category')
+                this.nomenclaturesList = data;
+                for (const elem of this.nomenclaturesList) {
+                    if (elem.active && elem.nomenclature_type === 'announcement_category' && elem.parent === null)
                         this.categoryList.push(elem);
+                    else if (elem.active && elem.nomenclature_type === 'event_category')
+                        this.eventCategoryList.push(elem);
+                }
                 this.setState({categoryList: this.categoryList});
                 this.setState({isLoading: false});
             },
@@ -83,9 +89,35 @@ export default class AnnouncementCreateScreen extends Component {
                             this.state.categoryList.map(element => (
                                 <TouchableOpacity key={element.id} style={{margin: 20, width: 90}}
                                                   onPress={() => {
-                                                      this.props.navigation.navigate('AnnouncementFormCreateScreen', {
-                                                          'category': element.name
-                                                      })
+                                                      if (element.name === 'Eventos') {
+                                                          this.props.navigation.navigate('AnnouncementSubcategoryCreateScreen', {
+                                                              'category': {
+                                                                  name: element.name,
+                                                                  logo: element.logo,
+                                                              },
+                                                              'subCategoryList': this.eventCategoryList,
+                                                              'nomenclaturesList': this.nomenclaturesList,
+                                                          });
+                                                      } else {
+                                                          let subCategoryList = [];
+                                                          for (const elem of this.nomenclaturesList)
+                                                              if (elem.parent === element.id)
+                                                                  subCategoryList.push(elem);
+                                                          if (subCategoryList.length > 0)
+                                                              this.props.navigation.navigate('AnnouncementSubcategoryCreateScreen', {
+                                                                  'category': {
+                                                                      name: element.name,
+                                                                      logo: element.logo,
+                                                                  },
+                                                                  'subCategoryList': subCategoryList,
+                                                                  'nomenclaturesList': this.nomenclaturesList,
+                                                              });
+                                                          else
+                                                              this.props.navigation.navigate('AnnouncementFormCreateScreen', {
+                                                                  'category': element.name,
+                                                                  'nomenclaturesList': this.nomenclaturesList,
+                                                              });
+                                                      }
                                                   }}>
                                     {
                                         <FontAwesome5 style={{textAlign: 'center'}} name={element.logo} size={60}
@@ -102,6 +134,97 @@ export default class AnnouncementCreateScreen extends Component {
                 </View>
             </ScrollView>
 
+        );
+    }
+}
+
+export class AnnouncementSubcategoryCreateScreen extends Component {
+    subCategoryList = [];
+    nomenclaturesList = [];
+
+    constructor(props) {
+        super(props);
+        this.subCategoryList = this.props.navigation.getParam('subCategoryList');
+        this.nomenclaturesList = this.props.navigation.getParam('nomenclaturesList');
+        this.state = {
+            category: this.props.navigation.getParam('category'),
+            subCategoryList: this.subCategoryList,
+        };
+    };
+
+    filterElements(value) {
+        if (value === '')
+            this.setState({subCategoryList: this.subCategoryList});
+        else {
+            let filteredList = [];
+            this.subCategoryList.filter((item) => {
+                if (item.name.toLowerCase().indexOf(value.toLowerCase()) > -1)
+                    filteredList.push(item);
+            });
+            this.setState({subCategoryList: filteredList});
+        }
+    }
+
+    render() {
+        return (
+            <ScrollView style={{flex: 1}}>
+                <View>
+                    <TouchableOpacity style={{margin: 10}}
+                                      onPress={() => this.props.navigation.goBack()}>
+                        <FontAwesome name={'arrow-left'} size={21} color={'gray'}/>
+                    </TouchableOpacity>
+                </View>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                    <Text style={{fontSize: 24, textAlign: 'center', color: 'black', margin: 20}}>Seleccione la
+                        Subcategoría de {this.state.category.name}</Text>
+                    <Item style={styles.searchBar}>
+                        <TextInput returnKeyType={'search'} style={{width: '100%', marginTop: 2, marginRight: 5}}
+                                   placeholder={"Buscar Subcategoría de " + this.state.category.name}
+                                   onChangeText={(value) => this.filterElements(value)}/>
+                        <Icon name="ios-search"/>
+                    </Item>
+                </View>
+                <View style={styles.categoriesSelect}>
+                    {
+                        !this.state.isLoading ?
+                            this.state.subCategoryList.map(element => (
+                                <TouchableOpacity key={element.id} style={{margin: 20, width: 90}}
+                                                  onPress={() => {
+                                                      let subCategoryList = [];
+                                                      for (const elem of this.nomenclaturesList)
+                                                          if (elem.parent === element.id)
+                                                              subCategoryList.push(elem);
+                                                      if (subCategoryList.length > 0)
+                                                          this.props.navigation.push('AnnouncementSubcategoryCreateScreen', {
+                                                              'category': {
+                                                                  name: element.name,
+                                                                  logo: element.logo,
+                                                              },
+                                                              'subCategoryList': subCategoryList,
+                                                              'nomenclaturesList': this.nomenclaturesList,
+                                                          });
+                                                      else
+                                                          this.props.navigation.navigate('AnnouncementFormCreateScreen', {
+                                                              'category': element.name,
+                                                              'nomenclaturesList': this.nomenclaturesList,
+                                                          });
+
+                                                  }}>
+
+                                    <FontAwesome5 style={{textAlign: 'center'}}
+                                                  name={element.logo ? element.logo : this.state.category.logo}
+                                                  size={60}
+                                                  color={constant.tintColor}/>
+                                    <Text style={{textAlign: 'center', marginTop: 5}}
+                                          allowFontScaling={true}>{element.name}</Text>
+                                </TouchableOpacity>
+                            ))
+                            :
+                            <ActivityIndicator style={styles.listActivityIndicator} color={constant.primaryColor}
+                                               size='large'/>
+                    }
+                </View>
+            </ScrollView>
         );
     }
 }
@@ -135,19 +258,15 @@ export class AnnouncementFormCreateScreen extends Component {
     }
 
     getNomenclatures() {
-        Provider.getValueList('nomenclature').then(
-            (data) => {
-                for (const elem of data)
-                    if (elem.active && elem.nomenclature_type === 'city')
-                        this.cityList.push(elem);
-                this.setState({
-                    city: this.cityList[0].name,
-                    isLoading: false,
-                })
-            },
-            (err) => {
-                console.log(err);
-            });
+        let data = this.props.navigation.getParam('nomenclaturesList');
+        for (const elem of data)
+            if (elem.active && elem.nomenclature_type === 'city')
+                this.cityList.push(elem);
+        this.setState({
+            city: this.cityList[0].name,
+            isLoading: false,
+        })
+
     }
 
     componentDidMount() {

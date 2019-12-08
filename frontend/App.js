@@ -19,7 +19,10 @@ import MainTabNavigator from './navigation/MainTabNavigator';
 import RegisterScreen from "./screens/RegisterScreen";
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
-import AnnouncementCreateScreen, {AnnouncementFormCreateScreen} from "./screens/AnnouncementCreateScreen";
+import AnnouncementCreateScreen, {
+    AnnouncementFormCreateScreen,
+    AnnouncementSubcategoryCreateScreen
+} from "./screens/AnnouncementCreateScreen";
 import AnnouncementDetailsScreen from "./screens/AnnouncementDetailsScreen";
 
 export default function App(props) {
@@ -103,6 +106,12 @@ const StackNavigator = createStackNavigator({
     },
     AnnouncementCreateScreen: {
         screen: AnnouncementCreateScreen,
+        navigationOptions: {
+            header: null
+        }
+    },
+    AnnouncementSubcategoryCreateScreen: {
+        screen: AnnouncementSubcategoryCreateScreen,
         navigationOptions: {
             header: null
         }

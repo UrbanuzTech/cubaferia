@@ -4,7 +4,10 @@ import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import AnnouncementCreateScreen, {AnnouncementFormCreateScreen} from '../screens/AnnouncementCreateScreen';
+import AnnouncementCreateScreen, {
+    AnnouncementFormCreateScreen,
+    AnnouncementSubcategoryCreateScreen
+} from '../screens/AnnouncementCreateScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import {FontAwesome} from "@expo/vector-icons";
 import constant from "../constants/Colors";
@@ -36,6 +39,12 @@ const HomeStack = createStackNavigator(
         },
         AnnouncementCreateScreen: {
             screen: AnnouncementCreateScreen,
+            navigationOptions: {
+                header: null
+            }
+        },
+        AnnouncementSubcategoryCreateScreen: {
+            screen: AnnouncementSubcategoryCreateScreen,
             navigationOptions: {
                 header: null
             }
