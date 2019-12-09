@@ -5,11 +5,15 @@ import constant from "../constants/Colors";
 
 
 export default class AnnouncementDetailsScreen extends Component {
+    date = '';
+
     constructor(props) {
         super(props);
         this.state = {
             element: this.props.navigation.getParam('announcement'),
-        }
+        };
+        let str = new Date(this.state.element.created_at);
+        this.date = str.getDate() + '-' + (str.getMonth() + 1) + '-' + str.getFullYear() + ' ' + str.getHours() + ':' + str.getMinutes();
     };
 
     render() {
@@ -60,7 +64,7 @@ export default class AnnouncementDetailsScreen extends Component {
                         <View style={styles.detailsIcon}>
                             <FontAwesome5 name="calendar-alt" size={25}
                                           color={constant.tintColor}/>
-                            <Text>  {this.state.element.created_at}</Text>
+                            <Text>  {this.date}</Text>
                         </View>
                         {
                             this.state.element.contact_name ?
@@ -115,7 +119,9 @@ export default class AnnouncementDetailsScreen extends Component {
                                     color: 'gray',
                                     marginTop: 10,
                                     width: '100%',
-                                }}>{this.state.element.description}</Text>
+                                }}>
+                                    <hr/>
+                                    {this.state.element.description}</Text>
                                 : null
                         }
                     </View>

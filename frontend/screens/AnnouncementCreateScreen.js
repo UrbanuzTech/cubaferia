@@ -198,7 +198,7 @@ export class AnnouncementSubcategoryCreateScreen extends Component {
                                                           this.props.navigation.push('AnnouncementSubcategoryCreateScreen', {
                                                               'category': {
                                                                   name: element.name,
-                                                                  logo: element.logo,
+                                                                  logo: element.logo ? element.logo : this.state.category.logo,
                                                               },
                                                               'subCategoryList': subCategoryList,
                                                               'nomenclaturesList': this.nomenclaturesList,
@@ -546,7 +546,7 @@ export class AnnouncementFormCreateScreen extends Component {
 
                     {!this.state.isLoading ?
                         <Picker style={styles.inputsPicker} onValueChange={city => this.setState({city})}>
-                            <Picker.Item key={0} value={0} label={'- Provincia -'}/>
+                            <Picker.Item key={''} value={''} label={'- Provincia -'}/>
                             {this.cityList.map(element => (
                                 <Picker.Item key={element.id} value={element.name} label={element.name}/>
                             ))}

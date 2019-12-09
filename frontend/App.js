@@ -3,7 +3,7 @@ import {Asset} from 'expo-asset';
 import * as Font from 'expo-font';
 import React, {useState, Component} from 'react';
 import {Platform, StatusBar, StyleSheet} from 'react-native';
-import {FontAwesome, Ionicons} from '@expo/vector-icons';
+import {FontAwesome, FontAwesome5, Ionicons} from '@expo/vector-icons';
 import {ScrollView, SafeAreaView, Text, View, TouchableOpacity, Image} from "react-native-web";
 import constant from './constants/Colors'
 
@@ -220,6 +220,16 @@ const AppDrawerNavigator = createDrawerNavigator({
             ),
         }
     },
+    Update: {
+        screen: HomeScreen,
+        navigationOptions: {
+            title: 'Actualizar Aplicación',
+            drawerIcon: ({focused}) => (
+                <FontAwesome5 style={{marginRight: 20}} name={'arrow-alt-circle-down'} size={21}
+                              color={focused ? constant.tintColor : 'black'}/>
+            ),
+        }
+    },
 }, {
     drawerPosition: "left",
     drawerBackgroundColor: "white",
@@ -294,6 +304,16 @@ const AppLoggedDrawerNavigator = createDrawerNavigator({
             drawerIcon: ({focused}) => (
                 <FontAwesome style={{marginRight: 20}} name={'envelope-o'} size={21}
                              color={focused ? constant.tintColor : 'black'}/>
+            ),
+        }
+    },
+    Update: {
+        screen: HomeScreen,
+        navigationOptions: {
+            title: 'Actualizar Aplicación',
+            drawerIcon: ({focused}) => (
+                <FontAwesome5 style={{marginRight: 20}} name={'arrow-alt-circle-down'} size={21}
+                              color={focused ? constant.tintColor : 'black'}/>
             ),
         }
     },
