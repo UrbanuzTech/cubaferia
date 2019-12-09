@@ -38,7 +38,7 @@ export default class HomeScreen extends Component {
         Provider.getValueList('nomenclature').then(
             (data) => {
                 for (const elem of data)
-                    if (elem.active && elem.nomenclature_type === 'announcement_category')
+                    if (elem.active && elem.nomenclature_type === 'announcement_category' && elem.parent === null)
                         this.categoryList.push(elem);
                     else if (elem.active && elem.nomenclature_type === 'event_category')
                         this.eventCategoriesList.push(elem.name);

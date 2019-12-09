@@ -66,7 +66,7 @@ class GenericAnnouncement(models.Model):
 
 
 class Announcement(GenericAnnouncement):
-    price = models.FloatField(_('price'), validators=[MinValueValidator(0)], )
+    price = models.FloatField(_('price'), validators=[MinValueValidator(0)], blank=True, null=True)
 
     class Meta:
         db_table = 'Tb_Announcement'
@@ -75,7 +75,8 @@ class Announcement(GenericAnnouncement):
         ordering = ('-created_at',)
 
     def save(self, *args, **kwargs):
-        self.price = self.price.__round__(2)
+        if self.price:
+            self.price = self.price.__round__(2)
         return super().save(*args, **kwargs)
 
 

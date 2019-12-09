@@ -8,11 +8,11 @@ import {
     Text,
     TouchableOpacity,
     ActivityIndicator,
-    TextInput
+    TextInput,
 } from "react-native-web";
 import constant from "../constants/Colors";
 import * as Provider from "../misc/Provider";
-import {Label, Item, Input, Icon, Toast, Textarea, Form} from "native-base";
+import {Label, Item, Input, Icon} from "native-base";
 import {FontAwesome, FontAwesome5} from "@expo/vector-icons";
 
 
@@ -248,11 +248,12 @@ export class AnnouncementFormCreateScreen extends Component {
             image1: null,
             image2: null,
             image3: null,
-            price: '',
+            price: null,
             category: this.props.navigation.getParam('category'),
             city: '',
             visit_count: 0,
             created_by: 1,
+            errors: [],
             isLoading: true
         };
     }
@@ -273,7 +274,7 @@ export class AnnouncementFormCreateScreen extends Component {
         this.getNomenclatures();
     }
 
-    createData = () => {
+    createData() {
         let emails = [];
         this.state.emailValues.map((value) => {
             if (value)
@@ -302,8 +303,10 @@ export class AnnouncementFormCreateScreen extends Component {
             created_by: this.state.created_by,
         };
         Provider.createValue('announcement', newAnnouncement).then((data) => {
-                console.log(data);
-                this.props.navigation.navigate('HomeScreen', {'newAnnouncement': data});
+                if (!data.id)
+                    this.setState({'errors': data});
+                else
+                    this.props.navigation.navigate('HomeScreen', {'newAnnouncement': data});
             },
             (err) => {
                 console.log(err);
@@ -326,10 +329,15 @@ export class AnnouncementFormCreateScreen extends Component {
                 </View>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
 
-                    <Item floatingLabel style={styles.inputs}>
+                    <Item floatingLabel error={'title' in this.state.errors} style={styles.inputs}>
                         <Label>Título<Text style={{color: 'red'}}> *</Text></Label>
                         <Input onChangeText={title => this.setState({title})}/>
                     </Item>
+                    {
+                        'title' in this.state.errors ?
+                            <Text style={styles.errorsWarnings}>{this.state.errors.title}</Text>
+                            : null
+                    }
 
                     <Item floatingLabel style={styles.inputs}>
                         <Label>Descripción</Label>
@@ -343,7 +351,7 @@ export class AnnouncementFormCreateScreen extends Component {
                         alignItems: 'center',
                         flexDirection: 'row',
                     }}>
-                        <Item floatingLabel style={{
+                        <Item floatingLabel error={'phones' in this.state.errors} style={{
                             flex: 20,
                             paddingTop: 15,
                             marginTop: 20,
@@ -390,6 +398,11 @@ export class AnnouncementFormCreateScreen extends Component {
                                 : null
                         }
                     </View>
+                    {
+                        'phones' in this.state.errors ?
+                            <Text style={styles.errorsWarnings}>{this.state.errors.phones}</Text>
+                            : null
+                    }
 
                     <Item floatingLabel style={{
                         paddingTop: 15,
@@ -419,7 +432,7 @@ export class AnnouncementFormCreateScreen extends Component {
                         alignItems: 'center',
                         flexDirection: 'row',
                     }}>
-                        <Item floatingLabel style={{
+                        <Item floatingLabel error={'emails' in this.state.errors} style={{
                             flex: 20,
                             paddingTop: 15,
                             marginTop: 20,
@@ -466,6 +479,11 @@ export class AnnouncementFormCreateScreen extends Component {
                                 : null
                         }
                     </View>
+                    {
+                        'emails' in this.state.errors ?
+                            <Text style={styles.errorsWarnings}>{this.state.errors.emails}</Text>
+                            : null
+                    }
 
                     <Item floatingLabel style={{
                         paddingTop: 15,
@@ -521,7 +539,7 @@ export class AnnouncementFormCreateScreen extends Component {
                     </Item>
 
                     <Item floatingLabel style={styles.inputs}>
-                        <Label>Precio en CUC<Text style={{color: 'red'}}> *</Text></Label>
+                        <Label>Precio en CUC</Label>
                         <Input keyboardType={"numeric"}
                                onChangeText={price => this.setState({price})}/>
                     </Item>
@@ -567,6 +585,10 @@ const styles = StyleSheet.create({
         height: 40,
         borderRadius: 30,
         paddingLeft: 10,
+    },
+    errorsWarnings: {
+        color: 'red',
+        marginTop: 5,
     },
     createButton: {
         marginTop: 20,

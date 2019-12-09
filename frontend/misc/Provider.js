@@ -56,9 +56,9 @@ export async function createValue(type, value) {
             body: JSON.stringify(value),
         })
             .then(data => {
-                resolve(data);
+                resolve(data.json());
             }, (err) => {
-                reject(err);
+                reject(err.json());
             });
     });
 }
