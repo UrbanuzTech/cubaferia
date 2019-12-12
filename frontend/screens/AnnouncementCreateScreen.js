@@ -248,6 +248,7 @@ export class AnnouncementFormCreateScreen extends Component {
             image1: null,
             image2: null,
             image3: null,
+            imageVisibility: [false, false, false],
             price: null,
             category: this.props.navigation.getParam('category'),
             city: '',
@@ -325,7 +326,7 @@ export class AnnouncementFormCreateScreen extends Component {
                 </View>
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Text style={{fontSize: 24, textAlign: 'center', color: 'black', marginTop: 20}}>Creando
-                        anuncio</Text>
+                        {this.isEvent ? ' Evento' : ' Anuncio'}</Text>
                 </View>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
 
@@ -518,24 +519,92 @@ export class AnnouncementFormCreateScreen extends Component {
                                onChangeText={description => this.setState({description})}/>
                     </Item>
 
-                    <Item floatingLabel style={styles.inputs}>
-                        <Label>Imagen principal</Label>
-                        <Input onChangeText={main_image => this.setState({main_image})}/>
-                    </Item>
+                    <View style={{
+                        width: '90%',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                    }}>
+                        <Item floatingLabel style={{
+                            flex: 20,
+                            paddingTop: 15,
+                            marginTop: 20,
+                        }}>
+                            <Label>Imagen principal</Label>
+                            <Input onChangeText={main_image => this.setState({main_image})}/>
+                        </Item>
+                        {
+                            !this.state.imageVisibility[2] ?
+                                <TouchableOpacity
+                                    style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 50}}
+                                    onPress={() => {
+                                        if (!this.state.imageVisibility[0])
+                                            this.setState({'imageVisibility': [true, false, false]});
+                                        else if (!this.state.imageVisibility[1])
+                                            this.setState({'imageVisibility': [true, true, false]});
+                                        else
+                                            this.setState({'imageVisibility': [true, true, true]});
+                                    }}>
+                                    <FontAwesome name={'plus'} size={21} color={'green'}/>
+                                </TouchableOpacity>
+                                : null
+                        }
+                        {
+                            this.state.imageVisibility[0] ?
+                                <TouchableOpacity
+                                    style={{
+                                        flex: 1,
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        marginTop: 50,
+                                        marginLeft: 10
+                                    }}
+                                    onPress={() => {
+                                        if (this.state.imageVisibility[2]) {
+                                            this.setState({'imageVisibility': [true, true, false]});
+                                            this.setState({'image3': null});
+                                        } else if (this.state.imageVisibility[1]) {
+                                            this.setState({'imageVisibility': [true, false, false]});
+                                            this.setState({'image2': null});
+                                        } else {
+                                            this.setState({'imageVisibility': [false, false, false]});
+                                            this.setState({'image1': null});
+                                        }
+                                    }}>
+                                    <FontAwesome name={'minus'} size={21} color={'red'}/>
+                                </TouchableOpacity>
+                                : null
+                        }
+                    </View>
 
-                    <Item floatingLabel style={styles.inputs}>
+                    <Item floatingLabel style={{
+                        paddingTop: 15,
+                        marginTop: 20,
+                        width: '90%',
+                        display: this.state.imageVisibility[0] ? 'block' : 'none'
+                    }}>
                         <Label>Imagen 1</Label>
-                        <Input onChangeText={image1 => this.setState({image1})}/>
+                        <Input style={{width: '100%'}} onChangeText={image1 => this.setState({image1})}/>
                     </Item>
 
-                    <Item floatingLabel style={styles.inputs}>
+                    <Item floatingLabel style={{
+                        paddingTop: 15,
+                        marginTop: 20,
+                        width: '90%',
+                        display: this.state.imageVisibility[1] ? 'block' : 'none'
+                    }}>
                         <Label>Imagen 2</Label>
-                        <Input onChangeText={image2 => this.setState({image2})}/>
+                        <Input style={{width: '100%'}} onChangeText={image2 => this.setState({image2})}/>
                     </Item>
 
-                    <Item floatingLabel style={styles.inputs}>
+                    <Item floatingLabel style={{
+                        paddingTop: 15,
+                        marginTop: 20,
+                        width: '90%',
+                        display: this.state.imageVisibility[2] ? 'block' : 'none'
+                    }}>
                         <Label>Imagen 3</Label>
-                        <Input onChangeText={image3 => this.setState({image3})}/>
+                        <Input style={{width: '100%'}} onChangeText={image3 => this.setState({image3})}/>
                     </Item>
 
                     <Item floatingLabel style={styles.inputs}>
