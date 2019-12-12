@@ -9,6 +9,7 @@ import {
     TouchableOpacity,
     ActivityIndicator,
     TextInput,
+    Switch
 } from "react-native-web";
 import constant from "../constants/Colors";
 import * as Provider from "../misc/Provider";
@@ -97,6 +98,7 @@ export default class AnnouncementCreateScreen extends Component {
                                                               },
                                                               'subCategoryList': this.eventCategoryList,
                                                               'nomenclaturesList': this.nomenclaturesList,
+                                                              'isEvent': true
                                                           });
                                                       } else {
                                                           let subCategoryList = [];
@@ -148,6 +150,7 @@ export class AnnouncementSubcategoryCreateScreen extends Component {
         this.nomenclaturesList = this.props.navigation.getParam('nomenclaturesList');
         this.state = {
             category: this.props.navigation.getParam('category'),
+            isEvent: this.props.navigation.getParam('isEvent'),
             subCategoryList: this.subCategoryList,
         };
     };
@@ -202,13 +205,15 @@ export class AnnouncementSubcategoryCreateScreen extends Component {
                                                               },
                                                               'subCategoryList': subCategoryList,
                                                               'nomenclaturesList': this.nomenclaturesList,
+                                                              'isEvent': this.state.isEvent,
                                                           });
-                                                      else
+                                                      else {
                                                           this.props.navigation.navigate('AnnouncementFormCreateScreen', {
                                                               'category': element.name,
                                                               'nomenclaturesList': this.nomenclaturesList,
+                                                              'isEvent': this.state.isEvent,
                                                           });
-
+                                                      }
                                                   }}>
 
                                     <FontAwesome5 style={{textAlign: 'center'}}
@@ -232,6 +237,7 @@ export class AnnouncementSubcategoryCreateScreen extends Component {
 
 export class AnnouncementFormCreateScreen extends Component {
     cityList = [];
+    isEvent = false;
 
     constructor(props) {
         super(props);
@@ -254,9 +260,15 @@ export class AnnouncementFormCreateScreen extends Component {
             city: '',
             visit_count: 0,
             created_by: 1,
+            start_date: '',
+            end_date: '',
+            allow_children: false,
+            price_for_children: null,
+            price_for_adults: null,
             errors: [],
-            isLoading: true
+            isLoading: true,
         };
+        this.isEvent = !!this.props.navigation.getParam('isEvent');
     }
 
     getNomenclatures() {
@@ -286,32 +298,35 @@ export class AnnouncementFormCreateScreen extends Component {
             if (value)
                 phones.push(value);
         });
-        let newAnnouncement = {
-            title: this.state.title,
-            description: this.state.description,
-            phones: phones,
-            emails: emails,
-            contact_name: this.state.name,
-            address: this.state.address,
-            main_image: this.state.main_image,
-            image1: this.state.image1,
-            image2: this.state.image2,
-            image3: this.state.image3,
-            price: this.state.price,
-            category: this.state.category,
-            city: this.state.city,
-            visit_count: this.state.visit_count,
-            created_by: this.state.created_by,
-        };
-        Provider.createValue('announcement', newAnnouncement).then((data) => {
-                if (!data.id)
-                    this.setState({'errors': data});
-                else
-                    this.props.navigation.navigate('HomeScreen', {'newAnnouncement': data});
-            },
-            (err) => {
-                console.log(err);
-            });
+        if (!this.isEvent) {
+            let newAnnouncement = {
+                title: this.state.title,
+                description: this.state.description,
+                phones: phones,
+                emails: emails,
+                contact_name: this.state.name,
+                address: this.state.address,
+                main_image: this.state.main_image,
+                image1: this.state.image1,
+                image2: this.state.image2,
+                image3: this.state.image3,
+                price: this.state.price,
+                category: this.state.category,
+                city: this.state.city,
+                visit_count: this.state.visit_count,
+                created_by: this.state.created_by,
+            };
+            Provider.createValue('announcement', newAnnouncement).then((data) => {
+                    if (!data.id)
+                        this.setState({'errors': data});
+                    else
+                        this.props.navigation.navigate('HomeScreen', {'newAnnouncement': data});
+                },
+                (err) => {
+                    console.log(err);
+                });
+        } else
+            console.log(this.state);
         Keyboard.dismiss();
     };
 
@@ -438,7 +453,7 @@ export class AnnouncementFormCreateScreen extends Component {
                             paddingTop: 15,
                             marginTop: 20,
                         }}>
-                            <Label>Correo Electrónico<Text style={{color: 'red'}}> *</Text></Label>
+                            <Label>Correo electrónico<Text style={{color: 'red'}}> *</Text></Label>
                             <Input keyboardType={"email-address"}
                                    onChangeText={email => this.setState({'emailValues': [email, this.state.emailValues[1], this.state.emailValues[2]]})}/>
                         </Item>
@@ -607,11 +622,62 @@ export class AnnouncementFormCreateScreen extends Component {
                         <Input style={{width: '100%'}} onChangeText={image3 => this.setState({image3})}/>
                     </Item>
 
-                    <Item floatingLabel style={styles.inputs}>
-                        <Label>Precio en CUC</Label>
-                        <Input keyboardType={"numeric"}
-                               onChangeText={price => this.setState({price})}/>
-                    </Item>
+                    {
+                        !this.isEvent ?
+                            <Item floatingLabel style={styles.inputs}>
+                                <Label>Precio en CUC</Label>
+                                <Input keyboardType={"numeric"}
+                                       onChangeText={price => this.setState({price})}/>
+                            </Item>
+                            :
+                            <View style={{width: '90%', marginTop: 20}}>
+                                <View style={{flexDirection: 'row'}}>
+                                    <Item floatingLabel style={{
+                                        paddingTop: 15,
+                                        marginRight: 5,
+                                        flex: 1
+                                    }}>
+                                        <Label>Fecha de inicio <Text style={{color: 'red'}}>*</Text></Label>
+                                        <Input keyboardType={"numeric"}
+                                               onChangeText={start_date => this.setState({start_date})}/>
+                                    </Item>
+                                    <Item floatingLabel style={{
+                                        paddingTop: 15,
+                                        marginLeft: 5,
+                                        flex: 1
+                                    }}>
+                                        <Label>Fecha de fin <Text style={{color: 'red'}}>*</Text></Label>
+                                        <Input keyboardType={"numeric"}
+                                               onChangeText={end_date => this.setState({end_date})}/>
+                                    </Item>
+                                </View>
+                                <Item floatingLabel style={styles.eventsInputs}>
+                                    <Label>Precio para adultos en CUC <Text style={{color: 'red'}}>*</Text></Label>
+                                    <Input keyboardType={"numeric"}
+                                           onChangeText={price_for_adults => this.setState({price_for_adults})}/>
+                                </Item>
+                                <View style={{
+                                    paddingTop: 15,
+                                    marginTop: 20,
+                                    width: '100%',
+                                    flexDirection: 'row'
+                                }}>
+                                    <Label style={{color: '#575757'}}>Niños permitidos <Text
+                                        style={{color: 'red'}}>*</Text></Label>
+                                    <Switch style={{marginLeft: 15, marginTop: 3}} value={this.state.allow_children}
+                                            onValueChange={allow_children => this.setState({allow_children})}/>
+                                </View>
+
+                                {
+                                    this.state.allow_children ?
+                                        <Item floatingLabel style={styles.eventsInputs}>
+                                            <Label>Precio para niños en CUC <Text style={{color: 'red'}}>*</Text></Label>
+                                            <Input keyboardType={"numeric"}
+                                                   onChangeText={price_for_children => this.setState({price_for_children})}/>
+                                        </Item> : null
+                                }
+                            </View>
+                    }
 
                     {!this.state.isLoading ?
                         <Picker style={styles.inputsPicker} onValueChange={city => this.setState({city})}>
@@ -647,6 +713,11 @@ const styles = StyleSheet.create({
         paddingTop: 15,
         marginTop: 20,
         width: '90%'
+    },
+    eventsInputs: {
+        paddingTop: 15,
+        marginTop: 20,
+        width: '100%'
     },
     inputsPicker: {
         marginTop: 40,
