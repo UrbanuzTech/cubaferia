@@ -129,6 +129,7 @@ export default class HomeScreen extends Component {
                                     <Text center style={{
                                         textAlign: 'center ',
                                         marginTop: 5,
+                                        color: !this.state.selectedFilter ? constant.filterIconSelected : 'black',
                                         fontWeight: !this.state.selectedFilter ? 'bold' : 'normal'
                                     }}
                                           allowFontScaling={true}>Todos</Text>
@@ -159,6 +160,7 @@ export default class HomeScreen extends Component {
                                             <Text center style={{
                                                 textAlign: 'center ',
                                                 marginTop: 5,
+                                                color: this.state.selectedFilter === element.id ? constant.filterIconSelected : 'black',
                                                 fontWeight: this.state.selectedFilter === element.id ? 'bold' : 'normal'
                                             }}
                                                   allowFontScaling={true}>{element.name}</Text>
