@@ -22,6 +22,7 @@ from rest_framework import routers
 
 from cubaferia import settings
 from rest.admin import ObjectDetailsView, ObjectReInsertView, ObjectDeleteView
+from rest.serializers.authentication import CustomAuthToken
 from rest.views.AnnouncementViewSet import AnnouncementViewSet
 from rest.views.EventViewSet import EventViewSet
 from rest.views.NomenclatureViewSet import NomenclatureViewSet
@@ -43,7 +44,7 @@ urlpatterns = i18n_patterns(
     path('api/', include(router.urls))
 )
 urlpatterns += [
-    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/', CustomAuthToken.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('api-auth/', include('rest_framework.urls')),
 ]

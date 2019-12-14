@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-07 10:52-0500\n"
+"POT-Creation-Date: 2019-12-14 07:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -175,31 +175,31 @@ msgstr "anuncio"
 msgid "announcements"
 msgstr "anuncios"
 
-#: rest/models/announcement.py:83 rest/templates/details/event.html:65
+#: rest/models/announcement.py:84 rest/templates/details/event.html:65
 msgid "start date"
 msgstr "fecha de inicio"
 
-#: rest/models/announcement.py:84 rest/templates/details/event.html:75
+#: rest/models/announcement.py:85 rest/templates/details/event.html:75
 msgid "end date"
 msgstr "fecha fin"
 
-#: rest/models/announcement.py:85
+#: rest/models/announcement.py:86
 msgid "allow children"
 msgstr "permite niños"
 
-#: rest/models/announcement.py:86
+#: rest/models/announcement.py:87
 msgid "price for children"
 msgstr "precio para niños"
 
-#: rest/models/announcement.py:88
+#: rest/models/announcement.py:89
 msgid "price for adults"
 msgstr "precio para adultos"
 
-#: rest/models/announcement.py:92
+#: rest/models/announcement.py:93
 msgid "event"
 msgstr "evento"
 
-#: rest/models/announcement.py:93 rest/templates/admin/index.html:52
+#: rest/models/announcement.py:94 rest/templates/admin/index.html:52
 #: rest/templates/admin/lib/_main_sidebar.html:46
 msgid "events"
 msgstr "eventos"
@@ -309,6 +309,15 @@ msgstr "nacionalidad"
 #: rest/models/user.py:41 rest/templates/details/user.html:63
 msgid "allow notifications"
 msgstr "permite notificaciones"
+
+#: rest/serializers/authentication.py:26
+msgid "Your account has been disabled."
+msgstr "Su cuenta ha sido deshabilitada."
+
+#: rest/serializers/authentication.py:29
+msgid "User with this email/phone and password does not exists."
+msgstr ""
+"No existe un usuario con el correo electrónico o teléfono especificado."
 
 #: rest/templates/admin/actions.html:4
 msgid "delete selected"

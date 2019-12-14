@@ -29,7 +29,7 @@ def get_related_to(field):
     }[field]
 
 
-User.add_to_class('phones', ArrayField(models.IntegerField(null=True, blank=True), null=True, blank=True,
+User.add_to_class('phones', ArrayField(models.CharField(max_length=15, null=True, blank=True), null=True, blank=True,
                                        verbose_name=_('phones')))
 User.add_to_class('emails',
                   ArrayField(models.EmailField(null=True, blank=True), blank=True, null=True, verbose_name=_('emails')))
