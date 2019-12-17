@@ -13,7 +13,16 @@ export default class AnnouncementDetailsScreen extends Component {
             element: this.props.navigation.getParam('announcement'),
         };
         let str = new Date(this.state.element.created_at);
-        this.date = str.getDate() + '-' + (str.getMonth() + 1) + '-' + str.getFullYear() + ' ' + str.getHours() + ':' + str.getMinutes();
+        let h, meridian;
+        if (str.getHours() > 12) {
+            h = str.getHours() - 12;
+            meridian = 'PM';
+        } else {
+            h = str.getHours();
+            meridian = 'AM'
+        }
+        let m = str.getMinutes() < 10 ? 0 + str.getMinutes().toString() : str.getMinutes();
+        this.date = str.getDate() + '-' + (str.getMonth() + 1) + '-' + str.getFullYear() + ' ' + h + ':' + m + ' ' + meridian;
     };
 
     render() {
@@ -60,7 +69,14 @@ export default class AnnouncementDetailsScreen extends Component {
                     </ScrollView>
                     <View style={{marginTop: 15, margin: 10, width: '90%'}}>
                         <Text style={{color: 'black', fontSize: 25}}>{this.state.element.title}</Text>
-                        <Text style={styles.details}>{this.state.element.price} CUC</Text>
+                        {
+                            this.state.element.price ?
+                                <View style={styles.detailsIcon}>
+                                    <FontAwesome5 name="dollar-sign" size={25}
+                                                  color={constant.tintColor}/>
+                                    <Text>  {this.state.element.price} CUC</Text>
+                                </View> : null
+                        }
                         <View style={styles.detailsIcon}>
                             <FontAwesome5 name="calendar-alt" size={25}
                                           color={constant.tintColor}/>
@@ -75,19 +91,11 @@ export default class AnnouncementDetailsScreen extends Component {
                                 </View>
                                 : null
                         }
-                        {
-                            this.state.element.address ?
-                                <View style={styles.detailsIcon}>
-                                    <FontAwesome5 name="map" size={25}
-                                                  color={constant.tintColor}/>
-                                    <Text>  {this.state.element.address}</Text>
-                                </View>
-                                : null
-                        }
                         <View style={styles.detailsIcon}>
                             <FontAwesome5 name="map-marker-alt" size={25}
                                           color={constant.tintColor}/>
-                            <Text>   {this.state.element.city}</Text>
+                            <Text>   {this.state.element.address ? this.state.element.address + ', ' + this.state.element.city :
+                                this.state.element.city}</Text>
                         </View>
                         <Text style={styles.details}>{this.state.element.phones.map(value => (
                             <div key={'phone-' + value}>
@@ -116,7 +124,6 @@ export default class AnnouncementDetailsScreen extends Component {
                         {
                             this.state.element.description ?
                                 <Text style={{
-                                    color: 'gray',
                                     marginTop: 10,
                                     width: '100%',
                                 }}>

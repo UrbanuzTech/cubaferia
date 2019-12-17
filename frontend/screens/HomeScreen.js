@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
     },
     searchBar: {
         borderRadius: 5,
-        paddingLeft: 20,
+        paddingLeft: 10,
         paddingRight: 10,
         marginLeft: 15,
         flex: 5,
