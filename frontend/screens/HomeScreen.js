@@ -8,7 +8,8 @@ import {
     TextInput,
     Text,
     Image,
-    ActivityIndicator
+    ActivityIndicator,
+    Picker
 } from 'react-native-web';
 import {Header, Item, Icon, Button} from "native-base";
 
@@ -20,8 +21,12 @@ import Touchable from 'react-native-platform-touchable';
 
 export default class HomeScreen extends Component {
     categoryList = [];
-    announcementsList = [];
+    announcementsList = []; /* Store announcements and change when city is selected  */
+    savedAnnouncementsList = []; /* Store announcements retrieved and dont change */
+    filteredSavedAnnouncementsList = []; /* Store announcements and change when exist a search criteria  */
     eventCategoriesList = [];
+    citiesList = [];
+    selectedCity = '';
 
     constructor(props) {
         super(props);
@@ -29,7 +34,6 @@ export default class HomeScreen extends Component {
             isLoading: true,
             showButton: true,
             dataSource: [],
-            announcementsList: [],
             selectedFilter: ''
         };
     }
@@ -42,6 +46,8 @@ export default class HomeScreen extends Component {
                         this.categoryList.push(elem);
                     else if (elem.active && elem.nomenclature_type === 'event_category')
                         this.eventCategoriesList.push(elem.name);
+                    else if (elem.active && elem.nomenclature_type === 'city')
+                        this.citiesList.push(elem);
                 this.setState({isLoading: false})
             },
             (err) => {
@@ -58,6 +64,8 @@ export default class HomeScreen extends Component {
                         this.setState({
                             dataSource: this.announcementsList,
                         });
+                        this.savedAnnouncementsList = this.announcementsList;
+                        this.filteredSavedAnnouncementsList = this.announcementsList;
                     },
                     (err) => {
                         console.log(err);
@@ -71,10 +79,10 @@ export default class HomeScreen extends Component {
 
     filterElements(value) {
         if (value === '')
-            this.setState({dataSource: this.announcementsList});
+            this.setState({dataSource: this.filteredSavedAnnouncementsList});
         else {
             let filteredList = [];
-            this.announcementsList.filter((item) => {
+            this.filteredSavedAnnouncementsList.filter((item) => {
                 if (item.title.toLowerCase().indexOf(value.toLowerCase()) > -1)
                     filteredList.push(item);
             });
@@ -89,18 +97,32 @@ export default class HomeScreen extends Component {
 
     render() {
         return (
-
             <View style={styles.container}>
                 <Header searchBar style={styles.header}>
                     <Icon style={styles.drawerButton}
                           name="menu"
                           onPress={() => this.props.navigation.openDrawer()}/>
-                    <Item style={styles.searchBar}>
-                        <TextInput returnKeyType={'search'} style={{width: '100%', marginTop: 2}}
-                                   placeholder={"Buscar producto en Cubaferia"}
-                                   onChangeText={(value) => this.filterElements(value)}/>
-                        <Icon name="ios-search"/>
-                    </Item>
+                    <Picker style={styles.citiesFilterMenu} onValueChange={city => {
+                        if (city === '') {
+                            this.announcementsList = this.savedAnnouncementsList;
+                            this.setState({'dataSource': this.savedAnnouncementsList});
+                        } else {
+                            let announcementsList = [];
+                            for (const elem of this.savedAnnouncementsList)
+                                if (elem.city === city)
+                                    announcementsList.push(elem);
+                            this.filteredSavedAnnouncementsList = announcementsList;
+                            this.announcementsList = announcementsList;
+                            this.setState({dataSource: this.announcementsList});
+                        }
+                        this.selectedCity = city;
+                        this.setState({'selectedFilter': ''});
+                    }}>
+                        <Picker.Item key={''} value={''} label={'Seleccione la provincia'}/>
+                        {this.citiesList.map(element => (
+                            <Picker.Item key={element.id} value={element.name} label={element.name}/>
+                        ))}
+                    </Picker>
                     <Button style={{
                         flex: 1,
                         justifyContent: 'center',
@@ -113,12 +135,21 @@ export default class HomeScreen extends Component {
                         <Text style={{fontSize: 15, color: '#1c1c1c'}}>Filtrar</Text>
                     </Button>
                 </Header>
+                <View style={styles.subHeader}>
+                    <Item style={styles.searchBar}>
+                        <TextInput returnKeyType={'search'} style={{width: '100%', marginTop: 2, marginRight: 10}}
+                                   placeholder={'Buscar producto en ' + (this.selectedCity !== '' ? this.selectedCity : 'Cubaferia')}
+                                   onChangeText={(value) => this.filterElements(value)}/>
+                        <Icon name="ios-search"/>
+                    </Item>
+                </View>
                 {
                     !this.state.isLoading ?
                         <ScrollView style={styles.categoriesFilterMenu} horizontal={true}
                                     keyboardDismissMode={'on-drag'}>
                             <View style={styles.categoriesFilterMenuElements}>
                                 <TouchableOpacity onPress={() => {
+                                    this.filteredSavedAnnouncementsList = this.announcementsList;
                                     this.setState({dataSource: this.announcementsList});
                                     this.setState({selectedFilter: ''})
                                 }}>
@@ -126,8 +157,8 @@ export default class HomeScreen extends Component {
                                                   name={"list"} size={21}
                                                   color={!this.state.selectedFilter ?
                                                       constant.filterIconSelected : constant.filterIconDefault}/>
-                                    <Text center style={{
-                                        textAlign: 'center ',
+                                    <Text style={{
+                                        textAlign: 'center',
                                         marginTop: 5,
                                         color: !this.state.selectedFilter ? constant.filterIconSelected : 'black',
                                         fontWeight: !this.state.selectedFilter ? 'bold' : 'normal'
@@ -150,6 +181,7 @@ export default class HomeScreen extends Component {
                                                 else if (elem.category === element.name)
                                                     filteredList.push(elem);
                                             }
+                                            this.filteredSavedAnnouncementsList = filteredList;
                                             this.setState({dataSource: filteredList});
                                             this.setState({selectedFilter: element.id});
                                         }}>
@@ -158,7 +190,7 @@ export default class HomeScreen extends Component {
                                                           color={this.state.selectedFilter === element.id ?
                                                               constant.filterIconSelected : constant.filterIconDefault}/>
                                             <Text center style={{
-                                                textAlign: 'center ',
+                                                textAlign: 'center',
                                                 marginTop: 5,
                                                 color: this.state.selectedFilter === element.id ? constant.filterIconSelected : 'black',
                                                 fontWeight: this.state.selectedFilter === element.id ? 'bold' : 'normal'
@@ -209,7 +241,8 @@ export default class HomeScreen extends Component {
                                                 <View style={styles.optionCity}>
                                                     <FontAwesome5 name="map-marker-alt" size={15}
                                                                   color={constant.tintColor}/>
-                                                    <Text style={styles.optionPrice}> {element.city}</Text>
+                                                    <Text
+                                                        style={styles.optionPrice}> {(element.address ? element.address + ', ' : '') + element.city}</Text>
                                                 </View>
                                             </View>
                                         </View>
@@ -253,22 +286,36 @@ const styles = StyleSheet.create({
     header: {
         backgroundColor: constant.primaryColor,
         height: 64,
-        boxShadow: '0px 0px 2px 0px #000'
+        boxShadow: '0px 0px 2px 0px #000',
+        alignItems: 'center'
     },
     drawerButton: {
-        marginTop: 17,
         marginLeft: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
         color: 'white'
     },
-    searchBar: {
+    citiesFilterMenu: {
+        height: 40,
         borderRadius: 5,
         paddingLeft: 10,
         paddingRight: 10,
         marginLeft: 15,
         flex: 5,
+    },
+    subHeader: {
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
         flexDirection: 'row',
+        width: '100%',
+        padding: 10,
+    },
+    searchBar: {
+        borderRadius: 30,
+        height: 40,
+        paddingLeft: 20,
+        paddingRight: 10,
+        flexDirection: 'row',
+        flex: 5
     },
     categoriesFilterMenu: {
         marginTop: 5,
