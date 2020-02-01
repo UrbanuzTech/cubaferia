@@ -273,6 +273,7 @@ export class AnnouncementFormCreateScreen extends Component {
 
     getNomenclatures() {
         let data = this.props.navigation.getParam('nomenclaturesList');
+        this.cityList.push({id: '', name: '- Provincia -'});
         for (const elem of data)
             if (elem.active && elem.nomenclature_type === 'city')
                 this.cityList.push(elem);
@@ -288,6 +289,10 @@ export class AnnouncementFormCreateScreen extends Component {
     }
 
     createData() {
+        if (this.state.city === '- Provincia -')
+            return this.setState({'errors': {'province': 'Seleccione la provincia'}});
+        else
+            this.setState({'errors': []});
         let emails = [];
         this.state.emailValues.map((value) => {
             if (value)
@@ -351,7 +356,7 @@ export class AnnouncementFormCreateScreen extends Component {
                     </Item>
                     {
                         'title' in this.state.errors ?
-                            <Text style={styles.errorsWarnings}>{this.state.errors.title}</Text>
+                            <Text style={styles.errorsWarnings}>{'Este campo es requerido'}</Text>
                             : null
                     }
 
@@ -416,7 +421,7 @@ export class AnnouncementFormCreateScreen extends Component {
                     </View>
                     {
                         'phones' in this.state.errors ?
-                            <Text style={styles.errorsWarnings}>{this.state.errors.phones}</Text>
+                            <Text style={styles.errorsWarnings}>{'Este campo es requerido'}</Text>
                             : null
                     }
 
@@ -497,7 +502,7 @@ export class AnnouncementFormCreateScreen extends Component {
                     </View>
                     {
                         'emails' in this.state.errors ?
-                            <Text style={styles.errorsWarnings}>{this.state.errors.emails}</Text>
+                            <Text style={styles.errorsWarnings}>{'Este campo es requerido'}</Text>
                             : null
                     }
 
@@ -671,7 +676,8 @@ export class AnnouncementFormCreateScreen extends Component {
                                 {
                                     this.state.allow_children ?
                                         <Item floatingLabel style={styles.eventsInputs}>
-                                            <Label>Precio para niños en CUC <Text style={{color: 'red'}}>*</Text></Label>
+                                            <Label>Precio para niños en CUC <Text
+                                                style={{color: 'red'}}>*</Text></Label>
                                             <Input keyboardType={"numeric"}
                                                    onChangeText={price_for_children => this.setState({price_for_children})}/>
                                         </Item> : null
@@ -679,14 +685,23 @@ export class AnnouncementFormCreateScreen extends Component {
                             </View>
                     }
 
-                    {!this.state.isLoading ?
-                        <Picker style={styles.inputsPicker} onValueChange={city => this.setState({city})}>
-                            <Picker.Item key={''} value={''} label={'- Provincia -'}/>
-                            {this.cityList.map(element => (
-                                <Picker.Item key={element.id} value={element.name} label={element.name}/>
-                            ))}
-                        </Picker>
-                        : null
+                    <Picker style={{
+                        marginTop: 40,
+                        width: '90%',
+                        height: 40,
+                        borderRadius: 30,
+                        paddingLeft: 10,
+                        borderColor: 'province' in this.state.errors ? 'red' : '#a8a8a8'
+                    }} selectedValue={this.state.city}
+                            onValueChange={city => this.setState({city})}>
+                        {this.cityList.map(element => (
+                            <Picker.Item key={element.id} value={element.name} label={element.name}/>
+                        ))}
+                    </Picker>
+                    {
+                        'province' in this.state.errors ?
+                            <Text style={styles.errorsWarnings}>{'Este campo es requerido'}</Text>
+                            : null
                     }
 
                 </View>

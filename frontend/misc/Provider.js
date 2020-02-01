@@ -1,5 +1,5 @@
-const api = 'http://192.168.71.1:8000/es/api/';
-const api_without_i18n = 'http://192.168.71.1:8000/api/';
+const api = 'http://127.0.0.1:8000/es/api/';
+const api_without_i18n = 'http://127.0.0.1:8000/api/';
 
 /**
  * Get value list
