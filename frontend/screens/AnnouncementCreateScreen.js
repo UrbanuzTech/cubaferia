@@ -312,7 +312,7 @@ export class AnnouncementFormCreateScreen extends Component {
                     errors['phones'] = 'Este campo es requerido.';
             }
         });
-        if (errors) {
+        if (errors.length) {
             this.setState({'errors': errors});
         } else {
             if (!this.isEvent) {
@@ -530,6 +530,11 @@ export class AnnouncementFormCreateScreen extends Component {
                         <Input keyboardType={"email-address"} style={{width: '100%'}}
                                onChangeText={email => this.setState({'emailValues': [this.state.emailValues[0], email, this.state.emailValues[2]]})}/>
                     </Item>
+                    {
+                        'emails' in this.state.errors ?
+                            <Text style={styles.errorsWarnings}>{this.state.errors['emails']}</Text>
+                            : null
+                    }
 
                     <Item floatingLabel style={{
                         paddingTop: 15,
@@ -541,6 +546,11 @@ export class AnnouncementFormCreateScreen extends Component {
                         <Input keyboardType={"email-address"} style={{width: '100%'}}
                                onChangeText={email => this.setState({'emailValues': [this.state.emailValues[0], this.state.emailValues[1], email]})}/>
                     </Item>
+                    {
+                        'emails' in this.state.errors ?
+                            <Text style={styles.errorsWarnings}>{this.state.errors['emails']}</Text>
+                            : null
+                    }
 
                     <Item floatingLabel style={styles.inputs}>
                         <Label>Nombre de contacto</Label>
