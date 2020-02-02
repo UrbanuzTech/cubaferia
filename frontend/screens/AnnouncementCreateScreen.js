@@ -300,7 +300,7 @@ export class AnnouncementFormCreateScreen extends Component {
                 if (value)
                     emails.push(value);
                 else
-                    errors['emails'] = 'Este campo es requerido.';
+                    errors['email' + index] = 'Este campo es requerido.';
             }
         });
         let phones = [];
@@ -309,10 +309,10 @@ export class AnnouncementFormCreateScreen extends Component {
                 if (value)
                     phones.push(value);
                 else
-                    errors['phones'] = 'Este campo es requerido.';
+                    errors['phone' + index] = 'Este campo es requerido.';
             }
         });
-        if (errors.length) {
+        if (errors !== {}) {
             this.setState({'errors': errors});
         } else {
             if (!this.isEvent) {
@@ -386,7 +386,7 @@ export class AnnouncementFormCreateScreen extends Component {
                         alignItems: 'center',
                         flexDirection: 'row',
                     }}>
-                        <Item floatingLabel error={'phones' in this.state.errors} style={{
+                        <Item floatingLabel error={'phone0' in this.state.errors} style={{
                             flex: 20,
                             paddingTop: 15,
                             marginTop: 20,
@@ -434,32 +434,43 @@ export class AnnouncementFormCreateScreen extends Component {
                         }
                     </View>
                     {
-                        'phones' in this.state.errors ?
-                            <Text style={styles.errorsWarnings}>{this.state.errors['phones']}</Text>
+                        'phone0' in this.state.errors ?
+                            <Text style={styles.errorsWarnings}>{this.state.errors['phone0']}</Text>
                             : null
                     }
 
-                    <Item floatingLabel style={{
+                    <Item floatingLabel error={'phone1' in this.state.errors} style={{
                         paddingTop: 15,
                         marginTop: 20,
                         width: '90%',
                         display: this.state.phoneVisibility[1] ? 'block' : 'none'
                     }}>
-                        <Label>Teléfono 2</Label>
+                        <Label>Teléfono 2<Text style={{color: 'red'}}> *</Text></Label>
                         <Input keyboardType={"phone-pad"} style={{width: '100%'}}
                                onChangeText={phone => this.setState({'phoneValues': [this.state.phoneValues[0], phone, this.state.phoneValues[2]]})}/>
                     </Item>
+                    {
+                        'phone1' in this.state.errors ?
+                            <Text style={styles.errorsWarnings}>{this.state.errors['phone1']}</Text>
+                            : null
+                    }
 
-                    <Item floatingLabel style={{
+                    <Item floatingLabel error={'phone2' in this.state.errors} style={{
                         paddingTop: 15,
                         marginTop: 20,
                         width: '90%',
                         display: this.state.phoneVisibility[2] ? 'block' : 'none'
                     }}>
-                        <Label>Teléfono 3</Label>
+                        <Label>Teléfono 3<Text style={{color: 'red'}}> *</Text></Label>
                         <Input keyboardType={"phone-pad"} style={{width: '100%'}}
                                onChangeText={phone => this.setState({'phoneValues': [this.state.phoneValues[0], this.state.phoneValues[1], phone]})}/>
                     </Item>
+                    {
+                        'phone2' in this.state.errors ?
+                            <Text style={styles.errorsWarnings}>{this.state.errors['phone2']}</Text>
+                            : null
+                    }
+
 
                     <View style={{
                         width: '90%',
@@ -467,7 +478,7 @@ export class AnnouncementFormCreateScreen extends Component {
                         alignItems: 'center',
                         flexDirection: 'row',
                     }}>
-                        <Item floatingLabel error={'emails' in this.state.errors} style={{
+                        <Item floatingLabel error={'email0' in this.state.errors} style={{
                             flex: 20,
                             paddingTop: 15,
                             marginTop: 20,
@@ -515,40 +526,40 @@ export class AnnouncementFormCreateScreen extends Component {
                         }
                     </View>
                     {
-                        'emails' in this.state.errors ?
-                            <Text style={styles.errorsWarnings}>{this.state.errors['emails']}</Text>
+                        'email0' in this.state.errors ?
+                            <Text style={styles.errorsWarnings}>{this.state.errors['email0']}</Text>
                             : null
                     }
 
-                    <Item floatingLabel style={{
+                    <Item floatingLabel error={'email1' in this.state.errors} style={{
                         paddingTop: 15,
                         marginTop: 20,
                         width: '90%',
                         display: this.state.emailVisibility[1] ? 'block' : 'none'
                     }}>
-                        <Label>Correo electrónico 2</Label>
+                        <Label>Correo electrónico 2<Text style={{color: 'red'}}> *</Text></Label>
                         <Input keyboardType={"email-address"} style={{width: '100%'}}
                                onChangeText={email => this.setState({'emailValues': [this.state.emailValues[0], email, this.state.emailValues[2]]})}/>
                     </Item>
                     {
-                        'emails' in this.state.errors ?
-                            <Text style={styles.errorsWarnings}>{this.state.errors['emails']}</Text>
+                        'email1' in this.state.errors ?
+                            <Text style={styles.errorsWarnings}>{this.state.errors['email1']}</Text>
                             : null
                     }
 
-                    <Item floatingLabel style={{
+                    <Item floatingLabel error={'email2' in this.state.errors} style={{
                         paddingTop: 15,
                         marginTop: 20,
                         width: '90%',
                         display: this.state.emailVisibility[2] ? 'block' : 'none'
                     }}>
-                        <Label>Correo electrónico 3</Label>
+                        <Label>Correo electrónico 3<Text style={{color: 'red'}}> *</Text></Label>
                         <Input keyboardType={"email-address"} style={{width: '100%'}}
                                onChangeText={email => this.setState({'emailValues': [this.state.emailValues[0], this.state.emailValues[1], email]})}/>
                     </Item>
                     {
-                        'emails' in this.state.errors ?
-                            <Text style={styles.errorsWarnings}>{this.state.errors['emails']}</Text>
+                        'email2' in this.state.errors ?
+                            <Text style={styles.errorsWarnings}>{this.state.errors['email2']}</Text>
                             : null
                     }
 
