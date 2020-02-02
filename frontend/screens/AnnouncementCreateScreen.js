@@ -295,20 +295,23 @@ export class AnnouncementFormCreateScreen extends Component {
         if (this.state.title === '')
             errors['title'] = 'Este campo es requerido.';
         let emails = [];
-        this.state.emailValues.map((value) => {
-            if (value)
-                emails.push(value);
-            else
-                errors['emails'] = 'Please, fill the email fields.';
+        this.state.emailValues.map((value, index) => {
+            if (this.state.emailVisibility[index]) {
+                if (value)
+                    emails.push(value);
+                else
+                    errors['emails'] = 'Este campo es requerido.';
+            }
         });
         let phones = [];
-        this.state.phoneValues.map((value) => {
-            if (value)
-                phones.push(value);
-            else
-                errors['phones'] = 'Please, fill the phone fields.';
+        this.state.phoneValues.map((value, index) => {
+            if (this.state.phoneVisibility[index]) {
+                if (value)
+                    phones.push(value);
+                else
+                    errors['phones'] = 'Este campo es requerido.';
+            }
         });
-
         if (errors) {
             this.setState({'errors': errors});
         } else {
