@@ -101,7 +101,7 @@ export default class AnnouncementDetailsScreen extends Component {
                             <div key={'phone-' + value}>
                                 <TouchableOpacity style={styles.option}
                                                   onPress={() => Linking.openURL('tel:' + value)}>
-                                    <FontAwesome5 name="phone-square" size={25}
+                                    <FontAwesome5 style={{transform: 'rotateY(0.5turn)'}} name="phone-square" size={25}
                                                   color={'green'}/>
                                     <Text>  {value}</Text>
                                 </TouchableOpacity>
