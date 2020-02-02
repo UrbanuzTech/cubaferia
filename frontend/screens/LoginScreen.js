@@ -23,7 +23,9 @@ export default class LoginScreen extends Component {
     }
 
     login = () => {
-        Provider.login(this.state.username, this.state.password).then({},
+        Provider.login(this.state.username, this.state.password).then((data) => {
+                console.log(data);
+            },
             (err) => {
                 console.log(err);
             });
@@ -45,7 +47,7 @@ export default class LoginScreen extends Component {
                     <Text style={styles.header}>Bienvenido</Text>
                     <Item floatingLabel style={styles.inputs}>
                         <Label>Correo electrónico o teléfono<Text style={{color: 'red'}}> *</Text></Label>
-                        <Input returnKeyType={'next'} keyboardType={'email-address'}
+                        <Input returnKeyType={'next'}
                                onChangeText={username => this.setState({username})}/>
                     </Item>
                     <Item floatingLabel style={styles.inputs}>

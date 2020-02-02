@@ -74,7 +74,7 @@ export default class AnnouncementDetailsScreen extends Component {
                                 <View style={styles.detailsIcon}>
                                     <FontAwesome5 name="dollar-sign" size={25}
                                                   color={constant.tintColor}/>
-                                    <Text>  {this.state.element.price} CUC</Text>
+                                    <Text style={{fontWeight: 'bold', fontSize: 18}}>  {this.state.element.price} CUC</Text>
                                 </View> : null
                         }
                         <View style={styles.detailsIcon}>

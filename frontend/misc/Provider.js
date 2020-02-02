@@ -35,7 +35,7 @@ export async function login(username, password) {
             body: JSON.stringify({username: username, password: password}),
         })
             .then(data => {
-                resolve(data);
+                resolve(data.json());
             }, (err) => {
                 reject(err);
             });

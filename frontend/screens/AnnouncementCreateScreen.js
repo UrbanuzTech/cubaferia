@@ -289,49 +289,60 @@ export class AnnouncementFormCreateScreen extends Component {
     }
 
     createData() {
+        let errors = {};
         if (this.state.city === '- Provincia -')
-            return this.setState({'errors': {'province': 'Seleccione la provincia'}});
-        else
-            this.setState({'errors': []});
+            errors['province'] = 'Este campo es requerido.';
+        if (this.state.title === '')
+            errors['title'] = 'Este campo es requerido.';
         let emails = [];
         this.state.emailValues.map((value) => {
             if (value)
                 emails.push(value);
+            else
+                errors['emails'] = 'Please, fill the email fields.';
         });
         let phones = [];
         this.state.phoneValues.map((value) => {
             if (value)
                 phones.push(value);
+            else
+                errors['phones'] = 'Please, fill the phone fields.';
         });
-        if (!this.isEvent) {
-            let newAnnouncement = {
-                title: this.state.title,
-                description: this.state.description,
-                phones: phones,
-                emails: emails,
-                contact_name: this.state.name,
-                address: this.state.address,
-                main_image: this.state.main_image,
-                image1: this.state.image1,
-                image2: this.state.image2,
-                image3: this.state.image3,
-                price: this.state.price,
-                category: this.state.category,
-                city: this.state.city,
-                visit_count: this.state.visit_count,
-                created_by: this.state.created_by,
-            };
-            Provider.createValue('announcement', newAnnouncement).then((data) => {
-                    if (!data.id)
-                        this.setState({'errors': data});
-                    else
-                        this.props.navigation.navigate('HomeScreen', {'newAnnouncement': data});
-                },
-                (err) => {
-                    console.log(err);
-                });
-        } else
-            console.log(this.state);
+
+        if (errors) {
+            this.setState({'errors': errors});
+        } else {
+            if (!this.isEvent) {
+                let newAnnouncement = {
+                    title: this.state.title,
+                    description: this.state.description,
+                    phones: phones,
+                    emails: emails,
+                    contact_name: this.state.name,
+                    address: this.state.address,
+                    main_image: this.state.main_image,
+                    image1: this.state.image1,
+                    image2: this.state.image2,
+                    image3: this.state.image3,
+                    price: this.state.price,
+                    category: this.state.category,
+                    city: this.state.city,
+                    visit_count: this.state.visit_count,
+                    created_by: this.state.created_by,
+                };
+                console.log(newAnnouncement);
+                Provider.createValue('announcement', newAnnouncement).then((data) => {
+                        if (!data.id)
+                            this.setState({'errors': data});
+                        else
+                            this.props.navigation.navigate('HomeScreen', {'newAnnouncement': data});
+                    },
+                    (err) => {
+                        console.log(err);
+                    });
+            } else
+                console.log(this.state);
+        }
         Keyboard.dismiss();
     };
 
@@ -356,7 +367,7 @@ export class AnnouncementFormCreateScreen extends Component {
                     </Item>
                     {
                         'title' in this.state.errors ?
-                            <Text style={styles.errorsWarnings}>{'Este campo es requerido'}</Text>
+                            <Text style={styles.errorsWarnings}>{this.state.errors['title']}</Text>
                             : null
                     }
 
@@ -421,7 +432,7 @@ export class AnnouncementFormCreateScreen extends Component {
                     </View>
                     {
                         'phones' in this.state.errors ?
-                            <Text style={styles.errorsWarnings}>{'Este campo es requerido'}</Text>
+                            <Text style={styles.errorsWarnings}>{this.state.errors['phones']}</Text>
                             : null
                     }
 
@@ -502,7 +513,7 @@ export class AnnouncementFormCreateScreen extends Component {
                     </View>
                     {
                         'emails' in this.state.errors ?
-                            <Text style={styles.errorsWarnings}>{'Este campo es requerido'}</Text>
+                            <Text style={styles.errorsWarnings}>{this.state.errors['emails']}</Text>
                             : null
                     }
 
@@ -700,7 +711,7 @@ export class AnnouncementFormCreateScreen extends Component {
                     </Picker>
                     {
                         'province' in this.state.errors ?
-                            <Text style={styles.errorsWarnings}>{'Este campo es requerido'}</Text>
+                            <Text style={styles.errorsWarnings}>{this.state.errors['province']}</Text>
                             : null
                     }
 
@@ -727,7 +738,7 @@ const styles = StyleSheet.create({
     inputs: {
         paddingTop: 15,
         marginTop: 20,
-        width: '90%'
+        width: '90%',
     },
     eventsInputs: {
         paddingTop: 15,
